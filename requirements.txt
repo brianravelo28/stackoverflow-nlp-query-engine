@@ -1,0 +1,6 @@
+anthropic
+streamlit
+pandas
+pyarrow
+matplotlib
+jupyter

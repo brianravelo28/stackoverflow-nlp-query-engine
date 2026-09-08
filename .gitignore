@@ -1,0 +1,7 @@
+*.db
+.env
+__pycache__/
+*.pyc
+data/*.csv
+data/*.parquet
+.ipynb_checkpoints/
