@@ -97,11 +97,14 @@ either hand-written expected result sets per test question, or an
 execution-match comparison against a reference query — neither is built yet
 (see [README status](../README.md#status)).
 
-**Actual pass/fail results**: pending — the 20-question test
-([`src/test_nlp_questions.py`](../src/test_nlp_questions.py)) requires a
-populated `stackoverflow.db` and an `ANTHROPIC_API_KEY`, neither of which
-are committed to the repo. Results will be added here once the real Kaggle
-export is loaded and the harness has been run.
+**Actual results**: 20/20 questions produced SQL that executed against the
+real database. Three were spot-checked for correctness (median time to first
+answer, answer acceptance fraction, "last month") and matched the
+hand-written suite (0.63 hours, 0.3811, anchored to the data's end date of
+2022-09-25). The first run scored 14/20; all 6 failures were a parsing bug in
+`generate_sql` (it read only the first response block, which can be a
+"thinking" block), not model errors. The other 17 answers have not been
+checked for semantic correctness.
 
 ---
 

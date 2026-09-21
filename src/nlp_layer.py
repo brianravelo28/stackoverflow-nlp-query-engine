@@ -76,7 +76,7 @@ def generate_sql(user_question: str) -> str:
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_question}],
     )
-    sql = response.content[0].text.strip()
+    sql = "".join(b.text for b in response.content if b.type == "text").strip()
     # strip accidental markdown fences
     if sql.startswith("```"):
         sql = sql.strip("`")

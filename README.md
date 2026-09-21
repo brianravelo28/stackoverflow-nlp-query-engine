@@ -36,17 +36,16 @@ vs. what's still pending:
 
 | Component | Status |
 |---|---|
-| Schema + loader (`src/build_db.py`) | ✅ Built, logic-verified |
+| Schema + loader (`src/build_db.py`) | ✅ Loaded real data, 0 FK violations |
 | Indexes (`src/add_indexes.py`) | ✅ Built |
-| 15 analytical queries (`src/queries.py`) | ✅ Built, SQL syntax-verified against the schema |
+| 15 analytical queries (`src/queries.py`) | ✅ All 15 run against real data |
 | NLP layer (`src/nlp_layer.py`) | ✅ Built |
 | Streamlit app (`app/app.py`) | ✅ Built |
-| Real data loaded | ⏳ Pending — requires running the Kaggle Notebook export (see below) |
-| 20-question NLP accuracy test | ⏳ Pending real data + `ANTHROPIC_API_KEY` |
+| Real data loaded | ✅ 174K questions, 186K answers, 572K comments, 487K votes, 227K users (1-in-16 sample, 2020-01 to 2022-09) |
+| 20-question NLP test | ✅ 20/20 execute; 3 spot-checked for correctness against the validated queries |
 | Deployment (Hugging Face Spaces) | ⏳ Not started |
 
-No results, row counts, or accuracy numbers are reported here until they're
-real — see [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md#-evaluation--limitations)
+The 20/20 figure measures executability only, not semantic correctness — see [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md#-evaluation--limitations)
 for exactly what the eventual accuracy metric will and won't tell us.
 
 ## Data
