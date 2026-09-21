@@ -43,7 +43,7 @@ vs. what's still pending:
 | Streamlit app (`app/app.py`) | ✅ Built |
 | Real data loaded | ✅ 174K questions, 186K answers, 572K comments, 487K votes, 227K users (1-in-16 sample, 2020-01 to 2022-09) |
 | 20-question NLP test | ✅ 20/20 execute; 3 spot-checked for correctness against the validated queries |
-| Deployment (Hugging Face Spaces) | ⏳ Not started |
+| Deployment (Render) | ⏳ Config ready, not yet deployed |
 
 The 20/20 figure measures executability only, not semantic correctness — see [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md#-evaluation--limitations)
 for exactly what the eventual accuracy metric will and won't tell us.
@@ -63,7 +63,7 @@ to reproduce the export yourself.
 ## How to Run
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-dev.txt   # requirements.txt is the slimmer deploy set
 
 # 1. Get data: run data/kaggle_export_queries.sql in a Kaggle Notebook
 #    (Stack Overflow BigQuery dataset attached), download the CSVs into data/
@@ -82,6 +82,17 @@ python src/test_nlp_questions.py
 # 5. Run the app
 streamlit run app/app.py
 ```
+
+## Deploy (Render)
+
+`render.yaml` defines a free web service. The 480 MB database is too large
+for git, so it's published as a gzipped GitHub Release asset (`data-v1`) and
+`src/download_db.py` fetches it during the Render build. The app opens the
+database read-only and caps each session at 10 questions to limit API spend.
+
+1. Render → New → Blueprint → connect this repo
+2. Set `ANTHROPIC_API_KEY` when prompted (also set a monthly spend limit on
+   the key in the Anthropic Console)
 
 ## Files
 

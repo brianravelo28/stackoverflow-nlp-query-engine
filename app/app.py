@@ -49,6 +49,7 @@ EXAMPLE_QUESTIONS = [
 ]
 
 SHOWN = 7
+MAX_QUESTIONS = 10
 
 
 def new_sample():
@@ -69,7 +70,7 @@ def get_connection():
     if not DB_PATH.exists():
         st.error(f"Database not found at {DB_PATH}. Run src/build_db.py first.")
         st.stop()
-    return sqlite3.connect(DB_PATH, check_same_thread=False)
+    return sqlite3.connect(f"file:{DB_PATH.as_posix()}?mode=ro", uri=True, check_same_thread=False)
 
 
 conn = get_connection()
@@ -93,6 +94,11 @@ with st.sidebar:
 
 typed = st.chat_input("Ask about StackOverflow...")
 user_input = typed or st.session_state.pop("pending", None)
+
+asked = sum(1 for m in st.session_state.messages if m["role"] == "user")
+if user_input and asked >= MAX_QUESTIONS:
+    st.warning(f"This demo is limited to {MAX_QUESTIONS} questions per session to control API costs. Refresh the page to start a new session.")
+    user_input = None
 
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input, "df": None})

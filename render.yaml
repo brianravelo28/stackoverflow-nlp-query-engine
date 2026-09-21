@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: stackoverflow-nlp-query-engine
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python src/download_db.py
+    startCommand: streamlit run app/app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: ANTHROPIC_API_KEY
+        sync: false
