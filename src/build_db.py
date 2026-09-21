@@ -81,10 +81,11 @@ CREATE TABLE IF NOT EXISTS comments (
     body TEXT NOT NULL,
     creation_date TIMESTAMP NOT NULL,
     score INTEGER DEFAULT 0,
-    FOREIGN KEY (post_id) REFERENCES posts_questions(post_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+-- comments.post_id / votes.post_id may reference a question OR an answer,
+-- so they have no FK to posts_questions alone.
 -- user_id is nullable: the official StackExchange data dump anonymizes
 -- voters, so bigquery-public-data.stackoverflow.votes has no user_id.
 CREATE TABLE IF NOT EXISTS votes (
@@ -93,7 +94,6 @@ CREATE TABLE IF NOT EXISTS votes (
     user_id INTEGER,
     vote_type TEXT NOT NULL,
     creation_date TIMESTAMP NOT NULL,
-    FOREIGN KEY (post_id) REFERENCES posts_questions(post_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 """
@@ -115,7 +115,7 @@ def read_table(table_name: str) -> pd.DataFrame | None:
         return None
     if path.suffix == ".parquet":
         return pd.read_parquet(path)
-    return pd.read_csv(path)
+    return pd.read_csv(path, keep_default_na=False, na_values=[""])
 
 
 def derive_post_tags(questions_raw: pd.DataFrame, tags_df: pd.DataFrame) -> pd.DataFrame:
@@ -138,6 +138,7 @@ def main():
             f"(see data/kaggle_export_queries.sql) and drop the CSVs there."
         )
 
+    DB_PATH.unlink(missing_ok=True)
     conn = sqlite3.connect(DB_PATH)
     conn.execute("PRAGMA foreign_keys = ON")
     conn.executescript(SCHEMA)
@@ -166,6 +167,9 @@ def main():
     ]
     questions_df = questions_df[[c for c in schema_cols if c in questions_df.columns]]
 
+    if comments_df is not None:
+        comments_df["body"] = comments_df["body"].fillna("")
+
     loads = {
         "tags": tags_df,
         "users": users_df,
@@ -180,7 +184,7 @@ def main():
         if df is None:
             print(f"  skipped {name}: no source file found")
             continue
-        df.to_sql(name, conn, if_exists="replace", index=False)
+        df.to_sql(name, conn, if_exists="append", index=False, chunksize=50000)
         print(f"  loaded {name}: {len(df):,} rows")
 
     conn.commit()

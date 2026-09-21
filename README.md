@@ -1,6 +1,6 @@
 # StackOverflow NLP Query Engine
 
-Ask plain-English questions about a normalized StackOverflow database (2020–2025)
+Ask plain-English questions about a normalized StackOverflow database (2020–Sep 2022)
 and get back the generated SQL plus a results table — a production-shaped
 text-to-SQL system, not just an API call wrapped in a chat box.
 
@@ -16,7 +16,7 @@ between the LLM and the database.
 
 - **Database**: 7-table normalized SQLite schema (users, tags, questions,
   answers, tag join table, comments, votes) loaded from a scoped BigQuery
-  export (2020–2025, curated tag list — see [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md))
+  export (2020–Sep 2022, curated tag list — see [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md))
 - **Query suite**: 15 hand-validated analytical SQL queries covering the
   join/aggregation patterns the NLP layer needs to generalize to (see
   [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md))
@@ -52,7 +52,7 @@ for exactly what the eventual accuracy metric will and won't tell us.
 ## Data
 
 Source: `bigquery-public-data.stackoverflow`, accessed via a free Kaggle
-Notebook (no local GCP setup). Scoped to 2020–2025 and ~35 popular tags to
+Notebook (no local GCP setup). Scoped to 2020–Sep 2022 and ~35 popular tags to
 keep a local SQLite file a manageable size. Full schema, scoping rationale,
 and the real-data caveat on `votes.user_id` (the official dump anonymizes
 voters): [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md).

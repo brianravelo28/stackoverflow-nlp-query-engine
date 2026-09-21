@@ -14,7 +14,7 @@ from anthropic import Anthropic
 DB_PATH = Path(__file__).resolve().parent.parent / "stackoverflow.db"
 MODEL = "claude-sonnet-5"
 
-SYSTEM_PROMPT = """You are a SQL expert. Users ask questions about a StackOverflow database (2020-2025).
+SYSTEM_PROMPT = """You are a SQL expert. Users ask questions about a StackOverflow database (2020–Sep 2022).
 Respond ONLY with a valid SQLite SELECT query. No explanations. No markdown fences. Just SQL.
 
 SCHEMA:
@@ -27,6 +27,8 @@ SCHEMA:
 - votes(vote_id, post_id, user_id, vote_type, creation_date)  -- user_id may be NULL, votes are anonymized
 
 NOTES:
+- Data covers 2020-01-01 through 2022-09-25 only. Treat "recent", "last month", "last 6 months" as relative to 2022-09-25 (use date('2022-09-25', '-1 month')), never date('now').
+- 2022 is a partial year; for year-over-year comparisons use complete years (2020 vs 2021) unless asked otherwise, and require a minimum count (e.g. HAVING prior_year_count >= 50).
 - posts_answers.parent_id references posts_questions.post_id (the question an answer belongs to)
 - post_tags is the many-to-many join between posts_questions and tags
 - is_accepted is 1 if that answer was accepted, else 0
@@ -50,7 +52,7 @@ A: SELECT t1.tag_name AS tag_a, t2.tag_name AS tag_b, COUNT(*) AS pair_count FRO
 
 CONSTRAINTS:
 - Only SELECT (no writes)
-- Filter to creation_date >= '2020-01-01' where a date filter is relevant
+- Filter to creation_date >= '2020-01-01' where a date filter is relevant (data ends 2022-09-25)
 - Avoid queries that would be slow (always include a reasonable LIMIT unless the user asks for an aggregate/single row)
 - Return ONLY the SQL query, nothing else
 """

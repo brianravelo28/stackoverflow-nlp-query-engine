@@ -108,7 +108,7 @@ export is loaded and the harness has been run.
 ## 📚 Data Scoping Decisions
 
 See [`docs/DATA_SCHEMA.md`](DATA_SCHEMA.md) for the full rationale: the
-BigQuery export is restricted to 2020–2025 and ~35 popular tags to keep a
+BigQuery export is restricted to 2020–Sep 2022 and ~35 popular tags to keep a
 local SQLite file a reasonable size, and `votes.user_id` is nullable because
 the real dataset anonymizes voters (a correction from the original project
 spec, which assumed a non-null FK there).

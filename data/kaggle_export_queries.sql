@@ -15,9 +15,11 @@
 --   3. Download each CSV from the notebook's Output pane and drop it in
 --      this project's data/ folder.
 --
--- Scoped to 2020-2025 and a curated set of ~35 popular tags so the export
--- stays a manageable size (expect low hundred-thousands of questions, not
--- millions) while still being thematically rich enough for the NLP layer.
+-- Scoped to 2020-2025 (the mirror actually ends 2022-09) and a curated set of ~35 popular tags. That set alone
+-- is ~2.8M questions (too big for local SQLite), so every question filter
+-- also applies a deterministic 1-in-16 sample: MOD(id, 16) = 0 (~177K
+-- questions). Change 16 in every query (identically!) to resize; answers,
+-- comments, votes and users follow the sampled question set.
 -- Adjust TAG_REGEX below to change which tags are included.
 -- ============================================================================
 
@@ -30,7 +32,7 @@
 SELECT COUNT(*) AS n
 FROM `bigquery-public-data.stackoverflow.posts_questions`
 WHERE creation_date BETWEEN '2020-01-01' AND '2025-12-31'
-  AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)');
+  AND MOD(id, 16) = 0 AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)');
 
 -- ---------------------------------------------------------------------------
 -- 1. tags.csv  (small, ~64K rows, pull the whole table)
@@ -57,7 +59,7 @@ SELECT
 FROM `bigquery-public-data.stackoverflow.posts_questions`
 WHERE creation_date BETWEEN '2020-01-01' AND '2025-12-31'
   AND owner_user_id IS NOT NULL
-  AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)');
+  AND MOD(id, 16) = 0 AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)');
 
 -- ---------------------------------------------------------------------------
 -- 3. posts_answers.csv (answers to the question set from query 2)
@@ -75,7 +77,7 @@ JOIN (
   SELECT id, accepted_answer_id
   FROM `bigquery-public-data.stackoverflow.posts_questions`
   WHERE creation_date BETWEEN '2020-01-01' AND '2025-12-31'
-    AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
+    AND MOD(id, 16) = 0 AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
 ) q ON a.parent_id = q.id
 WHERE a.owner_user_id IS NOT NULL;
 
@@ -100,14 +102,14 @@ WHERE u.id IN (
   FROM `bigquery-public-data.stackoverflow.posts_questions`
   WHERE creation_date BETWEEN '2020-01-01' AND '2025-12-31'
     AND owner_user_id IS NOT NULL
-    AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
+    AND MOD(id, 16) = 0 AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
   UNION DISTINCT
   SELECT a.owner_user_id
   FROM `bigquery-public-data.stackoverflow.posts_answers` a
   JOIN `bigquery-public-data.stackoverflow.posts_questions` q ON a.parent_id = q.id
   WHERE q.creation_date BETWEEN '2020-01-01' AND '2025-12-31'
     AND a.owner_user_id IS NOT NULL
-    AND REGEXP_CONTAINS(q.tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
+    AND MOD(q.id, 16) = 0 AND REGEXP_CONTAINS(q.tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
 );
 
 -- ---------------------------------------------------------------------------
@@ -126,13 +128,13 @@ WHERE c.user_id IS NOT NULL
     SELECT id
     FROM `bigquery-public-data.stackoverflow.posts_questions`
     WHERE creation_date BETWEEN '2020-01-01' AND '2025-12-31'
-      AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
+      AND MOD(id, 16) = 0 AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
     UNION DISTINCT
     SELECT a.id
     FROM `bigquery-public-data.stackoverflow.posts_answers` a
     JOIN `bigquery-public-data.stackoverflow.posts_questions` q ON a.parent_id = q.id
     WHERE q.creation_date BETWEEN '2020-01-01' AND '2025-12-31'
-      AND REGEXP_CONTAINS(q.tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
+      AND MOD(q.id, 16) = 0 AND REGEXP_CONTAINS(q.tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
   );
 
 -- ---------------------------------------------------------------------------
@@ -161,13 +163,13 @@ WHERE v.post_id IN (
   SELECT id
   FROM `bigquery-public-data.stackoverflow.posts_questions`
   WHERE creation_date BETWEEN '2020-01-01' AND '2025-12-31'
-    AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
+    AND MOD(id, 16) = 0 AND REGEXP_CONTAINS(tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
   UNION DISTINCT
   SELECT a.id
   FROM `bigquery-public-data.stackoverflow.posts_answers` a
   JOIN `bigquery-public-data.stackoverflow.posts_questions` q ON a.parent_id = q.id
   WHERE q.creation_date BETWEEN '2020-01-01' AND '2025-12-31'
-    AND REGEXP_CONTAINS(q.tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
+    AND MOD(q.id, 16) = 0 AND REGEXP_CONTAINS(q.tags, r'(^|\|)(python|javascript|java|sql|reactjs|typescript|docker|kubernetes|amazon-web-services|pandas|numpy|django|flask|node\.js|c\+\+|c#|go|rust|sqlite|postgresql|mysql|git|html|css|linux|bash|regex|api|rest|graphql|machine-learning|tensorflow|pytorch|scikit-learn|nlp|streamlit|pytest|algorithm)(\||$)')
 );
 
 -- ---------------------------------------------------------------------------

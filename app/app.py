@@ -11,7 +11,7 @@ DB_PATH = Path(__file__).resolve().parent.parent / "stackoverflow.db"
 
 st.set_page_config(page_title="StackOverflow NLP Query Engine", layout="wide")
 st.title("StackOverflow NLP Query Engine")
-st.caption("Ask questions in plain English about StackOverflow questions, answers, tags, and users (2020-2025).")
+st.caption("Ask questions in plain English about StackOverflow questions, answers, tags, and users (2020–Sep 2022).")
 
 
 @st.cache_resource

@@ -74,11 +74,13 @@ QUERIES = {
         LIMIT 20
     """,
 
+    # complete years only (data ends 2022-09) and >=50 prior-year questions
     "q8_fastest_growing_tags_yoy": """
         WITH yearly AS (
             SELECT pt.tag_id, strftime('%Y', q.creation_date) AS yr, COUNT(*) AS cnt
             FROM post_tags pt
             JOIN posts_questions q ON pt.post_id = q.post_id
+            WHERE q.creation_date < '2022-01-01'
             GROUP BY pt.tag_id, yr
         ),
         latest AS (SELECT MAX(yr) AS yr FROM yearly),
@@ -90,7 +92,7 @@ QUERIES = {
         FROM yearly y
         JOIN tags t ON t.tag_id = y.tag_id
         GROUP BY t.tag_id, t.tag_name
-        HAVING prior_year_count > 0 AND latest_year_count IS NOT NULL
+        HAVING prior_year_count >= 50 AND latest_year_count IS NOT NULL
         ORDER BY (1.0 * latest_year_count / prior_year_count) DESC
         LIMIT 20
     """,
