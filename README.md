@@ -1,5 +1,7 @@
 # StackOverflow NLP Query Engine
 
+![StackOverflow NLP Query Engine chat UI](docs/screenshot.png)
+
 Ask plain-English questions about a normalized StackOverflow database (Jan 2020 – Sep 2022)
 and get back the generated SQL plus a results table.
 
