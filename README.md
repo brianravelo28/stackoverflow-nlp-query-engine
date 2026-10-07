@@ -1,123 +1,140 @@
 # StackOverflow NLP Query Engine
 
-Ask plain-English questions about a normalized StackOverflow database (2020–Sep 2022)
-and get back the generated SQL plus a results table — a production-shaped
-text-to-SQL system, not just an API call wrapped in a chat box.
+Ask plain-English questions about a normalized StackOverflow database (Jan 2020 – Sep 2022)
+and get back the generated SQL plus a results table.
+
+**Live demo: https://stackoverflow-nlp-query-engine.onrender.com/**
+(free Render tier — the first visit after idle takes about a minute to wake up; each session is capped at 10 questions)
 
 ## Problem Statement
 
 Answering "which tags are trending?" or "who has the highest answer
 acceptance rate?" against a relational database normally requires knowing
-SQL and the schema. This project builds a system that translates the
-question itself, grounded in the real schema, with a validation layer
-between the LLM and the database.
+SQL and the schema. This project translates the question itself, grounded in
+the real schema, with a validation layer between the LLM and the database.
 
 ## Solution Overview
 
 - **Database**: 7-table normalized SQLite schema (users, tags, questions,
-  answers, tag join table, comments, votes) loaded from a scoped BigQuery
-  export (2020–Sep 2022, curated tag list — see [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md))
-- **Query suite**: 15 hand-validated analytical SQL queries covering the
-  join/aggregation patterns the NLP layer needs to generalize to (see
+  answers, tag join table, comments, votes) loaded from a sampled BigQuery
+  export — see [Data](#data) and [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md)
+- **Query suite**: 15 hand-written analytical SQL queries covering the
+  join/aggregation patterns the NLP layer needs to reproduce (see
   [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md))
-- **NLP layer**: Claude, prompted with the full schema DDL, semantic notes
-  on non-obvious columns, and 4 few-shot examples drawn from the query suite
-- **Safety gate**: generated SQL is rejected unless it's a `SELECT`/`WITH`
-  statement with no write/schema keywords, before it ever touches the database
-- **Interface**: Streamlit chat app — ask a question, see the generated SQL
+- **NLP layer**: Claude (`claude-sonnet-5`), prompted with the schema, notes on
+  non-obvious columns and the data's date range, and 4 few-shot examples drawn
+  from the query suite
+- **Safety**: generated SQL is rejected unless it's a `SELECT`/`WITH` statement
+  with no write/schema keywords; the deployed app also opens the database
+  read-only
+- **Interface**: Streamlit chat app — type a question or click one of 7 random
+  example questions (35 in the pool, Shuffle for more); see the generated SQL
   and the result table
 
 Full request flow and design tradeoffs: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## Status
 
-This is an in-progress build, not a finished/deployed project. What's real
-vs. what's still pending:
+Deployed and working. What was verified, and what wasn't:
 
 | Component | Status |
 |---|---|
-| Schema + loader (`src/build_db.py`) | ✅ Loaded real data, 0 FK violations |
-| Indexes (`src/add_indexes.py`) | ✅ Built |
-| 15 analytical queries (`src/queries.py`) | ✅ All 15 run against real data |
-| NLP layer (`src/nlp_layer.py`) | ✅ Built |
-| Streamlit app (`app/app.py`) | ✅ Built |
-| Real data loaded | ✅ 174K questions, 186K answers, 572K comments, 487K votes, 227K users (1-in-16 sample, 2020-01 to 2022-09) |
-| 20-question NLP test | ✅ 20/20 execute; 3 spot-checked for correctness against the validated queries |
-| Deployment (Render) | ⏳ Config ready, not yet deployed |
+| Data load (`src/build_db.py`) | ✅ 7 tables loaded, 0 foreign-key violations |
+| 15 analytical queries (`src/queries.py`) | ✅ All 15 run against the real data |
+| 20-question NLP test (`src/test_nlp_questions.py`) | ✅ 20/20 produce SQL that executes. Only 3 answers were checked against the hand-written queries; the other 17 were not checked for correctness, and 4 of the 20 questions appear in the prompt as few-shot examples, so this is **not** a held-out accuracy score (see [methodology](docs/METHODOLOGY.md#-evaluation--limitations)) |
+| 35 example questions in the app | ✅ Each returns rows |
+| Deployment (Render) | ✅ Live; one real question verified on the deployed site |
 
-The 20/20 figure measures executability only, not semantic correctness — see [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md#-evaluation--limitations)
-for exactly what the eventual accuracy metric will and won't tell us.
+Not done: a semantic-correctness evaluation of generated SQL (expected result
+sets or execution-match against reference queries).
 
 ## Data
 
-Source: `bigquery-public-data.stackoverflow`, accessed via a free Kaggle
-Notebook (no local GCP setup). Scoped to 2020–Sep 2022 and ~35 popular tags to
-keep a local SQLite file a manageable size. Full schema, scoping rationale,
-and the real-data caveat on `votes.user_id` (the official dump anonymizes
-voters): [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md).
+Source: `bigquery-public-data.stackoverflow` (a mirror of the Stack Exchange
+data dump), exported through a free Kaggle Notebook with
+[`data/kaggle_export.py`](data/kaggle_export.py). The slice is:
 
-Raw data and the built database are **not** committed to this repo — only
-the acquisition scripts are. See [`data/kaggle_export_queries.sql`](data/kaggle_export_queries.sql)
-to reproduce the export yourself.
+- questions with at least one of 38 popular tags (python, javascript, java,
+  sql, …), with a **1-in-16 sample** by post id — the tag filter alone matches
+  ~2.8M questions, too large for a local SQLite file
+- **2020-01-01 to 2022-09-25**: the public BigQuery mirror stops there, even
+  though the export asks for 2020–2025
+- answers, comments, votes and authors for the sampled questions; post bodies
+  truncated to 500 characters
+
+Result: 174,131 questions, 186,018 answers, 572,119 comments, 487,387 votes,
+227,026 users, 63,653 tags (all tags are loaded, not just the 38). Voters are
+anonymized in the source, so votes can be counted by post and type but not by
+user. Details and caveats: [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md),
+[`docs/DATA_QUIRKS.md`](docs/DATA_QUIRKS.md).
+
+The raw CSVs and the database are not committed to git. The built database is
+published as a gzipped GitHub Release asset
+([`data-v1`](https://github.com/brianravelo28/stackoverflow-nlp-query-engine/releases/tag/data-v1),
+~175 MB) so you can skip the Kaggle step.
 
 ## How to Run
 
 ```bash
 pip install -r requirements-dev.txt   # requirements.txt is the slimmer deploy set
 
-# 1. Get data: run data/kaggle_export_queries.sql in a Kaggle Notebook
-#    (Stack Overflow BigQuery dataset attached), download the CSVs into data/
+# Option A — skip the export: download the prebuilt database
+python src/download_db.py
 
-# 2. Build the database
+# Option B — rebuild from scratch
+#   1. run data/kaggle_export.py in a Kaggle Notebook (Stack Overflow BigQuery
+#      dataset attached), download the 6 CSVs into data/
 python src/build_db.py
 python src/add_indexes.py
 
-# 3. Verify the query suite
-python src/queries.py
-
-# 4. Set your API key, then test the NLP layer
+# Optional checks
+python src/queries.py                 # the 15-query suite
 export ANTHROPIC_API_KEY=your_key_here
-python src/test_nlp_questions.py
+python src/test_nlp_questions.py      # the 20-question test
 
-# 5. Run the app
+# Run the app
 streamlit run app/app.py
 ```
 
 ## Deploy (Render)
 
-`render.yaml` defines a free web service. The 480 MB database is too large
-for git, so it's published as a gzipped GitHub Release asset (`data-v1`) and
-`src/download_db.py` fetches it during the Render build. The app opens the
+[`render.yaml`](render.yaml) defines a free web service. The build runs
+`src/download_db.py`, which fetches the release asset (the 480 MB database is
+too large for git; it is re-downloaded on every deploy). The app opens the
 database read-only and caps each session at 10 questions to limit API spend.
 
 1. Render → New → Blueprint → connect this repo
-2. Set `ANTHROPIC_API_KEY` when prompted (also set a monthly spend limit on
-   the key in the Anthropic Console)
+2. Set `ANTHROPIC_API_KEY` when prompted, and set a monthly spend limit on the
+   key in the Anthropic Console
 
 ## Files
 
 ```
-README.md                       this file
-LICENSE                          MIT
-requirements.txt
+README.md
+LICENSE                          MIT (code only; see docs/CITATIONS.md for the data license)
+render.yaml                      Render service definition
+requirements.txt                 deploy dependencies
+requirements-dev.txt             adds pyarrow, matplotlib, jupyter
 data/
-  kaggle_export_queries.sql      BigQuery export queries (run in a Kaggle Notebook)
+  kaggle_export.py               BigQuery export, run in a Kaggle Notebook
 src/
-  build_db.py                    schema + loader
-  add_indexes.py                 10 indexes tuned to the query suite
-  queries.py                     15 validated analytical queries
+  download_db.py                 fetch the prebuilt database from the GitHub Release
+  build_db.py                    schema + CSV loader
+  add_indexes.py                 10 indexes
+  queries.py                     15 analytical queries
   nlp_layer.py                   Claude-backed text-to-SQL + safety validation
-  test_nlp_questions.py          20-question accuracy harness
+  test_nlp_questions.py          20-question executability test
 app/
   app.py                         Streamlit chat interface
 notebooks/
-  01_eda.ipynb                   exploratory analysis (run after data is loaded)
+  01_eda.ipynb                   exploratory analysis (needs the database built)
 docs/
-  ARCHITECTURE.md                system design, request flow, safety model
-  DATA_SCHEMA.md                 ER diagram, table definitions, scoping decisions
-  METHODOLOGY.md                 prompt design, query suite rationale, evaluation plan
-  CITATIONS.md                   data licensing and attribution
+  ARCHITECTURE.md                design, request flow, safety model
+  DATA_SCHEMA.md                 ER diagram, table definitions, scoping
+  DATA_QUIRKS.md                 data problems found and how they were handled
+  METHODOLOGY.md                 prompt design, query suite, evaluation
+  CITATIONS.md                   sources and data license
 ```
 
 ## Author
-Brian | Data Scientist | August 2026
+Brian | Data Scientist | October 2026

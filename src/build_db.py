@@ -1,7 +1,7 @@
 """Create stackoverflow.db and load it from CSVs/parquet in data/.
 
 Expected input files in data/ (from the Kaggle Notebook export, see
-data/kaggle_export_queries.sql):
+data/kaggle_export.py):
   tags.csv             tag_id, tag_name
   users.csv            user_id, display_name, reputation, badge_count, creation_date
   posts_questions.csv  post_id, user_id, title, body, creation_date, view_count,
@@ -135,7 +135,7 @@ def main():
     if not DATA_DIR.exists() or not any(DATA_DIR.glob("*.csv")) and not any(DATA_DIR.glob("*.parquet")):
         raise SystemExit(
             f"No data files found in {DATA_DIR}. Export from Kaggle first "
-            f"(see data/kaggle_export_queries.sql) and drop the CSVs there."
+            f"(see data/kaggle_export.py) and drop the CSVs there."
         )
 
     DB_PATH.unlink(missing_ok=True)
