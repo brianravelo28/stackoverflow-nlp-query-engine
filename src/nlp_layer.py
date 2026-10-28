@@ -4,7 +4,10 @@ generate_sql() asks Claude for a single SELECT statement grounded in the
 schema below; validate_and_execute() enforces read-only safety before
 running it against stackoverflow.db.
 """
+from __future__ import annotations
+
 import os
+import re
 import sqlite3
 from pathlib import Path
 
@@ -86,17 +89,52 @@ def generate_sql(user_question: str) -> str:
     return sql
 
 
-BAD_WORDS = ("DROP", "DELETE", "UPDATE", "INSERT", "ALTER", "ATTACH", "PRAGMA", "REPLACE")
+# Words that may not appear as SQL keywords. SQLite lets a WITH clause lead into
+# INSERT/UPDATE/DELETE, so the first-keyword check alone is not enough.
+BAD_WORDS = {"DROP", "DELETE", "UPDATE", "INSERT", "ALTER", "ATTACH", "DETACH", "PRAGMA", "CREATE", "VACUUM", "REPLACE"}
+
+# Tokens that carry no keywords: string literals, quoted identifiers, comments.
+# An unterminated /* comment runs to the end of the text, as it does in SQLite.
+_SKIP = re.compile(r"""'(?:[^']|'')*'|"(?:[^"]|"")*"|`(?:[^`]|``)*`|\[[^\]]*\]|--[^\n]*|/\*.*?(?:\*/|$)|\s+""", re.S)
+_TOKEN = re.compile(r"[A-Za-z_][A-Za-z0-9_$]*|.", re.S)
+
+
+def _tokens(sql: str) -> list[str]:
+    """Significant tokens of `sql`: words and single punctuation characters."""
+    out, pos = [], 0
+    while pos < len(sql):
+        m = _SKIP.match(sql, pos) or _TOKEN.match(sql, pos)
+        if m.re is _TOKEN:
+            out.append(m.group())
+        pos = m.end()
+    return out
+
+
+def check_sql(sql_query: str) -> str | None:
+    """Return an error message if the query is not a single read-only SELECT/WITH, else None."""
+    tokens = _tokens(sql_query)
+    while tokens and tokens[-1] == ";":
+        tokens.pop()
+    if not tokens or tokens[0].upper() not in ("SELECT", "WITH"):
+        return "Error: only SELECT queries are allowed"
+    if ";" in tokens:
+        return "Error: only one statement is allowed"
+    for i, tok in enumerate(tokens):
+        word = tok.upper()
+        if word not in BAD_WORDS:
+            continue
+        # replace(x, a, b) is a string function; REPLACE INTO is a write
+        if word == "REPLACE" and tokens[i + 1:i + 2] == ["("]:
+            continue
+        return "Error: write/schema operations are not permitted"
+    return None
 
 
 def validate_and_execute(sql_query: str, conn: sqlite3.Connection):
     stripped = sql_query.strip().rstrip(";")
-    if not stripped.upper().startswith("SELECT") and not stripped.upper().startswith("WITH"):
-        return None, "Error: only SELECT queries are allowed"
-
-    upper = stripped.upper()
-    if any(word in upper for word in BAD_WORDS):
-        return None, "Error: write/schema operations are not permitted"
+    error = check_sql(sql_query)
+    if error:
+        return None, error
 
     try:
         result = pd.read_sql(stripped, conn)
