@@ -17,7 +17,7 @@ import pandas as pd
 from anthropic import Anthropic, APIError
 
 DB_PATH = Path(__file__).resolve().parent.parent / "stackoverflow.db"
-MODEL = "claude-sonnet-5"
+MODEL = os.environ.get("NLP_MODEL", "claude-sonnet-5-5")
 
 SYSTEM_PROMPT = """You are a SQL expert. Users ask questions about a StackOverflow database (2020–Sep 2022).
 Respond ONLY with a valid SQLite SELECT query. No explanations. No markdown fences. Just SQL.
@@ -38,8 +38,8 @@ NOTES:
 - post_tags is the many-to-many join between posts_questions and tags
 - is_accepted is 1 if that answer was accepted, else 0
 - To join a tag name to questions: posts_questions -> post_tags -> tags
-- SQLite has no MEDIAN(); if asked for a median, either approximate with AVG or return raw values
-  ordered so the caller can compute it, and say so is not needed -- just write your best single query.
+- SQLite has no MEDIAN(). If asked for a median, compute it exactly in a single query: number the rows with
+  ROW_NUMBER() and COUNT(*) OVER (), then average the middle one or two rows.
 - SQLite date functions: julianday(), strftime('%Y', creation_date) for year extraction
 
 EXAMPLES:
