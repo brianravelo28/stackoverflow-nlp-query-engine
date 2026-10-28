@@ -52,3 +52,11 @@ def test_api_failures_become_a_safe_message(monkeypatch, exc):
     with pytest.raises(nlp_layer.GenerationError) as info:
         nlp_layer.generate_sql("anything")
     assert "unavailable" in str(info.value) and "sk-secret" not in str(info.value)
+
+
+def test_decline_reason_reads_the_unanswerable_convention():
+    import pandas as pd
+    assert nlp_layer.decline_reason(pd.DataFrame({"answer": ["UNANSWERABLE: no salary data"]})) == "no salary data"
+    assert nlp_layer.decline_reason(pd.DataFrame({"answer": ["a normal text answer"]})) is None
+    assert nlp_layer.decline_reason(pd.DataFrame({"a": ["UNANSWERABLE: x"], "b": [1]})) is None
+    assert nlp_layer.decline_reason(pd.DataFrame({"answer": ["UNANSWERABLE: x", "y"]})) is None

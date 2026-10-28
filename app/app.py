@@ -7,7 +7,7 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from nlp_layer import (  # noqa: E402
-    GenerationError, count_daily_question, daily_limit_reached, generate_sql, validate_and_execute,
+    GenerationError, count_daily_question, daily_limit_reached, decline_reason, generate_sql, validate_and_execute,
 )
 
 DB_PATH = Path(__file__).resolve().parent.parent / "stackoverflow.db"
@@ -124,6 +124,10 @@ if user_input:
 
         if error:
             content = f"Error: {error}\n\n```sql\n{sql}\n```"
+            st.markdown(content)
+            st.session_state.messages.append({"role": "assistant", "content": content, "df": None})
+        elif decline_reason(result) is not None:
+            content = f"I can't answer that from this dataset: {decline_reason(result)}"
             st.markdown(content)
             st.session_state.messages.append({"role": "assistant", "content": content, "df": None})
         else:
