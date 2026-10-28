@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 
 import pandas as pd
-from anthropic import Anthropic
+from anthropic import Anthropic, APIError
 
 DB_PATH = Path(__file__).resolve().parent.parent / "stackoverflow.db"
 MODEL = "claude-sonnet-5"
@@ -65,22 +65,53 @@ CONSTRAINTS:
 _client = None
 
 
+class GenerationError(Exception):
+    """The model service failed; the message is safe to show to a visitor."""
+
+
 def get_client() -> Anthropic:
     global _client
     if _client is None:
         if not os.environ.get("ANTHROPIC_API_KEY"):
             raise ValueError("Set the ANTHROPIC_API_KEY environment variable first")
-        _client = Anthropic()
+        _client = Anthropic(timeout=30.0)
     return _client
 
 
+# Site-wide cap on questions per UTC day. The count lives in memory, so it
+# also resets when the service restarts.
+DAILY_LIMIT = 100
+_daily = {"day": None, "count": 0}
+_daily_lock = threading.Lock()
+
+
+def _today() -> str:
+    return time.strftime("%Y-%m-%d", time.gmtime())
+
+
+def daily_limit_reached() -> bool:
+    with _daily_lock:
+        return _daily["day"] == _today() and _daily["count"] >= DAILY_LIMIT
+
+
+def count_daily_question() -> None:
+    with _daily_lock:
+        today = _today()
+        if _daily["day"] != today:
+            _daily["day"], _daily["count"] = today, 0
+        _daily["count"] += 1
+
+
 def generate_sql(user_question: str) -> str:
-    response = get_client().messages.create(
-        model=MODEL,
-        max_tokens=1000,
-        system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": user_question}],
-    )
+    try:
+        response = get_client().messages.create(
+            model=MODEL,
+            max_tokens=1000,
+            system=SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": user_question}],
+        )
+    except APIError:
+        raise GenerationError("The language model is unavailable right now. Please try again in a minute.") from None
     sql = "".join(b.text for b in response.content if b.type == "text").strip()
     # strip accidental markdown fences
     if sql.startswith("```"):
