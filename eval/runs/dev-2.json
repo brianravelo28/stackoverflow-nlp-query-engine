@@ -1,0 +1,1679 @@
+{
+ "meta": {
+  "label": "dev-2",
+  "split": "dev",
+  "runs": 3,
+  "model": "claude-sonnet-5-5",
+  "prompt_sha256": "197956c6862eb9eb9646ceac33ce203c27d9a6a40c99ecec19e2160acecd368c",
+  "git_commit": "b8c7205baa48e02f4a0912bef1b8d154beef8b6b",
+  "uncommitted_changes": true,
+  "started": "2026-10-28T22:31:30+00:00",
+  "query_timeout_s": 30,
+  "max_rows": 1000,
+  "finished": "2026-10-28T22:34:41+00:00"
+ },
+ "results": [
+  {
+   "id": "D01",
+   "run": 0,
+   "sql": "SELECT COUNT(*) AS total_questions FROM posts_questions;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "total_questions"
+   ],
+   "rows": [
+    [
+     174131
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D02",
+   "run": 0,
+   "sql": "SELECT AVG(reputation) AS average_reputation FROM users;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "average_reputation"
+   ],
+   "rows": [
+    [
+     2013.1188233946773
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D03",
+   "run": 0,
+   "sql": "SELECT COUNT(DISTINCT user_id) AS distinct_answerers FROM posts_answers WHERE user_id IS NOT NULL;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "distinct_answerers"
+   ],
+   "rows": [
+    [
+     86363
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D04",
+   "run": 0,
+   "sql": "SELECT t.tag_name, SUM(c.cnt) AS comment_count\nFROM (SELECT post_id, COUNT(*) AS cnt FROM comments GROUP BY post_id) c\nJOIN post_tags pt ON pt.post_id = c.post_id\nJOIN tags t ON t.tag_id = pt.tag_id\nJOIN posts_questions q ON q.post_id = c.post_id\nGROUP BY t.tag_id, t.tag_name\nORDER BY comment_count DESC\nLIMIT 10;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "comment_count"
+   ],
+   "rows": [
+    [
+     "python",
+     89853
+    ],
+    [
+     "javascript",
+     66674
+    ],
+    [
+     "java",
+     37625
+    ],
+    [
+     "c#",
+     36377
+    ],
+    [
+     "c++",
+     32950
+    ],
+    [
+     "html",
+     24091
+    ],
+    [
+     "reactjs",
+     23946
+    ],
+    [
+     "sql",
+     18174
+    ],
+    [
+     "node.js",
+     15934
+    ],
+    [
+     "css",
+     14971
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D05",
+   "run": 0,
+   "sql": "SELECT t.tag_name, COUNT(*) AS question_count\nFROM posts_questions q\nJOIN users u ON q.user_id = u.user_id\nJOIN post_tags pt ON q.post_id = pt.post_id\nJOIN tags t ON pt.tag_id = t.tag_id\nWHERE u.reputation > 10000\nGROUP BY t.tag_id, t.tag_name\nORDER BY question_count DESC\nLIMIT 10;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "javascript",
+     788
+    ],
+    [
+     "python",
+     759
+    ],
+    [
+     "c#",
+     474
+    ],
+    [
+     "java",
+     402
+    ],
+    [
+     "typescript",
+     359
+    ],
+    [
+     "c++",
+     344
+    ],
+    [
+     "reactjs",
+     230
+    ],
+    [
+     "node.js",
+     221
+    ],
+    [
+     "css",
+     198
+    ],
+    [
+     "html",
+     180
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D06",
+   "run": 0,
+   "sql": "SELECT COUNT(*) AS unanswered_questions FROM posts_questions WHERE answer_count = 0;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "unanswered_questions"
+   ],
+   "rows": [
+    [
+     42669
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D07",
+   "run": 0,
+   "sql": "SELECT COUNT(DISTINCT q.user_id) AS user_count FROM posts_questions q WHERE q.user_id IS NOT NULL AND NOT EXISTS (SELECT 1 FROM posts_answers a WHERE a.user_id = q.user_id);",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "user_count"
+   ],
+   "rows": [
+    [
+     121418
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D08",
+   "run": 0,
+   "sql": "SELECT AVG(julianday(f.first_q) - julianday(u.creation_date)) AS avg_days_to_first_question\nFROM users u\nJOIN (SELECT user_id, MIN(creation_date) AS first_q FROM posts_questions WHERE user_id IS NOT NULL GROUP BY user_id) f ON f.user_id = u.user_id;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "avg_days_to_first_question"
+   ],
+   "rows": [
+    [
+     951.3401048407321
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D09",
+   "run": 0,
+   "sql": "SELECT AVG((julianday(fa.first_answer_date) - julianday(q.creation_date)) * 24.0) AS avg_hours_to_first_answer\nFROM posts_questions q\nJOIN post_tags pt ON pt.post_id = q.post_id\nJOIN tags t ON t.tag_id = pt.tag_id\nJOIN (\n  SELECT parent_id, MIN(creation_date) AS first_answer_date\n  FROM posts_answers\n  GROUP BY parent_id\n) fa ON fa.parent_id = q.post_id\nWHERE t.tag_name = 'python';",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "avg_hours_to_first_answer"
+   ],
+   "rows": [
+    [
+     163.45165331801488
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D10",
+   "run": 0,
+   "sql": "SELECT strftime('%Y-%m', creation_date) AS month, COUNT(*) AS answer_count FROM posts_answers WHERE strftime('%Y', creation_date) = '2021' GROUP BY month ORDER BY answer_count DESC LIMIT 1;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "month",
+    "answer_count"
+   ],
+   "rows": [
+    [
+     "2021-03",
+     5993
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D11",
+   "run": 0,
+   "sql": "SELECT CASE WHEN is_accepted = 1 THEN 'accepted' ELSE 'not accepted' END AS answer_status, COUNT(*) AS answer_count, ROUND(AVG(score), 3) AS avg_score FROM posts_answers GROUP BY CASE WHEN is_accepted = 1 THEN 'accepted' ELSE 'not accepted' END;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "answer_status",
+    "answer_count",
+    "avg_score"
+   ],
+   "rows": [
+    [
+     "accepted",
+     70896,
+     1.526
+    ],
+    [
+     "not accepted",
+     115122,
+     0.668
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D12",
+   "run": 0,
+   "sql": "SELECT ROUND(100.0 * (SELECT COUNT(DISTINCT parent_id) FROM posts_answers WHERE score > 10 AND parent_id IN (SELECT post_id FROM posts_questions)) / (SELECT COUNT(*) FROM posts_questions), 2) AS percentage;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "percentage"
+   ],
+   "rows": [
+    [
+     0.46
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D13",
+   "run": 0,
+   "sql": "SELECT strftime('%Y', creation_date) AS year, COUNT(*) AS total_questions, SUM(CASE WHEN accepted_answer_id IS NOT NULL THEN 1 ELSE 0 END) AS questions_with_accepted, ROUND(1.0 * SUM(CASE WHEN accepted_answer_id IS NOT NULL THEN 1 ELSE 0 END) / COUNT(*), 4) AS accepted_fraction FROM posts_questions GROUP BY strftime('%Y', creation_date) ORDER BY year;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "year",
+    "total_questions",
+    "questions_with_accepted",
+    "accepted_fraction"
+   ],
+   "rows": [
+    [
+     "2020",
+     68340,
+     31295,
+     0.4579
+    ],
+    [
+     "2021",
+     59701,
+     25049,
+     0.4196
+    ],
+    [
+     "2022",
+     46090,
+     15009,
+     0.3256
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D14",
+   "run": 0,
+   "sql": "WITH top_tags AS (\n  SELECT tag_id, COUNT(*) AS question_count\n  FROM post_tags\n  GROUP BY tag_id\n  ORDER BY question_count DESC\n  LIMIT 5\n),\nranked AS (\n  SELECT tt.tag_id, tt.question_count, a.post_id AS answer_id, a.parent_id AS question_id, a.user_id, a.score AS answer_score,\n         ROW_NUMBER() OVER (PARTITION BY tt.tag_id ORDER BY a.score DESC, a.post_id) AS rn\n  FROM top_tags tt\n  JOIN post_tags pt ON pt.tag_id = tt.tag_id\n  JOIN posts_answers a ON a.parent_id = pt.post_id\n)\nSELECT t.tag_name, r.question_count, r.answer_id, r.question_id, r.user_id, r.answer_score\nFROM ranked r\nJOIN tags t ON t.tag_id = r.tag_id\nWHERE r.rn = 1\nORDER BY r.question_count DESC;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count",
+    "answer_id",
+    "question_id",
+    "user_id",
+    "answer_score"
+   ],
+   "rows": [
+    [
+     "python",
+     45887,
+     64698899,
+     62688256,
+     3450646,
+     283
+    ],
+    [
+     "javascript",
+     32905,
+     60242323,
+     60234640,
+     9573480,
+     445
+    ],
+    [
+     "java",
+     17188,
+     63851895,
+     61023968,
+     5773037,
+     561
+    ],
+    [
+     "reactjs",
+     14961,
+     64304122,
+     62059408,
+     10564382,
+     502
+    ],
+    [
+     "c#",
+     13040,
+     69919694,
+     69919664,
+     8893847,
+     210
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D15",
+   "run": 0,
+   "sql": "SELECT month, monthly_count, SUM(monthly_count) OVER (ORDER BY month) AS running_total\nFROM (\n  SELECT strftime('%Y-%m', creation_date) AS month, COUNT(*) AS monthly_count\n  FROM posts_questions\n  WHERE strftime('%Y', creation_date) = '2021'\n  GROUP BY strftime('%Y-%m', creation_date)\n)\nORDER BY month;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "month",
+    "monthly_count",
+    "running_total"
+   ],
+   "rows": [
+    [
+     "2021-01",
+     5172,
+     5172
+    ],
+    [
+     "2021-02",
+     4906,
+     10078
+    ],
+    [
+     "2021-03",
+     5451,
+     15529
+    ],
+    [
+     "2021-04",
+     5092,
+     20621
+    ],
+    [
+     "2021-05",
+     4878,
+     25499
+    ],
+    [
+     "2021-06",
+     4858,
+     30357
+    ],
+    [
+     "2021-07",
+     4733,
+     35090
+    ],
+    [
+     "2021-08",
+     4512,
+     39602
+    ],
+    [
+     "2021-09",
+     4619,
+     44221
+    ],
+    [
+     "2021-10",
+     5262,
+     49483
+    ],
+    [
+     "2021-11",
+     5237,
+     54720
+    ],
+    [
+     "2021-12",
+     4981,
+     59701
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D16",
+   "run": 0,
+   "sql": "WITH yearly AS (\n  SELECT strftime('%Y', q.creation_date) AS year, pt.tag_id, COUNT(*) AS question_count\n  FROM posts_questions q\n  JOIN post_tags pt ON pt.post_id = q.post_id\n  GROUP BY strftime('%Y', q.creation_date), pt.tag_id\n),\nranked AS (\n  SELECT year, tag_id, question_count,\n         ROW_NUMBER() OVER (PARTITION BY year ORDER BY question_count DESC, tag_id) AS rn\n  FROM yearly\n)\nSELECT r.year, t.tag_name, r.question_count\nFROM ranked r\nJOIN tags t ON t.tag_id = r.tag_id\nWHERE r.rn = 1\nORDER BY r.year;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "year",
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "2020",
+     "python",
+     17293
+    ],
+    [
+     "2021",
+     "python",
+     16039
+    ],
+    [
+     "2022",
+     "python",
+     12555
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D17",
+   "run": 0,
+   "sql": "SELECT u.user_id, u.display_name, SUM(a.cnt) AS total_activity\nFROM (\n  SELECT user_id, COUNT(*) AS cnt FROM posts_questions GROUP BY user_id\n  UNION ALL\n  SELECT user_id, COUNT(*) AS cnt FROM posts_answers GROUP BY user_id\n  UNION ALL\n  SELECT user_id, COUNT(*) AS cnt FROM comments GROUP BY user_id\n) a\nJOIN users u ON u.user_id = a.user_id\nGROUP BY u.user_id, u.display_name\nORDER BY total_activity DESC\nLIMIT 1;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "user_id",
+    "display_name",
+    "total_activity"
+   ],
+   "rows": [
+    [
+     1491895,
+     "Barmar",
+     3202
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D18",
+   "run": 0,
+   "sql": "SELECT t.tag_name, COUNT(pt.post_id) AS question_count FROM tags t JOIN post_tags pt ON t.tag_id = pt.tag_id GROUP BY t.tag_id, t.tag_name ORDER BY question_count DESC LIMIT 1;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "python",
+     45887
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D19",
+   "run": 0,
+   "sql": "SELECT 'UNANSWERABLE: votes are anonymized, so the user who cast a vote is not reliably recorded' AS answer;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "answer"
+   ],
+   "rows": [
+    [
+     "UNANSWERABLE: votes are anonymized, so the user who cast a vote is not reliably recorded"
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D20",
+   "run": 0,
+   "sql": "SELECT 'UNANSWERABLE: the schema has no salary data for users' AS answer;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "answer"
+   ],
+   "rows": [
+    [
+     "UNANSWERABLE: the schema has no salary data for users"
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D01",
+   "run": 1,
+   "sql": "SELECT COUNT(*) AS total_questions FROM posts_questions;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "total_questions"
+   ],
+   "rows": [
+    [
+     174131
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D02",
+   "run": 1,
+   "sql": "SELECT AVG(reputation) AS avg_reputation FROM users;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "avg_reputation"
+   ],
+   "rows": [
+    [
+     2013.1188233946773
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D03",
+   "run": 1,
+   "sql": "SELECT COUNT(DISTINCT user_id) AS distinct_answerers FROM posts_answers WHERE user_id IS NOT NULL;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "distinct_answerers"
+   ],
+   "rows": [
+    [
+     86363
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D04",
+   "run": 1,
+   "sql": "SELECT t.tag_name, SUM(c.cnt) AS comment_count FROM (SELECT post_id, COUNT(*) AS cnt FROM comments GROUP BY post_id) c JOIN post_tags pt ON pt.post_id = c.post_id JOIN tags t ON t.tag_id = pt.tag_id JOIN posts_questions q ON q.post_id = c.post_id GROUP BY t.tag_id, t.tag_name ORDER BY comment_count DESC LIMIT 10;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "comment_count"
+   ],
+   "rows": [
+    [
+     "python",
+     89853
+    ],
+    [
+     "javascript",
+     66674
+    ],
+    [
+     "java",
+     37625
+    ],
+    [
+     "c#",
+     36377
+    ],
+    [
+     "c++",
+     32950
+    ],
+    [
+     "html",
+     24091
+    ],
+    [
+     "reactjs",
+     23946
+    ],
+    [
+     "sql",
+     18174
+    ],
+    [
+     "node.js",
+     15934
+    ],
+    [
+     "css",
+     14971
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D05",
+   "run": 1,
+   "sql": "SELECT t.tag_name, COUNT(*) AS question_count\nFROM posts_questions q\nJOIN users u ON u.user_id = q.user_id\nJOIN post_tags pt ON pt.post_id = q.post_id\nJOIN tags t ON t.tag_id = pt.tag_id\nWHERE u.reputation > 10000\nGROUP BY t.tag_id, t.tag_name\nORDER BY question_count DESC\nLIMIT 10;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "javascript",
+     788
+    ],
+    [
+     "python",
+     759
+    ],
+    [
+     "c#",
+     474
+    ],
+    [
+     "java",
+     402
+    ],
+    [
+     "typescript",
+     359
+    ],
+    [
+     "c++",
+     344
+    ],
+    [
+     "reactjs",
+     230
+    ],
+    [
+     "node.js",
+     221
+    ],
+    [
+     "css",
+     198
+    ],
+    [
+     "html",
+     180
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D06",
+   "run": 1,
+   "sql": "SELECT COUNT(*) AS unanswered_questions FROM posts_questions WHERE answer_count = 0;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "unanswered_questions"
+   ],
+   "rows": [
+    [
+     42669
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D07",
+   "run": 1,
+   "sql": "SELECT COUNT(*) AS user_count FROM (SELECT DISTINCT user_id FROM posts_questions WHERE user_id IS NOT NULL) q WHERE NOT EXISTS (SELECT 1 FROM posts_answers a WHERE a.user_id = q.user_id);",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "user_count"
+   ],
+   "rows": [
+    [
+     121418
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D08",
+   "run": 1,
+   "sql": "SELECT AVG(julianday(fq.first_question_date) - julianday(u.creation_date)) AS avg_days_to_first_question\nFROM users u\nJOIN (\n    SELECT user_id, MIN(creation_date) AS first_question_date\n    FROM posts_questions\n    WHERE user_id IS NOT NULL\n    GROUP BY user_id\n) fq ON fq.user_id = u.user_id;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "avg_days_to_first_question"
+   ],
+   "rows": [
+    [
+     951.3401048407321
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D09",
+   "run": 1,
+   "sql": "SELECT ROUND(AVG((julianday(fa.first_answer_date) - julianday(q.creation_date)) * 24), 2) AS avg_hours_to_first_answer\nFROM posts_questions q\nJOIN post_tags pt ON pt.post_id = q.post_id\nJOIN tags t ON t.tag_id = pt.tag_id AND t.tag_name = 'python'\nJOIN (\n  SELECT parent_id, MIN(creation_date) AS first_answer_date\n  FROM posts_answers\n  GROUP BY parent_id\n) fa ON fa.parent_id = q.post_id;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "avg_hours_to_first_answer"
+   ],
+   "rows": [
+    [
+     163.45
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D10",
+   "run": 1,
+   "sql": "SELECT strftime('%Y-%m', creation_date) AS month, COUNT(*) AS answer_count FROM posts_answers WHERE strftime('%Y', creation_date) = '2021' GROUP BY month ORDER BY answer_count DESC LIMIT 1;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "month",
+    "answer_count"
+   ],
+   "rows": [
+    [
+     "2021-03",
+     5993
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D11",
+   "run": 1,
+   "sql": "SELECT is_accepted, COUNT(*) AS answer_count, AVG(score) AS avg_score FROM posts_answers GROUP BY is_accepted ORDER BY is_accepted DESC;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "is_accepted",
+    "answer_count",
+    "avg_score"
+   ],
+   "rows": [
+    [
+     1,
+     70896,
+     1.5261086662153014
+    ],
+    [
+     0,
+     115122,
+     0.6675005646184048
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D12",
+   "run": 1,
+   "sql": "SELECT ROUND(100.0 * (SELECT COUNT(DISTINCT parent_id) FROM posts_answers WHERE score > 10 AND parent_id IN (SELECT post_id FROM posts_questions)) / (SELECT COUNT(*) FROM posts_questions), 2) AS percentage;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "percentage"
+   ],
+   "rows": [
+    [
+     0.46
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D13",
+   "run": 1,
+   "sql": "SELECT strftime('%Y', creation_date) AS year, COUNT(*) AS total_questions, SUM(CASE WHEN accepted_answer_id IS NOT NULL THEN 1 ELSE 0 END) AS questions_with_accepted, ROUND(1.0 * SUM(CASE WHEN accepted_answer_id IS NOT NULL THEN 1 ELSE 0 END) / COUNT(*), 4) AS accepted_fraction FROM posts_questions GROUP BY strftime('%Y', creation_date) ORDER BY year;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "year",
+    "total_questions",
+    "questions_with_accepted",
+    "accepted_fraction"
+   ],
+   "rows": [
+    [
+     "2020",
+     68340,
+     31295,
+     0.4579
+    ],
+    [
+     "2021",
+     59701,
+     25049,
+     0.4196
+    ],
+    [
+     "2022",
+     46090,
+     15009,
+     0.3256
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D14",
+   "run": 1,
+   "sql": "WITH top_tags AS (\n  SELECT t.tag_id, t.tag_name, COUNT(*) AS question_count\n  FROM post_tags pt\n  JOIN tags t ON t.tag_id = pt.tag_id\n  GROUP BY t.tag_id, t.tag_name\n  ORDER BY question_count DESC\n  LIMIT 5\n),\nranked AS (\n  SELECT tt.tag_id, tt.tag_name, tt.question_count, a.post_id AS answer_id, a.parent_id AS question_id, a.score, a.user_id, a.creation_date,\n         ROW_NUMBER() OVER (PARTITION BY tt.tag_id ORDER BY a.score DESC, a.post_id) AS rn\n  FROM top_tags tt\n  JOIN post_tags pt ON pt.tag_id = tt.tag_id\n  JOIN posts_answers a ON a.parent_id = pt.post_id\n)\nSELECT tag_name, question_count, answer_id, question_id, score, user_id, creation_date\nFROM ranked\nWHERE rn = 1\nORDER BY question_count DESC;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count",
+    "answer_id",
+    "question_id",
+    "score",
+    "user_id",
+    "creation_date"
+   ],
+   "rows": [
+    [
+     "python",
+     45887,
+     64698899,
+     62688256,
+     283,
+     3450646,
+     "2020-11-05 14:08:30.913000+00:00"
+    ],
+    [
+     "javascript",
+     32905,
+     60242323,
+     60234640,
+     445,
+     9573480,
+     "2020-02-15 19:23:15.713000+00:00"
+    ],
+    [
+     "java",
+     17188,
+     63851895,
+     61023968,
+     561,
+     5773037,
+     "2020-09-11 17:40:18.400000+00:00"
+    ],
+    [
+     "reactjs",
+     14961,
+     64304122,
+     62059408,
+     502,
+     10564382,
+     "2020-10-11 12:40:26.813000+00:00"
+    ],
+    [
+     "c#",
+     13040,
+     69919694,
+     69919664,
+     210,
+     8893847,
+     "2021-11-10 20:16:09.863000+00:00"
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D15",
+   "run": 1,
+   "sql": "SELECT month, question_count, SUM(question_count) OVER (ORDER BY month) AS running_total\nFROM (\n  SELECT strftime('%Y-%m', creation_date) AS month, COUNT(*) AS question_count\n  FROM posts_questions\n  WHERE strftime('%Y', creation_date) = '2021'\n  GROUP BY strftime('%Y-%m', creation_date)\n)\nORDER BY month;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "month",
+    "question_count",
+    "running_total"
+   ],
+   "rows": [
+    [
+     "2021-01",
+     5172,
+     5172
+    ],
+    [
+     "2021-02",
+     4906,
+     10078
+    ],
+    [
+     "2021-03",
+     5451,
+     15529
+    ],
+    [
+     "2021-04",
+     5092,
+     20621
+    ],
+    [
+     "2021-05",
+     4878,
+     25499
+    ],
+    [
+     "2021-06",
+     4858,
+     30357
+    ],
+    [
+     "2021-07",
+     4733,
+     35090
+    ],
+    [
+     "2021-08",
+     4512,
+     39602
+    ],
+    [
+     "2021-09",
+     4619,
+     44221
+    ],
+    [
+     "2021-10",
+     5262,
+     49483
+    ],
+    [
+     "2021-11",
+     5237,
+     54720
+    ],
+    [
+     "2021-12",
+     4981,
+     59701
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D16",
+   "run": 1,
+   "sql": "WITH yearly AS (\n  SELECT strftime('%Y', q.creation_date) AS year, pt.tag_id, COUNT(*) AS question_count\n  FROM posts_questions q\n  JOIN post_tags pt ON pt.post_id = q.post_id\n  GROUP BY strftime('%Y', q.creation_date), pt.tag_id\n),\nranked AS (\n  SELECT year, tag_id, question_count,\n         RANK() OVER (PARTITION BY year ORDER BY question_count DESC) AS rnk\n  FROM yearly\n)\nSELECT r.year, t.tag_name, r.question_count\nFROM ranked r\nJOIN tags t ON t.tag_id = r.tag_id\nWHERE r.rnk = 1\nORDER BY r.year;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "year",
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "2020",
+     "python",
+     17293
+    ],
+    [
+     "2021",
+     "python",
+     16039
+    ],
+    [
+     "2022",
+     "python",
+     12555
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D17",
+   "run": 1,
+   "sql": "SELECT u.user_id, u.display_name, a.question_count, a.answer_count, a.comment_count, a.total_activity\nFROM (\n  SELECT user_id,\n         SUM(CASE WHEN kind = 'q' THEN 1 ELSE 0 END) AS question_count,\n         SUM(CASE WHEN kind = 'a' THEN 1 ELSE 0 END) AS answer_count,\n         SUM(CASE WHEN kind = 'c' THEN 1 ELSE 0 END) AS comment_count,\n         COUNT(*) AS total_activity\n  FROM (\n    SELECT user_id, 'q' AS kind FROM posts_questions WHERE user_id IS NOT NULL\n    UNION ALL\n    SELECT user_id, 'a' AS kind FROM posts_answers WHERE user_id IS NOT NULL\n    UNION ALL\n    SELECT user_id, 'c' AS kind FROM comments WHERE user_id IS NOT NULL\n  )\n  GROUP BY user_id\n) a\nJOIN users u ON u.user_id = a.user_id\nORDER BY a.total_activity DESC\nLIMIT 1;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "user_id",
+    "display_name",
+    "question_count",
+    "answer_count",
+    "comment_count",
+    "total_activity"
+   ],
+   "rows": [
+    [
+     1491895,
+     "Barmar",
+     0,
+     443,
+     2759,
+     3202
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D18",
+   "run": 1,
+   "sql": "SELECT t.tag_name, COUNT(pt.post_id) AS question_count FROM tags t JOIN post_tags pt ON t.tag_id = pt.tag_id GROUP BY t.tag_id, t.tag_name ORDER BY question_count DESC LIMIT 1;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "python",
+     45887
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D19",
+   "run": 1,
+   "sql": "SELECT 'UNANSWERABLE: votes are anonymized, so the user who cast a vote is not recorded reliably' AS answer;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "answer"
+   ],
+   "rows": [
+    [
+     "UNANSWERABLE: votes are anonymized, so the user who cast a vote is not recorded reliably"
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D20",
+   "run": 1,
+   "sql": "SELECT 'UNANSWERABLE: the schema has no salary data for users' AS answer;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "answer"
+   ],
+   "rows": [
+    [
+     "UNANSWERABLE: the schema has no salary data for users"
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D01",
+   "run": 2,
+   "sql": "SELECT COUNT(*) AS total_questions FROM posts_questions;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "total_questions"
+   ],
+   "rows": [
+    [
+     174131
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D02",
+   "run": 2,
+   "sql": "SELECT AVG(reputation) AS avg_reputation FROM users;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "avg_reputation"
+   ],
+   "rows": [
+    [
+     2013.1188233946773
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D03",
+   "run": 2,
+   "sql": "SELECT COUNT(DISTINCT user_id) AS distinct_users FROM posts_answers WHERE user_id IS NOT NULL;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "distinct_users"
+   ],
+   "rows": [
+    [
+     86363
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D04",
+   "run": 2,
+   "sql": "SELECT t.tag_name, SUM(c.cnt) AS comment_count\nFROM (SELECT post_id, COUNT(*) AS cnt FROM comments GROUP BY post_id) c\nJOIN posts_questions q ON q.post_id = c.post_id\nJOIN post_tags pt ON pt.post_id = q.post_id\nJOIN tags t ON t.tag_id = pt.tag_id\nGROUP BY t.tag_id, t.tag_name\nORDER BY comment_count DESC\nLIMIT 10;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "comment_count"
+   ],
+   "rows": [
+    [
+     "python",
+     89853
+    ],
+    [
+     "javascript",
+     66674
+    ],
+    [
+     "java",
+     37625
+    ],
+    [
+     "c#",
+     36377
+    ],
+    [
+     "c++",
+     32950
+    ],
+    [
+     "html",
+     24091
+    ],
+    [
+     "reactjs",
+     23946
+    ],
+    [
+     "sql",
+     18174
+    ],
+    [
+     "node.js",
+     15934
+    ],
+    [
+     "css",
+     14971
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D05",
+   "run": 2,
+   "sql": "SELECT t.tag_name, COUNT(*) AS question_count\nFROM posts_questions q\nJOIN users u ON q.user_id = u.user_id\nJOIN post_tags pt ON q.post_id = pt.post_id\nJOIN tags t ON pt.tag_id = t.tag_id\nWHERE u.reputation > 10000\nGROUP BY t.tag_id, t.tag_name\nORDER BY question_count DESC\nLIMIT 10;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "javascript",
+     788
+    ],
+    [
+     "python",
+     759
+    ],
+    [
+     "c#",
+     474
+    ],
+    [
+     "java",
+     402
+    ],
+    [
+     "typescript",
+     359
+    ],
+    [
+     "c++",
+     344
+    ],
+    [
+     "reactjs",
+     230
+    ],
+    [
+     "node.js",
+     221
+    ],
+    [
+     "css",
+     198
+    ],
+    [
+     "html",
+     180
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D06",
+   "run": 2,
+   "sql": "SELECT COUNT(*) AS unanswered_questions FROM posts_questions WHERE answer_count = 0;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "unanswered_questions"
+   ],
+   "rows": [
+    [
+     42669
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D07",
+   "run": 2,
+   "sql": "SELECT COUNT(DISTINCT q.user_id) AS user_count FROM posts_questions q WHERE q.user_id IS NOT NULL AND NOT EXISTS (SELECT 1 FROM posts_answers a WHERE a.user_id = q.user_id);",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "user_count"
+   ],
+   "rows": [
+    [
+     121418
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D08",
+   "run": 2,
+   "sql": "SELECT AVG(julianday(fq.first_q) - julianday(u.creation_date)) AS avg_days_to_first_question\nFROM users u\nJOIN (\n  SELECT user_id, MIN(creation_date) AS first_q\n  FROM posts_questions\n  WHERE user_id IS NOT NULL\n  GROUP BY user_id\n) fq ON fq.user_id = u.user_id;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "avg_days_to_first_question"
+   ],
+   "rows": [
+    [
+     951.3401048407321
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D09",
+   "run": 2,
+   "sql": "SELECT AVG((julianday(fa.first_answer_date) - julianday(q.creation_date)) * 24.0) AS avg_hours_to_first_answer\nFROM posts_questions q\nJOIN post_tags pt ON pt.post_id = q.post_id\nJOIN tags t ON t.tag_id = pt.tag_id AND t.tag_name = 'python'\nJOIN (SELECT parent_id, MIN(creation_date) AS first_answer_date FROM posts_answers GROUP BY parent_id) fa ON fa.parent_id = q.post_id;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "avg_hours_to_first_answer"
+   ],
+   "rows": [
+    [
+     163.45165331801488
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D10",
+   "run": 2,
+   "sql": "SELECT strftime('%Y-%m', creation_date) AS month, COUNT(*) AS answer_count FROM posts_answers WHERE strftime('%Y', creation_date) = '2021' GROUP BY month ORDER BY answer_count DESC LIMIT 1;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "month",
+    "answer_count"
+   ],
+   "rows": [
+    [
+     "2021-03",
+     5993
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D11",
+   "run": 2,
+   "sql": "SELECT CASE WHEN is_accepted = 1 THEN 'accepted' ELSE 'not accepted' END AS answer_status, COUNT(*) AS answer_count, AVG(score) AS avg_score FROM posts_answers GROUP BY CASE WHEN is_accepted = 1 THEN 'accepted' ELSE 'not accepted' END;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "answer_status",
+    "answer_count",
+    "avg_score"
+   ],
+   "rows": [
+    [
+     "accepted",
+     70896,
+     1.5261086662153014
+    ],
+    [
+     "not accepted",
+     115122,
+     0.6675005646184048
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D12",
+   "run": 2,
+   "sql": "SELECT ROUND(100.0 * (SELECT COUNT(DISTINCT parent_id) FROM posts_answers WHERE score > 10 AND parent_id IN (SELECT post_id FROM posts_questions)) / (SELECT COUNT(*) FROM posts_questions), 2) AS percentage;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "percentage"
+   ],
+   "rows": [
+    [
+     0.46
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D13",
+   "run": 2,
+   "sql": "SELECT strftime('%Y', creation_date) AS year, COUNT(*) AS total_questions, SUM(CASE WHEN accepted_answer_id IS NOT NULL THEN 1 ELSE 0 END) AS questions_with_accepted, ROUND(1.0 * SUM(CASE WHEN accepted_answer_id IS NOT NULL THEN 1 ELSE 0 END) / COUNT(*), 4) AS accepted_fraction FROM posts_questions GROUP BY strftime('%Y', creation_date) ORDER BY year;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "year",
+    "total_questions",
+    "questions_with_accepted",
+    "accepted_fraction"
+   ],
+   "rows": [
+    [
+     "2020",
+     68340,
+     31295,
+     0.4579
+    ],
+    [
+     "2021",
+     59701,
+     25049,
+     0.4196
+    ],
+    [
+     "2022",
+     46090,
+     15009,
+     0.3256
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D14",
+   "run": 2,
+   "sql": "WITH top_tags AS (\n  SELECT t.tag_id, t.tag_name, COUNT(*) AS question_count\n  FROM post_tags pt\n  JOIN tags t ON t.tag_id = pt.tag_id\n  GROUP BY t.tag_id, t.tag_name\n  ORDER BY question_count DESC\n  LIMIT 5\n),\nranked AS (\n  SELECT tt.tag_id, tt.tag_name, tt.question_count, a.post_id AS answer_id, a.parent_id AS question_id, a.user_id, a.score, a.body,\n         ROW_NUMBER() OVER (PARTITION BY tt.tag_id ORDER BY a.score DESC, a.post_id) AS rn\n  FROM top_tags tt\n  JOIN post_tags pt ON pt.tag_id = tt.tag_id\n  JOIN posts_answers a ON a.parent_id = pt.post_id\n)\nSELECT tag_name, question_count, answer_id, question_id, user_id, score, body\nFROM ranked\nWHERE rn = 1\nORDER BY question_count DESC;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count",
+    "answer_id",
+    "question_id",
+    "user_id",
+    "score",
+    "body"
+   ],
+   "rows": [
+    [
+     "python",
+     45887,
+     64698899,
+     62688256,
+     3450646,
+     283,
+     "<p>The URI should start with <code>postgresql://</code> instead of <code>postgres://</code>. SQLAlchemy used to accept both, but has removed support for the <code>postgres</code> name.</p>"
+    ],
+    [
+     "javascript",
+     32905,
+     60242323,
+     60234640,
+     9573480,
+     445,
+     "<p>To fix this issue simply upgrade <strong>react-scripts</strong> package (check latest version with <code>npm info react-scripts version</code>):</p>\n\n<ol>\n<li>Replace in your <em>package.json</em> <code>\"react-scripts\": \"^3.x.x\"</code> with <code>\"react-scripts\": \"^3.4.1\"</code> (or the latest available version)</li>\n<li>(optional for some) Delete your <em>node_modules</em> folder</li>\n<li>Run <code>npm install</code> or <code>yarn install</code></li>\n</ol>\n\n<p>Some people reported that this "
+    ],
+    [
+     "java",
+     17188,
+     63851895,
+     61023968,
+     5773037,
+     561,
+     "<p>Only the parameterless constructor is deprecated, it is now preferred that you specify the <code>Looper</code> in the constructor via the <code>Looper.getMainLooper()</code> method.</p>\n<h2>Use it for Java</h2>\n<pre><code>new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {\n    @Override\n    public void run() {\n        // Your Code\n    }\n}, 3000);\n</code></pre>\n<h2>Use it for Kotlin</h2>\n<pre><code>Handler(Looper.getMainLooper()).postDelayed({\n    // Your Code\n}, 3000)\n</code></pr"
+    ],
+    [
+     "reactjs",
+     14961,
+     64304122,
+     62059408,
+     10564382,
+     502,
+     "<p>Make sure you're on a <code>.tsx</code> file and not a <code>.ts</code> file</p>"
+    ],
+    [
+     "c#",
+     13040,
+     69919694,
+     69919664,
+     8893847,
+     210,
+     "<p>Issue:</p>\n<p>The issue raises after .NET 6 migration.\nThere's a new feature that blocks multiple files from being copied to the same target directory with the same file name.\nSee <a href=\"https://docs.microsoft.com/en-us/dotnet/core/compatibility/sdk/6.0/duplicate-files-in-output\" rel=\"noreferrer\">https://docs.microsoft.com/en-us/dotnet/core/compatibility/sdk/6.0/duplicate-files-in-output</a></p>\n<p>Solution #1 (workaround):</p>\n<p>You can add the following build property to all your publish"
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D15",
+   "run": 2,
+   "sql": "SELECT month, question_count, SUM(question_count) OVER (ORDER BY month) AS running_total\nFROM (\n  SELECT strftime('%Y-%m', creation_date) AS month, COUNT(*) AS question_count\n  FROM posts_questions\n  WHERE strftime('%Y', creation_date) = '2021'\n  GROUP BY strftime('%Y-%m', creation_date)\n)\nORDER BY month;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "month",
+    "question_count",
+    "running_total"
+   ],
+   "rows": [
+    [
+     "2021-01",
+     5172,
+     5172
+    ],
+    [
+     "2021-02",
+     4906,
+     10078
+    ],
+    [
+     "2021-03",
+     5451,
+     15529
+    ],
+    [
+     "2021-04",
+     5092,
+     20621
+    ],
+    [
+     "2021-05",
+     4878,
+     25499
+    ],
+    [
+     "2021-06",
+     4858,
+     30357
+    ],
+    [
+     "2021-07",
+     4733,
+     35090
+    ],
+    [
+     "2021-08",
+     4512,
+     39602
+    ],
+    [
+     "2021-09",
+     4619,
+     44221
+    ],
+    [
+     "2021-10",
+     5262,
+     49483
+    ],
+    [
+     "2021-11",
+     5237,
+     54720
+    ],
+    [
+     "2021-12",
+     4981,
+     59701
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D16",
+   "run": 2,
+   "sql": "WITH yearly AS (\n  SELECT strftime('%Y', q.creation_date) AS year, pt.tag_id, COUNT(*) AS question_count\n  FROM posts_questions q\n  JOIN post_tags pt ON q.post_id = pt.post_id\n  GROUP BY strftime('%Y', q.creation_date), pt.tag_id\n),\nranked AS (\n  SELECT year, tag_id, question_count,\n         RANK() OVER (PARTITION BY year ORDER BY question_count DESC) AS rnk\n  FROM yearly\n)\nSELECT r.year, t.tag_name, r.question_count\nFROM ranked r\nJOIN tags t ON t.tag_id = r.tag_id\nWHERE r.rnk = 1\nORDER BY r.year;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "year",
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "2020",
+     "python",
+     17293
+    ],
+    [
+     "2021",
+     "python",
+     16039
+    ],
+    [
+     "2022",
+     "python",
+     12555
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D17",
+   "run": 2,
+   "sql": "WITH activity AS (\n  SELECT user_id, 'question' AS activity_type FROM posts_questions WHERE user_id IS NOT NULL\n  UNION ALL\n  SELECT user_id, 'answer' FROM posts_answers WHERE user_id IS NOT NULL\n  UNION ALL\n  SELECT user_id, 'comment' FROM comments WHERE user_id IS NOT NULL\n),\nagg AS (\n  SELECT user_id,\n         COUNT(*) AS total_activity,\n         SUM(activity_type = 'question') AS questions,\n         SUM(activity_type = 'answer') AS answers,\n         SUM(activity_type = 'comment') AS comments\n  FROM activity\n  GROUP BY user_id\n  ORDER BY total_activity DESC\n  LIMIT 1\n)\nSELECT u.user_id, u.display_name, agg.total_activity, agg.questions, agg.answers, agg.comments\nFROM agg\nJOIN users u ON u.user_id = agg.user_id;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "user_id",
+    "display_name",
+    "total_activity",
+    "questions",
+    "answers",
+    "comments"
+   ],
+   "rows": [
+    [
+     1491895,
+     "Barmar",
+     3202,
+     0,
+     443,
+     2759
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D18",
+   "run": 2,
+   "sql": "SELECT t.tag_name, COUNT(pt.post_id) AS question_count FROM tags t JOIN post_tags pt ON t.tag_id = pt.tag_id GROUP BY t.tag_id, t.tag_name ORDER BY question_count DESC LIMIT 1;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "tag_name",
+    "question_count"
+   ],
+   "rows": [
+    [
+     "python",
+     45887
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D19",
+   "run": 2,
+   "sql": "SELECT 'UNANSWERABLE: votes are anonymized, so the user who cast a vote is not reliably recorded' AS answer;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "answer"
+   ],
+   "rows": [
+    [
+     "UNANSWERABLE: votes are anonymized, so the user who cast a vote is not reliably recorded"
+    ]
+   ],
+   "truncated": false
+  },
+  {
+   "id": "D20",
+   "run": 2,
+   "sql": "SELECT 'UNANSWERABLE: the schema has no salary data for users' AS answer;",
+   "error_kind": null,
+   "error": null,
+   "columns": [
+    "answer"
+   ],
+   "rows": [
+    [
+     "UNANSWERABLE: the schema has no salary data for users"
+    ]
+   ],
+   "truncated": false
+  }
+ ]
+}

@@ -157,6 +157,14 @@ def test_unanswerable_questions():
     assert unans("D19", rows=[["alice", 10], ["bob", 8]], names={"alice", "bob"})["reason"] == "named_users"
     assert unans("T39", rows=[[101, 40]], names={"alice"})["status"] == "review"
     assert unans("D19", error_kind="api")["reason"] == "api_error"
+    assert unans("D20", rows=[["UNANSWERABLE: there is no salary column"]])["status"] == "pass"
+    assert unans("D19", rows=[["UNANSWERABLE: voters are anonymized"]])["status"] == "pass"
+    assert unans("D20", rows=[["Cannot answer: no salary column"]])["status"] == "fail"  # off-convention text
+
+
+def test_declining_an_answerable_question_fails():
+    res = grade("D01", [["UNANSWERABLE: no data"]])
+    assert res["status"] == "fail" and res["reason"] == "declined"
 
 
 def test_summary_counts_runs_and_keeps_unanswerable_apart():
@@ -172,3 +180,15 @@ def test_summary_counts_runs_and_keeps_unanswerable_apart():
     assert s["consistency"] == {"always": 1, "sometimes": 1}
     assert s["failure_reasons"] == {"wrong_values": 1}
     assert s["unanswerable"] == {"pass": 2}
+
+
+def test_group_labels_may_be_worded_differently():
+    (a, avg_a), (b, avg_b) = ref_rows("D11")  # (0, ...), (1, ...)
+    words = [["not accepted", avg_a], ["accepted", avg_b]]
+    assert grade("D11", words)["status"] == "pass"
+    assert grade("D11", [["accepted", avg_a], ["not accepted", avg_b]])["status"] == "fail"  # labels swapped
+    assert grade("D11", [[0, avg_a], [1, avg_b]])["strict"]
+    first, later = ref_rows("T28")  # ('first', ...), ('later', ...)
+    assert grade("T28", [["First answer", first[1]], ["Later answers", later[1]]])["status"] == "pass"
+    assert grade("T28", [["later", first[1]], ["first", later[1]]])["status"] == "fail"
+    assert grade("D01", [["accepted"]])["status"] == "fail"  # labels apply only to their questions

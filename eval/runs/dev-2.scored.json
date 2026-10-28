@@ -1,0 +1,754 @@
+{
+ "meta": {
+  "label": "dev-2",
+  "split": "dev",
+  "runs": 3,
+  "model": "claude-sonnet-5-5",
+  "prompt_sha256": "197956c6862eb9eb9646ceac33ce203c27d9a6a40c99ecec19e2160acecd368c",
+  "git_commit": "b8c7205baa48e02f4a0912bef1b8d154beef8b6b",
+  "uncommitted_changes": true,
+  "started": "2026-10-28T22:31:30+00:00",
+  "query_timeout_s": 30,
+  "max_rows": 1000,
+  "finished": "2026-10-28T22:34:41+00:00"
+ },
+ "summary": {
+  "questions": 18,
+  "runs": 3,
+  "per_run_passed": {
+   "0": 18,
+   "1": 18,
+   "2": 18
+  },
+  "accuracy_by_run": {
+   "0": 1.0,
+   "1": 1.0,
+   "2": 1.0
+  },
+  "mean_accuracy": 1.0,
+  "strict_accuracy": 0.7037,
+  "consistency": {
+   "always": 18
+  },
+  "by_category": {
+   "absence": "6/6",
+   "aggregation": "9/9",
+   "ambiguous": "6/6",
+   "date": "9/9",
+   "join": "6/6",
+   "rate": "9/9",
+   "window": "9/9"
+  },
+  "pass_kinds": {
+   "label": 2,
+   "rounded": 8
+  },
+  "failure_reasons": {},
+  "unanswerable": {
+   "pass": 6
+  }
+ },
+ "items": [
+  {
+   "id": "D01",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D02",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D03",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D04",
+   "split": "dev",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D05",
+   "split": "dev",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D06",
+   "split": "dev",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D07",
+   "split": "dev",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D08",
+   "split": "dev",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D09",
+   "split": "dev",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D10",
+   "split": "dev",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D11",
+   "split": "dev",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "label",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D12",
+   "split": "dev",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D13",
+   "split": "dev",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D14",
+   "split": "dev",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D15",
+   "split": "dev",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D16",
+   "split": "dev",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D17",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "pass",
+   "matched": "alt 2",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D18",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D19",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "D20",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "D01",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D02",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D03",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D04",
+   "split": "dev",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D05",
+   "split": "dev",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D06",
+   "split": "dev",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D07",
+   "split": "dev",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D08",
+   "split": "dev",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D09",
+   "split": "dev",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D10",
+   "split": "dev",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D11",
+   "split": "dev",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D12",
+   "split": "dev",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D13",
+   "split": "dev",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D14",
+   "split": "dev",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D15",
+   "split": "dev",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D16",
+   "split": "dev",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D17",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "pass",
+   "matched": "alt 2",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D18",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D19",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "D20",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "D01",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D02",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D03",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D04",
+   "split": "dev",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D05",
+   "split": "dev",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D06",
+   "split": "dev",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D07",
+   "split": "dev",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D08",
+   "split": "dev",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D09",
+   "split": "dev",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D10",
+   "split": "dev",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D11",
+   "split": "dev",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "label"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D12",
+   "split": "dev",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D13",
+   "split": "dev",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D14",
+   "split": "dev",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D15",
+   "split": "dev",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D16",
+   "split": "dev",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D17",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "pass",
+   "matched": "alt 2",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D18",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D19",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "D20",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  }
+ ]
+}

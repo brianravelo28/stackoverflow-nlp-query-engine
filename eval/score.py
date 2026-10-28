@@ -9,8 +9,10 @@ looks like. Rules (names of columns are never compared):
     rounded value stays within 2% of it; whole-number references must match exactly
   - rate questions also accept the value times 100 (or divided by 100)
   - month and weekday questions accept names, numbers and 'YYYY-MM' interchangeably
+  - D11 and T28 group labels may be worded differently (1 / 'accepted', 'first' / 'first answer')
   - alternate reference answers are listed in questions.json; any one may match
-  - the unanswerable questions are scored apart and left out of the headline
+  - the unanswerable questions are scored apart and left out of the headline; declining
+    (an error, no rows, or the UNANSWERABLE: convention) passes, returning other data fails
 
 Input is a run file written by eval/run_eval.py:
   {"meta": {...}, "results": [{"id", "run", "sql", "error_kind", "error", "columns", "rows", "truncated"}]}
@@ -41,7 +43,14 @@ DB = ROOT / "stackoverflow.db"
 PERCENT_IDS = {"D12", "D13", "T17", "T22", "T26", "T27", "T29", "T30", "T31"}
 MONTH_IDS = {"T23": False, "D10": True, "D15": True}  # id -> also accept 'YYYY-MM'
 WEEKDAY_IDS = {"T38"}
+# Group labels that may be worded differently: id -> {reference label: accepted wordings}
+LABELS = {
+    "D11": {"1": {"1", "accepted", "yes", "true"}, "0": {"0", "not accepted", "unaccepted", "no", "false"}},
+    "T28": {"first": {"first", "first answer", "earliest", "earliest answer"},
+            "later": {"later", "later answers", "other", "others", "subsequent", "remaining", "not first", "non-first"}},
+}
 MAX_MAPPINGS = 200
+DECLINE_PREFIX = "UNANSWERABLE:"  # the prompt's convention for "the data does not exist"; see src/nlp_layer.py
 
 MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august",
           "september", "october", "november", "december"]
@@ -110,8 +119,16 @@ class Spec:
         self.percent = q["id"] in PERCENT_IDS
         self.month_ym = MONTH_IDS.get(q["id"])  # None: no month handling
         self.weekday = q["id"] in WEEKDAY_IDS
+        self.labels = LABELS.get(q["id"])
         m = re.search(r"\bLIMIT\s+(\d+)\s*$", q["reference_sql"] or "", re.I)
         self.ordered = bool(m and int(m.group(1)) > 1)
+
+
+def canon_label(v, labels: dict) -> str | None:
+    if isinstance(v, bool) or (isinstance(v, float) and not v.is_integer()):
+        return None
+    text = str(int(v)) if _is_num(v) else _text(v) if isinstance(v, str) else None
+    return next((name for name, words in labels.items() if text in words), None)
 
 
 def cell_kind(ref, got, spec: Spec) -> str | None:
@@ -137,6 +154,10 @@ def cell_kind(ref, got, spec: Spec) -> str | None:
         a, b = canon_weekday(ref), canon_weekday(got)
         if a is not None and a == b:
             return "weekday"
+    if spec.labels:
+        a, b = canon_label(ref, spec.labels), canon_label(got, spec.labels)
+        if a is not None and a == b:
+            return "label"
     return None
 
 
@@ -202,6 +223,10 @@ def compare(ref_rows, got_rows, spec: Spec) -> dict:
 
 
 # ------------------------------------------------------------------ one prediction
+def is_decline(rows) -> bool:
+    return len(rows) == 1 and len(rows[0]) == 1 and isinstance(rows[0][0], str) and rows[0][0].startswith(DECLINE_PREFIX)
+
+
 ERROR_REASON = {"api": "api_error", "gate": "gate_blocked", "timeout": "timeout", "sql": "sql_error"}
 
 
@@ -211,6 +236,8 @@ def score_answerable(q: dict, rec: dict, refs: list[dict]) -> dict:
         return {**out, "status": "fail", "reason": ERROR_REASON.get(rec["error_kind"], "sql_error"),
                 "detail": (rec.get("error") or "")[:200]}
     got = [tuple(r) for r in rec["rows"]]
+    if is_decline(got):
+        return {**out, "status": "fail", "reason": "declined", "detail": got[0][0][:200]}
     spec = Spec(q)
     best = None
     for ref in refs:
@@ -229,7 +256,7 @@ def score_unanswerable(q: dict, rec: dict, user_names: set[str] | None = None) -
     if rec.get("error_kind") == "api":
         return {**out, "status": "fail", "reason": "api_error", "detail": (rec.get("error") or "")[:200]}
     rows = rec.get("rows") or []
-    if rec.get("error_kind") or not rows or all(v is None for r in rows for v in r):
+    if is_decline(rows) or rec.get("error_kind") or not rows or all(v is None for r in rows for v in r):
         return {**out, "status": "pass", "reason": "declined"}
     if q["id"] in ("D19", "T39"):
         names = user_names or set()

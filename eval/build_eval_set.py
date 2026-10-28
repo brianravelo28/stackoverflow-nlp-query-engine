@@ -91,8 +91,14 @@ add("D17", "dev", "ambiguous", "Who is the most active user?",
     "SELECT user_id, COUNT(*) FROM posts_answers GROUP BY user_id) GROUP BY user_id "
     "ORDER BY total DESC, user_id LIMIT 1) x JOIN users u ON u.user_id = x.user_id",
     alts=["SELECT u.display_name, COUNT(*) AS n FROM posts_answers a JOIN users u ON u.user_id = a.user_id "
-          "GROUP BY u.user_id, u.display_name ORDER BY n DESC, u.user_id LIMIT 1"],
-    notes="Ambiguous. Primary: questions + answers. Also accepted: answers only. Questions only is not accepted.")
+          "GROUP BY u.user_id, u.display_name ORDER BY n DESC, u.user_id LIMIT 1",
+          "SELECT u.display_name, x.total FROM (SELECT user_id, SUM(n) AS total FROM "
+          "(SELECT user_id, COUNT(*) AS n FROM posts_questions GROUP BY user_id UNION ALL "
+          "SELECT user_id, COUNT(*) FROM posts_answers GROUP BY user_id UNION ALL "
+          "SELECT user_id, COUNT(*) FROM comments GROUP BY user_id) GROUP BY user_id "
+          "ORDER BY total DESC, user_id LIMIT 1) x JOIN users u ON u.user_id = x.user_id"],
+    notes="Ambiguous. Primary: questions + answers. Also accepted: answers only; questions + answers + comments. "
+          "Questions only is not accepted.")
 add("D18", "dev", "ambiguous", "What is the most popular tag?",
     "SELECT t.tag_name, COUNT(*) AS n FROM post_tags pt JOIN tags t ON t.tag_id = pt.tag_id "
     "GROUP BY t.tag_id, t.tag_name ORDER BY n DESC, t.tag_name LIMIT 1",

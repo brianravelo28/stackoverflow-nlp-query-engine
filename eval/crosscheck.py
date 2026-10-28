@@ -111,7 +111,10 @@ t = top(both, ["total", "user_id"], [False, True], 1)
 r_both = [(uname[t.user_id.iloc[0]], t.total.iloc[0])]
 ta = top(a.user_id.value_counts().rename("n").reset_index().set_axis(["user_id", "n"], axis=1), ["n", "user_id"], [False, True], 1)
 tq = top(q.user_id.value_counts().rename("n").reset_index().set_axis(["user_id", "n"], axis=1), ["n", "user_id"], [False, True], 1)
-R["D17"] = [r_both, [(uname[ta.user_id.iloc[0]], ta.n.iloc[0])]]
+allc = pd.concat([q.user_id, a.user_id, c.user_id]).value_counts().rename("total").reset_index()
+allc.columns = ["user_id", "total"]
+tc3 = top(allc, ["total", "user_id"], [False, True], 1)
+R["D17"] = [r_both, [(uname[ta.user_id.iloc[0]], ta.n.iloc[0])], [(uname[tc3.user_id.iloc[0]], tc3.total.iloc[0])]]
 tc = top(tag_counts(pt), ["n", "tag_name"], [False, True], 1)
 tv = ptq.groupby("tag_id").view_count.sum().rename("v").reset_index()
 tv["tag_name"] = tv.tag_id.map(tagname)
