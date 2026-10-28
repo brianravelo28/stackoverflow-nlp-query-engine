@@ -3,6 +3,7 @@ import json
 import re
 import sqlite3
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -100,3 +101,45 @@ def test_validate_and_execute_blocks_writes_without_touching_data():
         result, error = validate_and_execute(sql, conn)
         assert result is None and error.startswith("Error:")
     assert conn.execute("SELECT COUNT(*) FROM t").fetchone()[0] == 1
+
+
+def _numbers_db(n):
+    conn = sqlite3.connect(":memory:")
+    conn.execute("CREATE TABLE t (a INTEGER, b TEXT)")
+    conn.executemany("INSERT INTO t VALUES (?, ?)", [(i, f"x{i}") for i in range(n)])
+    return conn
+
+
+def test_row_cap_truncates_and_flags():
+    conn = _numbers_db(25)
+    result, error = validate_and_execute("SELECT a, b FROM t ORDER BY a", conn, max_rows=10)
+    assert error is None
+    assert list(result.a) == list(range(10)) and result.attrs["truncated"] is True
+
+
+def test_row_cap_not_flagged_at_or_under_limit():
+    conn = _numbers_db(10)
+    result, error = validate_and_execute("SELECT a FROM t", conn, max_rows=10)
+    assert error is None and len(result) == 10 and result.attrs["truncated"] is False
+
+
+def test_empty_result_keeps_columns():
+    conn = _numbers_db(3)
+    result, error = validate_and_execute("SELECT a, b FROM t WHERE a > 100", conn)
+    assert error is None and list(result.columns) == ["a", "b"] and result.empty
+
+
+def test_timeout_interrupts_runaway_query_and_connection_still_works():
+    conn = _numbers_db(3)
+    runaway = "WITH RECURSIVE c(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM c) SELECT COUNT(*) FROM c"
+    start = time.monotonic()
+    result, error = validate_and_execute(runaway, conn, timeout=0.5)
+    assert result is None and "timed out" in error
+    assert time.monotonic() - start < 5
+    result, error = validate_and_execute("SELECT COUNT(*) AS n FROM t", conn)
+    assert error is None and result.n.iloc[0] == 3
+
+
+def test_sql_errors_still_reported():
+    result, error = validate_and_execute("SELECT * FROM no_such_table", _numbers_db(1))
+    assert result is None and error.startswith("Query failed:")

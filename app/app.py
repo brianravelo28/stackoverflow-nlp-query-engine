@@ -123,4 +123,7 @@ if user_input:
             content = f"```sql\n{sql}\n```"
             st.markdown(content)
             st.dataframe(result, use_container_width=True)
+            if result.attrs.get("truncated"):
+                st.caption(f"Showing the first {len(result):,} rows.")
+                content += f"\n\n*Showing the first {len(result):,} rows.*"
             st.session_state.messages.append({"role": "assistant", "content": content, "df": result})

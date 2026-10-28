@@ -9,6 +9,8 @@ from __future__ import annotations
 import os
 import re
 import sqlite3
+import threading
+import time
 from pathlib import Path
 
 import pandas as pd
@@ -130,17 +132,51 @@ def check_sql(sql_query: str) -> str | None:
     return None
 
 
-def validate_and_execute(sql_query: str, conn: sqlite3.Connection):
+MAX_ROWS = 1000
+QUERY_TIMEOUT_S = 10
+
+# The app shares one connection across sessions, so the deadline is kept per
+# thread and a single progress handler (installed once, never cleared) checks it.
+_deadline = threading.local()
+
+
+def _abort_if_late() -> bool:
+    limit = getattr(_deadline, "at", None)
+    return limit is not None and time.monotonic() > limit
+
+
+def validate_and_execute(sql_query: str, conn: sqlite3.Connection,
+                         max_rows: int = MAX_ROWS, timeout: float = QUERY_TIMEOUT_S):
+    """Run a validated query. Returns (DataFrame, None) or (None, error message).
+
+    At most `max_rows` rows come back; when there were more, result.attrs["truncated"]
+    is True. A query running longer than `timeout` seconds is interrupted.
+    """
     stripped = sql_query.strip().rstrip(";")
     error = check_sql(sql_query)
     if error:
         return None, error
 
+    conn.set_progress_handler(_abort_if_late, 100_000)
+    _deadline.at = time.monotonic() + timeout
     try:
-        result = pd.read_sql(stripped, conn)
-        return result, None
+        cur = conn.execute(stripped)
+        columns = [d[0] for d in cur.description]
+        rows = cur.fetchmany(max_rows + 1)
+        cur.close()
+    except sqlite3.OperationalError as e:
+        if "interrupted" in str(e):
+            return None, f"Query timed out after {timeout:g} seconds. Try a narrower question."
+        return None, f"Query failed: {str(e)[:200]}"
     except Exception as e:
         return None, f"Query failed: {str(e)[:200]}"
+    finally:
+        _deadline.at = None
+
+    truncated = len(rows) > max_rows
+    result = pd.DataFrame.from_records(rows[:max_rows], columns=columns, coerce_float=True)
+    result.attrs["truncated"] = truncated
+    return result, None
 
 
 def main():
