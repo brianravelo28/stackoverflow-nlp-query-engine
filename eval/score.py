@@ -1,7 +1,7 @@
 """Score a run of the NLP layer against the reference answers (execution match).
 
-A prediction passes when the rows it returns contain the reference rows, whatever
-the SQL looks like. Rules (names of columns are never compared):
+A prediction passes when it returns the same rows as the reference, whatever the SQL
+looks like. Rules (names of columns are never compared):
   - every reference column must appear in the prediction; extra columns are allowed
     (the strict score counts only the same columns in the same order)
   - row order matters only for ranking questions (reference SQL ends in LIMIT n, n > 1)
