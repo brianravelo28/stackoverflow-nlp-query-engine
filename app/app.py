@@ -6,7 +6,9 @@ from pathlib import Path
 import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
-from nlp_layer import generate_sql, validate_and_execute  # noqa: E402
+from nlp_layer import (  # noqa: E402
+    GenerationError, count_daily_question, daily_limit_reached, decline_reason, generate_sql, validate_and_execute,
+)
 
 DB_PATH = Path(__file__).resolve().parent.parent / "stackoverflow.db"
 
@@ -49,7 +51,7 @@ EXAMPLE_QUESTIONS = [
 ]
 
 SHOWN = 7
-MAX_QUESTIONS = 10
+MAX_QUESTIONS = 12
 
 
 def new_sample():
@@ -62,7 +64,11 @@ def ask(question):
 
 st.set_page_config(page_title="StackOverflow NLP Query Engine", layout="wide")
 st.title("StackOverflow NLP Query Engine")
-st.caption("Ask questions in plain English about StackOverflow questions, answers, tags, and users (2020–Sep 2022).")
+st.caption(
+    "Ask questions in plain English about a 1-in-16 sample of StackOverflow questions with 38 popular tags, "
+    "plus their answers, comments and authors (Jan 2020 – Sep 2022). The sample keeps queries fast; "
+    "counts describe the sample."
+)
 
 
 @st.cache_resource
@@ -91,14 +97,23 @@ with st.sidebar:
     for i, example in enumerate(st.session_state.examples):
         st.button(example, key=f"ex_{i}", on_click=ask, args=(example,), use_container_width=True)
     st.button("Shuffle", on_click=new_sample, use_container_width=True)
+    st.caption(
+        "Data: [Stack Exchange](https://archive.org/details/stackexchange), "
+        "licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)."
+    )
 
 typed = st.chat_input("Ask about StackOverflow...")
 user_input = typed or st.session_state.pop("pending", None)
 
 asked = sum(1 for m in st.session_state.messages if m["role"] == "user")
-if user_input and asked >= MAX_QUESTIONS:
+if user_input and daily_limit_reached():
+    st.warning("The demo has reached its daily question limit to control API costs. Please try again tomorrow.")
+    user_input = None
+elif user_input and asked >= MAX_QUESTIONS:
     st.warning(f"This demo is limited to {MAX_QUESTIONS} questions per session to control API costs. Refresh the page to start a new session.")
     user_input = None
+elif user_input:
+    count_daily_question()
 
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input, "df": None})
@@ -108,7 +123,7 @@ if user_input:
     with st.chat_message("assistant"):
         try:
             sql = generate_sql(user_input)
-        except ValueError as e:
+        except (ValueError, GenerationError) as e:
             st.error(str(e))
             st.session_state.messages.append({"role": "assistant", "content": str(e), "df": None})
             st.stop()
@@ -119,8 +134,15 @@ if user_input:
             content = f"Error: {error}\n\n```sql\n{sql}\n```"
             st.markdown(content)
             st.session_state.messages.append({"role": "assistant", "content": content, "df": None})
+        elif decline_reason(result) is not None:
+            content = f"I can't answer that from this dataset: {decline_reason(result)}"
+            st.markdown(content)
+            st.session_state.messages.append({"role": "assistant", "content": content, "df": None})
         else:
             content = f"```sql\n{sql}\n```"
             st.markdown(content)
             st.dataframe(result, use_container_width=True)
+            if result.attrs.get("truncated"):
+                st.caption(f"Showing the first {len(result):,} rows.")
+                content += f"\n\n*Showing the first {len(result):,} rows.*"
             st.session_state.messages.append({"role": "assistant", "content": content, "df": result})

@@ -1,0 +1,733 @@
+{
+ "meta": {
+  "label": "dev-1",
+  "split": "dev",
+  "runs": 3,
+  "model": "claude-sonnet-5-5",
+  "prompt_sha256": "0d7a8861c9af3fdbf5ca3c266d8dcb8a86fc2307f95d3c2dd4d4129ef865add4",
+  "git_commit": "7ddf5d758205b6c1898878c9697a45aa379edcc8",
+  "uncommitted_changes": false,
+  "started": "2026-10-28T17:28:51+00:00",
+  "query_timeout_s": 10,
+  "max_rows": 1000,
+  "finished": "2026-10-28T17:33:02+00:00"
+ },
+ "summary": {
+  "questions": 18,
+  "runs": 3,
+  "per_run_passed": {
+   "0": 15,
+   "1": 15,
+   "2": 15
+  },
+  "accuracy_by_run": {
+   "0": 0.8333,
+   "1": 0.8333,
+   "2": 0.8333
+  },
+  "mean_accuracy": 0.8333,
+  "strict_accuracy": 0.5556,
+  "consistency": {
+   "always": 15,
+   "never": 3
+  },
+  "by_category": {
+   "absence": "6/6",
+   "aggregation": "9/9",
+   "ambiguous": "3/6",
+   "date": "6/9",
+   "join": "3/6",
+   "rate": "9/9",
+   "window": "9/9"
+  },
+  "pass_kinds": {
+   "rounded": 12
+  },
+  "failure_reasons": {
+   "timeout": 5,
+   "wrong_values": 3,
+   "row_count": 1
+  },
+  "unanswerable": {
+   "pass": 3,
+   "fail": 3
+  }
+ },
+ "items": [
+  {
+   "id": "D01",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D02",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D03",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D04",
+   "split": "dev",
+   "category": "join",
+   "run": 0,
+   "status": "fail",
+   "reason": "timeout",
+   "detail": "Query timed out after 10 seconds. Try a narrower question."
+  },
+  {
+   "id": "D05",
+   "split": "dev",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D06",
+   "split": "dev",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D07",
+   "split": "dev",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D08",
+   "split": "dev",
+   "category": "date",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "D09",
+   "split": "dev",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D10",
+   "split": "dev",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D11",
+   "split": "dev",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D12",
+   "split": "dev",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D13",
+   "split": "dev",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D14",
+   "split": "dev",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D15",
+   "split": "dev",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D16",
+   "split": "dev",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D17",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "fail",
+   "reason": "timeout",
+   "detail": "Query timed out after 10 seconds. Try a narrower question."
+  },
+  {
+   "id": "D18",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D19",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "D20",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "fail",
+   "reason": "substituted_data"
+  },
+  {
+   "id": "D01",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D02",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D03",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D04",
+   "split": "dev",
+   "category": "join",
+   "run": 1,
+   "status": "fail",
+   "reason": "timeout",
+   "detail": "Query timed out after 10 seconds. Try a narrower question."
+  },
+  {
+   "id": "D05",
+   "split": "dev",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D06",
+   "split": "dev",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D07",
+   "split": "dev",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D08",
+   "split": "dev",
+   "category": "date",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "D09",
+   "split": "dev",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D10",
+   "split": "dev",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D11",
+   "split": "dev",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D12",
+   "split": "dev",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D13",
+   "split": "dev",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D14",
+   "split": "dev",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D15",
+   "split": "dev",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D16",
+   "split": "dev",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D17",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 10 rows, expected 1"
+  },
+  {
+   "id": "D18",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D19",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "D20",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "fail",
+   "reason": "substituted_data"
+  },
+  {
+   "id": "D01",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D02",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D03",
+   "split": "dev",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D04",
+   "split": "dev",
+   "category": "join",
+   "run": 2,
+   "status": "fail",
+   "reason": "timeout",
+   "detail": "Query timed out after 10 seconds. Try a narrower question."
+  },
+  {
+   "id": "D05",
+   "split": "dev",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D06",
+   "split": "dev",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D07",
+   "split": "dev",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D08",
+   "split": "dev",
+   "category": "date",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "D09",
+   "split": "dev",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D10",
+   "split": "dev",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D11",
+   "split": "dev",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D12",
+   "split": "dev",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D13",
+   "split": "dev",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D14",
+   "split": "dev",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "D15",
+   "split": "dev",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D16",
+   "split": "dev",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D17",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "fail",
+   "reason": "timeout",
+   "detail": "Query timed out after 10 seconds. Try a narrower question."
+  },
+  {
+   "id": "D18",
+   "split": "dev",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "D19",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "D20",
+   "split": "dev",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "fail",
+   "reason": "substituted_data"
+  }
+ ]
+}

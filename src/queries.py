@@ -1,8 +1,9 @@
 """15 analytical queries against stackoverflow.db, run + sanity-checked here.
 
-These are the hand-validated query suite (Day 2 of the roadmap) -- distinct
-from the NLP layer's freely-generated SQL, which is tested separately against
-20 natural-language questions in src/nlp_layer.py.
+This is the hand-written query suite: each query exercises a distinct SQL
+pattern, and the four few-shot examples in src/nlp_layer.py come from it. The
+NLP layer's freely generated SQL is evaluated separately against held-out
+questions in eval/.
 """
 import sqlite3
 from pathlib import Path
@@ -36,12 +37,14 @@ QUERIES = {
         LIMIT 50
     """,
 
+    # tags with at least 50 questions, so a tag used once cannot top the average
     "q4_avg_answers_per_tag": """
         SELECT t.tag_name, AVG(q.answer_count) AS avg_answers
         FROM tags t
         JOIN post_tags pt ON t.tag_id = pt.tag_id
         JOIN posts_questions q ON pt.post_id = q.post_id
         GROUP BY t.tag_id, t.tag_name
+        HAVING COUNT(*) >= 50
         ORDER BY avg_answers DESC
         LIMIT 20
     """,
