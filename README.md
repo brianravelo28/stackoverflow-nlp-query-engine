@@ -1,5 +1,7 @@
 # StackOverflow NLP Query Engine
 
+![StackOverflow NLP Query Engine chat UI](docs/screenshot.png)
+
 Ask plain-English questions about a 1-in-16 sample of real Stack Overflow data (questions with 38 popular
 tags, Jan 2020 – Sep 2022) and get back the SQL the model wrote plus a results table. Built for people
 interested in SQL: every answer shows the query behind it.
