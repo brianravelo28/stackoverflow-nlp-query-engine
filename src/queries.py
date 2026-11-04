@@ -1,8 +1,9 @@
 """15 analytical queries against stackoverflow.db, run + sanity-checked here.
 
-These are the hand-validated query suite (Day 2 of the roadmap) -- distinct
-from the NLP layer's freely-generated SQL, which is tested separately against
-20 natural-language questions in src/nlp_layer.py.
+This is the hand-written query suite: each query exercises a distinct SQL
+pattern, and the four few-shot examples in src/nlp_layer.py come from it. The
+NLP layer's freely generated SQL is evaluated separately against held-out
+questions in eval/.
 """
 import sqlite3
 from pathlib import Path
