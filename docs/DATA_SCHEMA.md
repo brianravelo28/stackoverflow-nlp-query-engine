@@ -1,11 +1,12 @@
 # Data Schema
 
-## 📋 Source
+## Source
 
 **Source**: `bigquery-public-data.stackoverflow` (Google BigQuery public dataset,
 mirrored from the official [Stack Exchange Data Dump](https://archive.org/details/stackexchange))
 **Access path**: Kaggle Notebook with the "Stack Overflow" BigQuery dataset attached
-(free tier, no local GCP setup) — see [`data/kaggle_export.py`](../data/kaggle_export.py)
+(free tier, no local GCP setup), see [`data/kaggle_export.py`](../data/kaggle_export.py)
+**Exported**: 2026-09-21
 **Scope**: questions with at least one of 38 curated tags (see below), sampled
 **1-in-16** by post id. The tag filter alone matches ~2.8M questions, too large
 for a local SQLite file. The export asks for 2020–2025, but the public BigQuery
@@ -27,7 +28,7 @@ question and answer bodies are truncated to 500 characters.
 
 ---
 
-## 🗺️ Entity-Relationship Diagram
+## Entity-Relationship Diagram
 
 ```mermaid
 erDiagram
@@ -94,15 +95,15 @@ erDiagram
 
 ---
 
-## 📐 Table Definitions
+## Table Definitions
 
 ### `users`
 | Column | Type | Notes |
 |---|---|---|
 | `user_id` | INTEGER PK | |
 | `display_name` | TEXT NOT NULL | |
-| `reputation` | INTEGER | |
-| `badge_count` | INTEGER | Real count from the `badges` table, grouped by user (not a proxy) |
+| `reputation` | INTEGER | As of the export date, not as of each post |
+| `badge_count` | INTEGER | Real count from the `badges` table, grouped by user (not a proxy), as of the export date |
 | `creation_date` | TIMESTAMP NOT NULL | |
 
 **Scoping**: only users who wrote at least one sampled question, answer or
@@ -118,7 +119,8 @@ comment authors is what makes every `comments.user_id` foreign key resolve.)
 Loaded in full (63,653 rows) rather than only the curated tags, because a
 question's other tags are kept. About 19.6K distinct tags are actually used by
 at least one loaded question. Two real tags are literally named `null` and
-`nan` — see [`DATA_QUIRKS.md`](DATA_QUIRKS.md).
+`nan`, which a default CSV read treats as missing values; the loader reads only
+empty cells as null.
 
 ### `posts_questions`
 | Column | Type | Notes |
@@ -170,20 +172,25 @@ resolved against `tags.tag_name`.
 |---|---|---|
 | `vote_id` | INTEGER PK | |
 | `post_id` | INTEGER NOT NULL | A question **or** an answer id, so there is no foreign key (283,979 of the votes are on answers) |
-| `user_id` | INTEGER, **nullable** | Always NULL in this data — see caveat below |
+| `user_id` | INTEGER, **nullable** | Always NULL in this data (see the note below) |
 | `vote_type` | TEXT NOT NULL | Decoded for `UpMod` (320,917), `AcceptedByOriginator` (70,904), `DownMod` (53,899), `Favorite` (17,992), `BountyStart`, `BountyClose`. Other codes were not decoded and load as numeric strings: `16` (14,504), `11` (3,468), `15` (1,088), `10` (1,088) |
 | `creation_date` | TIMESTAMP NOT NULL | |
 
-**⚠️ Anonymization caveat**: the public `bigquery-public-data.stackoverflow.votes`
+**Anonymization note**: the public `bigquery-public-data.stackoverflow.votes`
 table has no voter column at all (the reason was not confirmed against Stack
-Exchange documentation; it is consistent with the data dump anonymizing voters). The schema
-keeps `votes.user_id` as a nullable column — the original project spec had it
-`NOT NULL` — and it is NULL for every row. Vote *counts and types per post* are
-queryable; "which user cast this vote" is not.
+Exchange documentation; it is consistent with the data dump anonymizing voters).
+The schema keeps `votes.user_id` as a nullable column, and it is NULL for every
+row. Vote *counts and types per post* are queryable; "which user cast this vote"
+is not.
+
+**Undecoded vote codes**: `10`, `11`, `15` and `16` stay as numeric strings. An
+attempt to confirm their names against Stack Exchange documentation did not find
+an authoritative list that could be cited, so the project does not interpret them.
+No query in the suite or the evaluation set uses them.
 
 ---
 
-## 🏷️ Curated Tag Scope
+## Curated Tag Scope
 
 To stay thematically focused, the export keeps only questions carrying at least
 one of these 38 popular tags (their other tags are kept too). Together with the
@@ -201,7 +208,7 @@ Adjustable via `TAG_REGEX` and `SAMPLE_MOD` in [`data/kaggle_export.py`](../data
 
 ---
 
-## 🔗 License note on the underlying data
+## License note on the underlying data
 
 Stack Exchange content (questions, answers, comments) is licensed
 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The database

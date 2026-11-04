@@ -6,3 +6,6 @@ data/*.csv
 data/*.parquet
 .ipynb_checkpoints/
 *.db.gz
+
+# Kept local (personal notes, not published)
+docs/DATA_QUIRKS.md
