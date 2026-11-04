@@ -32,4 +32,5 @@
   derivative of CC BY-SA content and is shared under the same license, with
   attribution to the Stack Exchange contributors and Stack Exchange Inc. Text
   the app displays (titles, answer excerpts, aggregates) likewise belongs to
-  its original authors. User display names are included in the data.
+  its original authors. User display names are included in the data and shown
+  in results as the authorship credit that the license asks for.
