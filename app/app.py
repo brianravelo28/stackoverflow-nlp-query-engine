@@ -64,7 +64,11 @@ def ask(question):
 
 st.set_page_config(page_title="StackOverflow NLP Query Engine", layout="wide")
 st.title("StackOverflow NLP Query Engine")
-st.caption("Ask questions in plain English about StackOverflow questions, answers, tags, and users (2020–Sep 2022).")
+st.caption(
+    "Ask questions in plain English about a 1-in-16 sample of StackOverflow questions with 38 popular tags, "
+    "plus their answers, comments and authors (Jan 2020 – Sep 2022). The sample keeps queries fast; "
+    "counts describe the sample."
+)
 
 
 @st.cache_resource
@@ -93,6 +97,10 @@ with st.sidebar:
     for i, example in enumerate(st.session_state.examples):
         st.button(example, key=f"ex_{i}", on_click=ask, args=(example,), use_container_width=True)
     st.button("Shuffle", on_click=new_sample, use_container_width=True)
+    st.caption(
+        "Data: [Stack Exchange](https://archive.org/details/stackexchange), "
+        "licensed [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)."
+    )
 
 typed = st.chat_input("Ask about StackOverflow...")
 user_input = typed or st.session_state.pop("pending", None)
