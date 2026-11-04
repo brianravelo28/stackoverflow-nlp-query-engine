@@ -131,6 +131,11 @@ def derive_post_tags(questions_raw: pd.DataFrame, tags_df: pd.DataFrame) -> pd.D
     return pd.DataFrame(rows, columns=["post_id", "tag_id"]).drop_duplicates()
 
 
+def foreign_key_violations(conn: sqlite3.Connection) -> list[tuple]:
+    """Rows whose foreign key points at nothing: (table, rowid, parent table, fk index)."""
+    return conn.execute("PRAGMA foreign_key_check").fetchall()
+
+
 def main():
     if not DATA_DIR.exists() or not any(DATA_DIR.glob("*.csv")) and not any(DATA_DIR.glob("*.parquet")):
         raise SystemExit(
@@ -197,7 +202,13 @@ def main():
         except sqlite3.OperationalError:
             print(f"  {table}: not loaded")
 
+    violations = foreign_key_violations(conn)
+    print(f"\nForeign-key check: {len(violations)} violations")
     conn.close()
+    if violations:
+        for table, rowid, parent, _ in violations[:10]:
+            print(f"  {table} row {rowid} has no matching row in {parent}")
+        raise SystemExit(1)
     print(f"\nDone. Database at {DB_PATH}")
 
 
