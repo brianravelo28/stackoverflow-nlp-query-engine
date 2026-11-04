@@ -169,7 +169,3 @@ docs/
   METHODOLOGY.md                 prompt design, query suite, evaluation
   CITATIONS.md                   sources and data license
 ```
-
-## Author
-
-Brian | Data Scientist | October 2026
