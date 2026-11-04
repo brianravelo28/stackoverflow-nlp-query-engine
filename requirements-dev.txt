@@ -1,4 +1,5 @@
 -r requirements.txt
-pyarrow
-matplotlib
-jupyter
+pyarrow==26.0.1
+matplotlib==3.11.2
+jupyter==1.1.1
+pytest==9.2.0
