@@ -36,12 +36,14 @@ QUERIES = {
         LIMIT 50
     """,
 
+    # tags with at least 50 questions, so a tag used once cannot top the average
     "q4_avg_answers_per_tag": """
         SELECT t.tag_name, AVG(q.answer_count) AS avg_answers
         FROM tags t
         JOIN post_tags pt ON t.tag_id = pt.tag_id
         JOIN posts_questions q ON pt.post_id = q.post_id
         GROUP BY t.tag_id, t.tag_name
+        HAVING COUNT(*) >= 50
         ORDER BY avg_answers DESC
         LIMIT 20
     """,
