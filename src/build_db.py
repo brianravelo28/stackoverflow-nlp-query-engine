@@ -1,5 +1,8 @@
 """Create stackoverflow.db and load it from CSVs/parquet in data/.
 
+Email-like and phone-like strings in post and comment text are replaced on the way in (see redact.py).
+Run with --out PATH to build somewhere other than stackoverflow.db.
+
 Expected input files in data/ (from the Kaggle Notebook export, see
 data/kaggle_export.py):
   tags.csv             tag_id, tag_name
@@ -18,10 +21,15 @@ Accepts .csv or .parquet for any table (parquet takes priority if both exist).
 """
 from __future__ import annotations
 
+import argparse
 import sqlite3
+import sys
 from pathlib import Path
 
 import pandas as pd
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from redact import redact_series  # noqa: E402
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
@@ -136,15 +144,15 @@ def foreign_key_violations(conn: sqlite3.Connection) -> list[tuple]:
     return conn.execute("PRAGMA foreign_key_check").fetchall()
 
 
-def main():
+def main(db_path: Path = DB_PATH):
     if not DATA_DIR.exists() or not any(DATA_DIR.glob("*.csv")) and not any(DATA_DIR.glob("*.parquet")):
         raise SystemExit(
             f"No data files found in {DATA_DIR}. Export from Kaggle first "
             f"(see data/kaggle_export.py) and drop the CSVs there."
         )
 
-    DB_PATH.unlink(missing_ok=True)
-    conn = sqlite3.connect(DB_PATH)
+    db_path.unlink(missing_ok=True)
+    conn = sqlite3.connect(db_path)
     conn.execute("PRAGMA foreign_keys = ON")
     conn.executescript(SCHEMA)
     conn.commit()
@@ -174,6 +182,18 @@ def main():
 
     if comments_df is not None:
         comments_df["body"] = comments_df["body"].fillna("")
+
+    questions_df = questions_df.copy()
+    redacted = {}
+    for table, df, columns in (("posts_questions", questions_df, ["title", "body"]),
+                               ("posts_answers", answers_df, ["body"]),
+                               ("comments", comments_df, ["body"])):
+        if df is None:
+            continue
+        for column in columns:
+            df[column], redacted[f"{table}.{column}"] = redact_series(df[column])
+    print("Values with an email or phone number replaced: "
+          + ", ".join(f"{name} {count:,}" for name, count in redacted.items()))
 
     loads = {
         "tags": tags_df,
@@ -209,8 +229,10 @@ def main():
         for table, rowid, parent, _ in violations[:10]:
             print(f"  {table} row {rowid} has no matching row in {parent}")
         raise SystemExit(1)
-    print(f"\nDone. Database at {DB_PATH}")
+    print(f"\nDone. Database at {db_path}")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Build the database from the CSVs in data/.")
+    parser.add_argument("--out", type=Path, default=DB_PATH, help="database file to create (default: stackoverflow.db)")
+    main(parser.parse_args().out)

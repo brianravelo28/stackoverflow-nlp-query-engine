@@ -1,4 +1,5 @@
 """Add indexes to stackoverflow.db to speed up the 15 analytical queries."""
+import argparse
 import sqlite3
 from pathlib import Path
 
@@ -18,10 +19,10 @@ INDEXES = [
 ]
 
 
-def main():
-    if not DB_PATH.exists():
-        raise SystemExit(f"{DB_PATH} not found. Run src/build_db.py first.")
-    conn = sqlite3.connect(DB_PATH)
+def main(db_path: Path = DB_PATH):
+    if not db_path.exists():
+        raise SystemExit(f"{db_path} not found. Run src/build_db.py first.")
+    conn = sqlite3.connect(db_path)
     for idx in INDEXES:
         conn.execute(idx)
     conn.commit()
@@ -30,4 +31,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--db", type=Path, default=DB_PATH, help="database to index (default: stackoverflow.db)")
+    main(parser.parse_args().db)
