@@ -27,8 +27,9 @@
 
 - **Code** in this repository is MIT licensed (see `LICENSE`).
 - **Data** is Stack Exchange content under CC BY-SA 4.0. The prebuilt database
-  published as the `data-v1` release asset contains question titles, post
-  bodies (truncated to 500 characters), and comments, so that file is a
+  published as the `data-v2` release asset contains question titles, post
+  bodies (truncated to 500 characters), and comments, with email-like and
+  phone-like strings replaced, so that file is a
   derivative of CC BY-SA content and is shared under the same license, with
   attribution to the Stack Exchange contributors and Stack Exchange Inc. Text
   the app displays (titles, answer excerpts, aggregates) likewise belongs to

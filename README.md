@@ -89,11 +89,13 @@ Source: `bigquery-public-data.stackoverflow` (a mirror of the Stack Exchange dat
 
 Result: 174,131 questions, 186,018 answers, 572,119 comments, 487,387 votes, 227,026 users, 63,653 tags (all
 tags are loaded, not just the 38). Voters are anonymized in the source, so votes can be counted by post and
-type but not by user. Details: [`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md).
+type but not by user. Email-like and phone-like strings in titles, post bodies and comments are replaced with
+`[email removed]` and `[phone removed]` when the database is built. Details:
+[`docs/DATA_SCHEMA.md`](docs/DATA_SCHEMA.md).
 
 The raw CSVs and the database are not committed to git. The built database is published as a gzipped GitHub
 Release asset
-([`data-v1`](https://github.com/brianravelo28/stackoverflow-nlp-query-engine/releases/tag/data-v1), ~175 MB)
+([`data-v2`](https://github.com/brianravelo28/stackoverflow-nlp-query-engine/releases/tag/data-v2), ~175 MB)
 so you can skip the Kaggle step. `src/download_db.py` checks its SHA-256 before unpacking.
 
 ## How to Run
