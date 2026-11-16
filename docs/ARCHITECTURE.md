@@ -77,10 +77,11 @@ across the 15-query suite:
 Kaggle Notebook (BigQuery client, free tier)
     ↓ data/kaggle_export.py: curated tags, 1-in-16 sample
 data/*.csv  (git-ignored)
-    ↓ src/build_db.py   (creates the schema, appends rows, checks foreign keys)
+    ↓ src/build_db.py   (creates the schema, appends rows, replaces email-like and phone-like strings
+                         in titles, bodies and comments, checks foreign keys)
     ↓ src/add_indexes.py
 stackoverflow.db (SQLite, git-ignored, ~480 MB)
-    ↓ gzip, uploaded as GitHub Release asset data-v1 (~175 MB)
+    ↓ gzip, uploaded as GitHub Release asset data-v2 (~175 MB)
 Render build: src/download_db.py fetches it, verifies its SHA-256 and unpacks it
 ```
 

@@ -14,6 +14,12 @@ mirror ends on **2022-09-25**, so that is where the data stops (first question
 2020-01-01). Answers, comments, votes and authors follow the sampled questions;
 question and answer bodies are truncated to 500 characters.
 
+**Text redaction**: when the database is built, email-like strings in question titles, question and answer
+bodies and comments become `[email removed]`, and phone-like strings become `[phone removed]`
+([`src/redact.py`](../src/redact.py)). SSH-style git addresses such as `git@github.com` are kept, because they
+name a service. In all, 1,477 values contain a replacement: 8 titles, 718 question bodies, 442 answer bodies and
+309 comments. No other column changes.
+
 **Row counts (as loaded):**
 
 | Table | Rows |

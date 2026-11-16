@@ -11,8 +11,9 @@ import urllib.request
 from pathlib import Path
 
 REPO = os.environ.get("DATA_REPO", "brianravelo28/stackoverflow-nlp-query-engine")
-URL = f"https://github.com/{REPO}/releases/download/data-v1/stackoverflow.db.gz"
-EXPECTED_SHA256 = "49bd3fdca6b53cee674813b984b60d9e9d0a413bbcc56c176eb9d10169455a95"
+RELEASE = "data-v2"
+URL = f"https://github.com/{REPO}/releases/download/{RELEASE}/stackoverflow.db.gz"
+EXPECTED_SHA256 = "fcb74925db1fdd6de65ac6f1874cc3d5210e9af45e29bfc638ca21491babe7f3"
 DB_PATH = Path(__file__).resolve().parent.parent / "stackoverflow.db"
 
 

@@ -7,6 +7,7 @@ an interrupted run can be continued with --resume. Score it with eval/score.py.
 Usage (from the repo root, with ANTHROPIC_API_KEY set):
   python eval/run_eval.py --split dev --runs 3 --label dev-1
   python eval/run_eval.py --split test --runs 3 --label test-1   # refuses to run with uncommitted changes
+  python eval/run_eval.py --split test --runs 1 --label baseline-schema-only --prompt schema-only
 """
 from __future__ import annotations
 
@@ -34,6 +35,11 @@ API_ATTEMPTS = 3
 
 def git(*args: str) -> str:
     return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+
+
+def schema_only_prompt() -> str:
+    """The baseline prompt: role, output contract and schema, without the notes, examples or constraints."""
+    return nlp_layer.SYSTEM_PROMPT.split("\nNOTES:")[0].rstrip() + "\n"
 
 
 def error_kind(message: str) -> str:
@@ -73,9 +79,13 @@ def main() -> None:
     ap.add_argument("--runs", type=int, default=3)
     ap.add_argument("--label", required=True)
     ap.add_argument("--ids", help="comma-separated question ids, to rerun a few")
+    ap.add_argument("--prompt", choices=["full", "schema-only"], default="full",
+                    help="schema-only is the baseline: the schema without notes, examples or constraints")
     ap.add_argument("--resume", action="store_true")
     ap.add_argument("--allow-dirty", action="store_true", help="test split only: run despite uncommitted changes")
     args = ap.parse_args()
+    if args.prompt == "schema-only":
+        nlp_layer.SYSTEM_PROMPT = schema_only_prompt()
 
     dirty = bool(git("status", "--porcelain", "--", "src", "eval/questions.json", "eval/score.py"))
     if args.split == "test" and dirty and not args.allow_dirty:
@@ -92,6 +102,7 @@ def main() -> None:
     run = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {
         "meta": {
             "label": args.label, "split": args.split, "runs": args.runs, "model": nlp_layer.MODEL,
+            "prompt_variant": args.prompt,
             "prompt_sha256": hashlib.sha256(nlp_layer.SYSTEM_PROMPT.encode()).hexdigest(),
             "git_commit": git("rev-parse", "HEAD"), "uncommitted_changes": dirty,
             "started": datetime.now(timezone.utc).isoformat(timespec="seconds"),

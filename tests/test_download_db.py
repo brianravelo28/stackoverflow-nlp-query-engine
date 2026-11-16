@@ -46,5 +46,9 @@ def test_existing_database_is_not_downloaded_again(tmp_path, monkeypatch):
     assert db.read_bytes() == b"already here"
 
 
+def test_download_points_at_the_redacted_release():
+    assert download_db.RELEASE == "data-v2" and "/releases/download/data-v2/" in download_db.URL
+
+
 def test_published_checksum_matches_the_release_asset_format():
     assert len(download_db.EXPECTED_SHA256) == 64 and set(download_db.EXPECTED_SHA256) <= set("0123456789abcdef")

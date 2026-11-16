@@ -178,6 +178,24 @@ def test_other_numbers_in_the_schema_doc(db):
 
 
 @needs_db
+def test_redaction_counts_in_the_schema_doc_and_nothing_left_behind(db):
+    import redact
+    columns = [("posts_questions", "title"), ("posts_questions", "body"), ("posts_answers", "body"), ("comments", "body")]
+    counts = {}
+    for table, column in columns:
+        counts[(table, column)] = db.execute(
+            f"SELECT COUNT(*) FROM {table} WHERE {column} LIKE '%[email removed]%' OR {column} LIKE '%[phone removed]%'").fetchone()[0]
+    total = sum(counts.values())
+    doc = " ".join(SCHEMA_DOC.split())  # ignore line wrapping
+    assert f"{n(total)} values contain a replacement" in doc
+    assert (f"{counts[('posts_questions', 'title')]} titles, {counts[('posts_questions', 'body')]} question bodies, "
+            f"{counts[('posts_answers', 'body')]} answer bodies and {counts[('comments', 'body')]} comments") in doc
+    for table, column in columns:  # only a text with an @ can hold an address; check those rows
+        for (text,) in db.execute(f"SELECT {column} FROM {table} WHERE {column} LIKE '%@%'"):
+            assert redact.redact_text(text) == text, f"{table}.{column} still holds a redactable string"
+
+
+@needs_db
 def test_dates_in_the_docs_match_the_data(db):
     first, last = db.execute("SELECT MIN(date(creation_date)), MAX(date(creation_date)) FROM posts_questions").fetchone()
     assert first == "2020-01-01" and "2020-01-01 to 2022-09-25" in README
