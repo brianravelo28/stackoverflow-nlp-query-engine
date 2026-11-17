@@ -76,19 +76,19 @@ def test_run():
 
 
 def test_headline_accuracy_is_the_same_everywhere(test_run):
+    """The first set: RESULTS.md has the percentage and interval; the README and METHODOLOGY give counts."""
     summary = test_run[0]["summary"]
     questions, runs = summary["questions"], summary["runs"]
     correct_every_run = summary["consistency"]["always"]
     assert summary["mean_accuracy"] == round(correct_every_run / questions, 4)
-    for text in (README, METHODOLOGY, RESULTS):
-        assert pct(summary["mean_accuracy"]) in text
-    for text in (README, RESULTS):
-        assert f"for {correct_every_run} in each of {runs} runs" in text
-    assert f"{questions} held-out test questions" in README
+    assert pct(summary["mean_accuracy"]) in RESULTS
+    assert f"for {correct_every_run} in each of {runs} runs" in RESULTS
     assert f"{questions} answerable test questions" in RESULTS
     low, high = _wilson(correct_every_run, questions)
-    for text in (README, METHODOLOGY, RESULTS):
-        assert f"{low * 100:.1f}% to {high * 100:.1f}%" in text
+    assert f"{low * 100:.1f}% to {high * 100:.1f}%" in RESULTS
+    assert f"{correct_every_run} of {questions} correct in every run" in README
+    assert f"correct for {correct_every_run} in each of the {runs} runs" in METHODOLOGY
+    assert f"got {correct_every_run} right in each run" in README
 
 
 def _wilson(k, size, z=1.96):
@@ -142,9 +142,15 @@ def test_question_counts():
     dev = [q for q in questions if q["split"] == "dev"]
     test = [q for q in questions if q["split"] == "test"]
     answerable = [q for q in test if q["reference_sql"]]
-    assert f"The evaluation set has {len(questions)} questions" in README
-    assert f"Twenty were used" in README and len(dev) == 20 and len(test) == 40
+    assert f"First set:** {len(questions)} questions" in README
+    assert "Twenty were used" in README and len(dev) == 20 and len(test) == 40
     assert f"{len(answerable)} answerable" in README and f"{len(test) - len(answerable)} about data" in README
+    v2 = json.loads((ROOT / "eval" / "questions_v2.json").read_text(encoding="utf-8"))
+    v2_answerable = [q for q in v2 if q["reference_sql"]]
+    sentence = f"{len(v2)} questions ({len(v2_answerable)} answerable, {len(v2) - len(v2_answerable)} about data that does not exist)"
+    assert sentence in README and sentence in METHODOLOGY
+    assert f"{sum(q['written_by'] == 'assistant' for q in v2)} were written by the AI assistant" in README
+    assert f"{sum(q['written_by'] == 'owner' for q in v2)} by the author" in README
 
 
 # ------------------------------------------------------------------ database numbers
@@ -234,6 +240,11 @@ def test_second_set_headline_numbers(second_set):
     blow, bhigh = _wilson(base_mean * questions, questions)
     assert f"answered {round(base_mean * questions)} of {questions} ({pct(base_mean)}, interval {blow * 100:.1f}% to {bhigh * 100:.1f}%)" in RESULTS
     assert s["unanswerable"] == {"pass": 39} and "(39 of 39)" in RESULTS
+    for text in (README, METHODOLOGY):
+        assert pct(mean) in text and f"{low * 100:.1f}% to {high * 100:.1f}%" in text
+        assert f"{per_run.rsplit(', ', 1)[0]} and {per_run.rsplit(', ', 1)[1]}" in text
+        assert f"{round(base_mean * questions)} of {questions}" in text
+        assert f"{questions} answerable questions" in text
     assert b["unanswerable"] == {"pass": 3, "fail": 10} and "baseline declined 3 of 13" in RESULTS
 
 
