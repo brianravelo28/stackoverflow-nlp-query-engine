@@ -192,3 +192,30 @@ def test_group_labels_may_be_worded_differently():
     assert grade("T28", [["First answer", first[1]], ["Later answers", later[1]]])["status"] == "pass"
     assert grade("T28", [["later", first[1]], ["first", later[1]]])["status"] == "fail"
     assert grade("D01", [["accepted"]])["status"] == "fail"  # labels apply only to their questions
+
+
+def _ranked_spec():
+    return score.Spec({"id": "X", "reference_sql": "SELECT name, n FROM t ORDER BY n DESC LIMIT 5"})
+
+
+def test_rows_that_tie_on_the_ranking_metric_may_swap():
+    ref = [("a", 5), ("b", 5), ("c", 3), ("d", 2)]
+    assert score.compare(ref, [("b", 5), ("a", 5), ("c", 3), ("d", 2)], _ranked_spec())["passed"]
+
+
+def test_rows_with_different_ranking_values_may_not_swap():
+    ref = [("a", 5), ("b", 5), ("c", 3), ("d", 2)]
+    assert not score.compare(ref, [("c", 3), ("a", 5), ("b", 5), ("d", 2)], _ranked_spec())["passed"]
+    assert not score.compare(ref, [("a", 5), ("c", 3), ("b", 5), ("d", 2)], _ranked_spec())["passed"]
+
+
+def test_a_sorted_id_column_is_not_taken_for_the_ranking_metric():
+    ref = [(1, "x", 9), (2, "y", 9), (3, "z", 4)]  # ids rise; the metric (last column) falls and ties
+    assert score.tie_groups(ref) == [[0, 1], [2]]
+    assert score.compare(ref, [(2, "y", 9), (1, "x", 9), (3, "z", 4)], _ranked_spec())["passed"]
+
+
+def test_without_a_numeric_metric_every_row_keeps_its_place():
+    ref = [("a",), ("b",), ("c",)]
+    assert score.tie_groups(ref) == [[0], [1], [2]]
+    assert not score.compare(ref, [("b",), ("a",), ("c",)], _ranked_spec())["passed"]

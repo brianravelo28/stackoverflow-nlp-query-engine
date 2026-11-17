@@ -4,13 +4,14 @@ A prediction passes when it returns the same rows as the reference, whatever the
 looks like. Rules (names of columns are never compared):
   - every reference column must appear in the prediction; extra columns are allowed
     (the strict score counts only the same columns in the same order)
-  - row order matters only for ranking questions (reference SQL ends in LIMIT n, n > 1)
+  - row order matters only for ranking questions (reference SQL ends in LIMIT n, n > 1); rows that tie on the
+    ranking metric may come in any order
   - numbers match within 1e-6, or after rounding the reference to 0-6 decimals when the
     rounded value stays within 2% of it; whole-number references must match exactly
   - rate questions also accept the value times 100 (or divided by 100)
   - month and weekday questions accept names, numbers and 'YYYY-MM' interchangeably
   - D11 and T28 group labels may be worded differently (1 / 'accepted', 'first' / 'first answer')
-  - alternate reference answers are listed in questions.json; any one may match
+  - alternate reference answers are listed in the questions file; any one may match
   - the unanswerable questions are scored apart and left out of the headline; declining
     (an error, no rows, or the UNANSWERABLE: convention) passes, returning other data fails
 
@@ -21,6 +22,7 @@ error_kind is null, "api", "gate", "timeout" or "sql".
 Usage (from the repo root):
   python eval/score.py --build-refs          # run the reference SQL once, save eval/reference_results.json
   python eval/score.py eval/runs/NAME.json   # score a run (add --split dev|test)
+Add --set v2 to use the second question set (eval/questions_v2.json, eval/reference_results_v2.json).
 """
 from __future__ import annotations
 
@@ -37,6 +39,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 QUESTIONS = ROOT / "eval" / "questions.json"
 REFERENCE_RESULTS = ROOT / "eval" / "reference_results.json"
+RELAXED_V2 = ROOT / "eval" / "relaxed_v2.json"  # set 2 questions that do not say how many rows to return
+SETS = {  # question set -> (questions file, reference results file)
+    "v1": (QUESTIONS, REFERENCE_RESULTS),
+    "v2": (ROOT / "eval" / "questions_v2.json", ROOT / "eval" / "reference_results_v2.json"),
+}
 DB = ROOT / "stackoverflow.db"
 
 # Scorer-side settings, keyed by question id so questions.json stays untouched.
@@ -116,12 +123,20 @@ def _rounded(r: float, g: float) -> bool:
 
 class Spec:
     def __init__(self, q: dict):
-        self.percent = q["id"] in PERCENT_IDS
+        self.percent = q["percent"] if "percent" in q else q["id"] in PERCENT_IDS  # set 2 states it per question
         self.month_ym = MONTH_IDS.get(q["id"])  # None: no month handling
         self.weekday = q["id"] in WEEKDAY_IDS
         self.labels = LABELS.get(q["id"])
         m = re.search(r"\bLIMIT\s+(\d+)\s*$", q["reference_sql"] or "", re.I)
-        self.ordered = bool(m and int(m.group(1)) > 1)
+        # set 1 infers a ranking question from a trailing LIMIT n; set 2 states it (its queries pick columns in a wrapper)
+        self.ordered = q["ordered"] if "ordered" in q else bool(m and int(m.group(1)) > 1)
+
+    @staticmethod
+    def unranked(spec: "Spec") -> "Spec":
+        copy = Spec.__new__(Spec)
+        copy.__dict__.update(spec.__dict__)
+        copy.ordered = False
+        return copy
 
 
 def canon_label(v, labels: dict) -> str | None:
@@ -162,8 +177,35 @@ def cell_kind(ref, got, spec: Spec) -> str | None:
 
 
 # ------------------------------------------------------------------ tables
-def _rows_match(ref_rows, got_rows, spec: Spec) -> set[str] | None:
-    """Kinds used when every ref row matches a got row (same position if ordered), else None."""
+def tie_groups(ref_rows) -> list[list[int]]:
+    """Blocks of row indexes in a ranked reference whose ranking metric ties; rows inside a block may swap.
+
+    The metric is the numeric column that never rises (or never falls) down the rows, is not constant, and
+    has the fewest blocks (so a sorted id column is not mistaken for it). Without one, every row is its own block.
+    """
+    best = [[i] for i in range(len(ref_rows))]
+    for j in range(len(ref_rows[0]) if ref_rows else 0):
+        col = [r[j] for r in ref_rows]
+        if not all(_is_num(v) for v in col) or len(set(col)) < 2:
+            continue
+        if not (all(a >= b for a, b in zip(col, col[1:])) or all(a <= b for a, b in zip(col, col[1:]))):
+            continue
+        blocks, start = [], 0
+        for i in range(1, len(col) + 1):
+            if i == len(col) or col[i] != col[start]:
+                blocks.append(list(range(start, i)))
+                start = i
+        if len(blocks) < len(best):
+            best = blocks
+    return best
+
+
+def _rows_match(ref_rows, got_rows, spec: Spec, groups=None) -> set[str] | None:
+    """Kinds used when every ref row matches a got row, else None.
+
+    Ranked questions (spec.ordered) must match block by block (`groups`, default one row per block), so rows
+    that tie on the ranking metric may come in any order but rows with different values may not swap.
+    """
     kinds: set[str] = set()
 
     def row_kinds(a, b):
@@ -171,11 +213,11 @@ def _rows_match(ref_rows, got_rows, spec: Spec) -> set[str] | None:
         return None if None in out else out
 
     if spec.ordered:
-        for a, b in zip(ref_rows, got_rows):
-            k = row_kinds(a, b)
-            if k is None:
+        for block in groups or [[i] for i in range(len(ref_rows))]:
+            sub = _rows_match([ref_rows[i] for i in block], [got_rows[i] for i in block], Spec.unranked(spec))
+            if sub is None:
                 return None
-            kinds.update(k)
+            kinds |= sub
         return kinds
     free = list(range(len(got_rows)))
     for a in ref_rows:
@@ -204,9 +246,10 @@ def compare(ref_rows, got_rows, spec: Spec) -> dict:
     def column(rows, j):
         return [(r[j],) for r in rows]
 
+    groups = tie_groups(ref_rows) if spec.ordered else None
     candidates = []
     for j in range(k):
-        ok = [i for i in range(m) if _rows_match(column(ref_rows, j), column(got_rows, i), spec) is not None]
+        ok = [i for i in range(m) if _rows_match(column(ref_rows, j), column(got_rows, i), spec, groups) is not None]
         if not ok:
             return {"passed": False, "reason": "wrong_values", "detail": f"no returned column matches reference column {j + 1}"}
         candidates.append(ok)
@@ -215,7 +258,7 @@ def compare(ref_rows, got_rows, spec: Spec) -> dict:
             break
         if len(set(mapping)) < k:
             continue
-        kinds = _rows_match(ref_rows, [tuple(r[i] for i in mapping) for r in got_rows], spec)
+        kinds = _rows_match(ref_rows, [tuple(r[i] for i in mapping) for r in got_rows], spec, groups)
         if kinds is not None:
             strict = m == k and list(mapping) == list(range(k)) and kinds <= {"exact"}
             return {"passed": True, "kinds": sorted(kinds), "strict": strict}
@@ -230,7 +273,9 @@ def is_decline(rows) -> bool:
 ERROR_REASON = {"api": "api_error", "gate": "gate_blocked", "timeout": "timeout", "sql": "sql_error"}
 
 
-def score_answerable(q: dict, rec: dict, refs: list[dict]) -> dict:
+def score_answerable(q: dict, rec: dict, refs: list[dict], relaxed: bool = False) -> dict:
+    """With relaxed=True (a question that does not say how many rows), a longer answer whose first rows match
+    still fails as usual but is marked relaxed_pass; the headline never counts it."""
     out = {"id": q["id"], "split": q["split"], "category": q["category"], "run": rec.get("run", 0)}
     if rec.get("error_kind"):
         return {**out, "status": "fail", "reason": ERROR_REASON.get(rec["error_kind"], "sql_error"),
@@ -245,9 +290,15 @@ def score_answerable(q: dict, rec: dict, refs: list[dict]) -> dict:
         if res["passed"]:
             return {**out, "status": "pass", "matched": ref["label"], "kinds": res["kinds"], "strict": res["strict"]}
         best = best or res
+    extra = {}
+    if relaxed and best["reason"] == "row_count":
+        for ref in refs:
+            if len(got) > len(ref["rows"]) and compare([tuple(r) for r in ref["rows"]], got[:len(ref["rows"])], spec)["passed"]:
+                extra = {"relaxed_pass": True}
+                break
     if rec.get("truncated"):
         best = {"reason": "truncated_by_cap", **{k: v for k, v in best.items() if k != "reason"}}
-    return {**out, "status": "fail", "reason": best["reason"], "detail": best.get("detail", "")}
+    return {**out, "status": "fail", "reason": best["reason"], "detail": best.get("detail", ""), **extra}
 
 
 def score_unanswerable(q: dict, rec: dict, user_names: set[str] | None = None) -> dict:
@@ -269,10 +320,10 @@ def score_unanswerable(q: dict, rec: dict, user_names: set[str] | None = None) -
 
 
 # ------------------------------------------------------------------ whole run
-def load_reference_results(questions: list[dict]) -> dict[str, list[dict]]:
+def load_reference_results(questions: list[dict], path: Path = REFERENCE_RESULTS) -> dict[str, list[dict]]:
     """{question id: [{label, rows}]} for the reference and each alternate."""
-    if REFERENCE_RESULTS.exists():
-        return json.loads(REFERENCE_RESULTS.read_text(encoding="utf-8"))
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
     return build_reference_results(questions)
 
 
@@ -287,7 +338,8 @@ def build_reference_results(questions: list[dict]) -> dict[str, list[dict]]:
     return out
 
 
-def score_run(run: dict, questions: list[dict], refs: dict, split: str | None = None, user_names=None) -> list[dict]:
+def score_run(run: dict, questions: list[dict], refs: dict, split: str | None = None, user_names=None,
+              relaxed_ids=frozenset()) -> list[dict]:
     by_id = {q["id"]: q for q in questions}
     items = []
     for rec in run["results"]:
@@ -297,7 +349,7 @@ def score_run(run: dict, questions: list[dict], refs: dict, split: str | None = 
         if q["reference_sql"] is None:
             items.append(score_unanswerable(q, rec, user_names))
         else:
-            items.append(score_answerable(q, rec, refs[q["id"]]))
+            items.append(score_answerable(q, rec, refs[q["id"]], q["id"] in relaxed_ids))
     return items
 
 
@@ -322,6 +374,10 @@ def summarize(items: list[dict]) -> dict:
         "per_run_passed": per_run,
         "accuracy_by_run": {r: round(p / n_q, 4) for r, p in per_run.items()} if n_q else {},
         "mean_accuracy": round(sum(per_run.values()) / (n_q * len(runs)), 4) if n_q and runs else None,
+        # post-hoc, shown beside the headline and never in place of it: also counts longer answers whose first rows match
+        # on the questions listed in relaxed_v2.json (set 2 only), which do not say how many rows to return
+        **({"relaxed_mean_accuracy": round((sum(per_run.values()) + sum(i.get("relaxed_pass", False) for i in ans)) / (n_q * len(runs)), 4)}
+           if n_q and runs and any("relaxed_pass" in i for i in ans) else {}),
         "strict_accuracy": round(sum(i["strict"] for i in passed) / (n_q * len(runs)), 4) if n_q and runs else None,
         "consistency": dict(consistency),
         "by_category": {c: f"{p}/{t}" for c, (p, t) in sorted(by_cat.items())},
@@ -334,16 +390,18 @@ def summarize(items: list[dict]) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("run_file", nargs="?")
-    ap.add_argument("--split", choices=["dev", "test"])
+    ap.add_argument("--split", choices=["dev", "test", "test2"])
+    ap.add_argument("--set", choices=sorted(SETS), default="v1", help="question set (default v1)")
     ap.add_argument("--build-refs", action="store_true")
     ap.add_argument("--details", action="store_true", help="print every failing item")
     ap.add_argument("--out", help="write per-item verdicts and the summary here as JSON")
     args = ap.parse_args()
-    questions = json.loads(QUESTIONS.read_text(encoding="utf-8"))
+    questions_path, refs_path = SETS[args.set]
+    questions = json.loads(questions_path.read_text(encoding="utf-8"))
     if args.build_refs:
         refs = build_reference_results(questions)
-        REFERENCE_RESULTS.write_text(json.dumps(refs, indent=1), encoding="utf-8")
-        print(f"wrote {REFERENCE_RESULTS.relative_to(ROOT)}: {len(refs)} questions")
+        refs_path.write_text(json.dumps(refs, indent=1), encoding="utf-8")
+        print(f"wrote {refs_path.relative_to(ROOT)}: {len(refs)} questions")
         return
     if not args.run_file:
         ap.error("give a run file or --build-refs")
@@ -352,7 +410,10 @@ def main() -> None:
     if DB.exists():
         conn = sqlite3.connect(f"file:{DB.as_posix()}?mode=ro", uri=True)
         user_names = {r[0] for r in conn.execute("SELECT display_name FROM users")}
-    items = score_run(run, questions, load_reference_results(questions), args.split, user_names)
+    relaxed_ids = set()
+    if args.set == "v2" and RELAXED_V2.exists():
+        relaxed_ids = set(json.loads(RELAXED_V2.read_text(encoding="utf-8")))
+    items = score_run(run, questions, load_reference_results(questions, refs_path), args.split, user_names, relaxed_ids)
     summary = summarize(items)
     print(json.dumps(summary, indent=2))
     if args.details:

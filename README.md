@@ -10,8 +10,10 @@ interested in SQL: every answer shows the query behind it.
 (free Render tier: the first visit after idle takes about a minute to wake up; each session is capped at
 12 questions and the site at 100 questions a day)
 
-**Result:** on 38 held-out test questions with reference answers, the generated SQL returned the correct
-result for 37 in each of 3 runs (97.4%). Method and details: [`eval/RESULTS.md`](eval/RESULTS.md).
+**Result:** on a second test set of 113 answerable questions, written and frozen before the model ran, the
+generated SQL returned the reference answer for 92, 89 and 88 questions in 3 runs (79.4%), and every question
+about data that does not exist was declined. A first, smaller set (38 questions) got 37 right in each run.
+Method and details: [`eval/RESULTS.md`](eval/RESULTS.md).
 
 ## Example
 
@@ -62,19 +64,27 @@ Request flow and design tradeoffs: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md
 
 ## Evaluation
 
-The evaluation set has 60 questions, each with reference SQL whose results were recomputed independently in
-pandas. Twenty were used to tune the prompt and 40 (38 answerable, 2 about data that does not exist) were
-frozen before the first scored run. A question passes when the generated SQL returns the same rows as the
-reference, whatever the SQL looks like. Each question was run 3 times.
+There are two evaluation sets, each with reference SQL, and a question passes when the generated SQL returns the
+same rows as the reference, whatever the SQL looks like. Each question was run 3 times.
+
+- **First set:** 60 questions. Twenty were used to tune the prompt and 40 (38 answerable, 2 about data that
+  does not exist) were frozen before the first scored run. Their reference results were recomputed independently
+  in pandas.
+- **Second set:** 126 questions (113 answerable, 13 about data that does not exist), frozen in git before the model
+  saw them. 90 were written by the AI assistant used on this project and 36 by the author; each reference was
+  derived independently by two writers, and the author decided where they differed.
 
 | | Questions | Result |
 |---|---|---|
-| Answerable test questions | 38 | 37 correct in every run (97.4%) |
-| Unanswerable test questions | 2 | declined in every run |
+| Second set, answerable | 113 | 92, 89 and 88 correct in the 3 runs (79.4%) |
+| Second set, unanswerable | 13 | declined in every run |
+| First set, answerable | 38 | 37 of 38 correct in every run |
+| First set, unanswerable | 2 | declined in every run |
 
-The one miss returned the right values under different group labels. The set is small (a 95% interval for
-37 of 38 is 86.5% to 99.5%) and was written for this schema; [`eval/RESULTS.md`](eval/RESULTS.md) lists the
-scoring rules and limits.
+On 113 questions a 95% interval around 79.4% is 71.0% to 85.8%. A schema-only baseline prompt answered 86 of 113,
+which the answerable questions cannot tell from the full prompt; it declined only 3 of the 13 unanswerable
+questions. 27 questions were not right in every run, and most of those measure how a question was worded or read
+more than a wrong answer. [`eval/RESULTS.md`](eval/RESULTS.md) lists the scoring rules, the causes and the limits.
 
 ## Data
 

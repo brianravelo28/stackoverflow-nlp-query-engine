@@ -1,0 +1,1442 @@
+[
+ {
+  "id": "A002",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "What's the average score of a question?",
+  "reference_sql": "select avg(score) from posts_questions",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A003",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "what is the highest view count any question has reached",
+  "reference_sql": "select max(view_count) from posts_questions",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A004",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "How many different tags are actually in use on questions?",
+  "reference_sql": "select count(distinct tag_id) from post_tags",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A005",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "How many answers were marked as the accepted one?",
+  "reference_sql": "select count(*) from posts_answers where is_accepted=1",
+  "alt_sqls": [
+   "SELECT COUNT(*) FROM posts_questions WHERE accepted_answer_id IS NOT NULL"
+  ],
+  "notes": "By the answer flag (70,896); counting questions that point to an accepted answer (71,353) is accepted too.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A006",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "On average, how many tags does a question have?",
+  "reference_sql": "select cast((select count(*) from post_tags) as real)/(select count(*) from posts_questions)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A007",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "number of users with more than 10000 reputation",
+  "reference_sql": "select count(*) from users where reputation>10000",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A008",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "How many comments sit on questions compared with comments on answers?",
+  "reference_sql": "select (select count(*) from comments c where c.post_id in (select post_id from posts_questions)) as on_questions, (select count(*) from comments c where c.post_id in (select post_id from posts_answers)) as on_answers",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A009",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "What is the average number of badges per user?",
+  "reference_sql": "select avg(badge_count) from users",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A010",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "total views of all python questions",
+  "reference_sql": "select sum(q.view_count) from posts_questions q where q.post_id in (select pt.post_id from post_tags pt join tags t on t.tag_id=pt.tag_id where t.tag_name='python')",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A011",
+  "split": "test2",
+  "category": "join",
+  "question": "top 10 tags by number of questions",
+  "reference_sql": "select t.tag_name,count(*) n from post_tags pt join tags t on t.tag_id=pt.tag_id group by t.tag_id order by n desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A012",
+  "split": "test2",
+  "category": "join",
+  "question": "Who wrote the most answers? Give me the top 10 names and their answer counts.",
+  "reference_sql": "select u.display_name,count(*) n from posts_answers a join users u on u.user_id=a.user_id group by u.user_id order by n desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A013",
+  "split": "test2",
+  "category": "join",
+  "question": "Who asked the 10 most viewed questions?",
+  "reference_sql": "select u.display_name,q.title,q.view_count from posts_questions q join users u on u.user_id=q.user_id order by q.view_count desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A014",
+  "split": "test2",
+  "category": "join",
+  "question": "Compare the average question score for python, java and javascript.",
+  "reference_sql": "select t.tag_name,avg(q.score) avg_score,count(*) n from posts_questions q join post_tags pt on pt.post_id=q.post_id join tags t on t.tag_id=pt.tag_id where t.tag_name in ('python','java','javascript') group by t.tag_name",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A015",
+  "split": "test2",
+  "category": "join",
+  "question": "Which tags most often show up alongside python?",
+  "reference_sql": "select t.tag_name,count(*) n from post_tags p1 join tags t1 on t1.tag_id=p1.tag_id and t1.tag_name='python' join post_tags pt on pt.post_id=p1.post_id join tags t on t.tag_id=pt.tag_id where t.tag_name<>'python' group by t.tag_id order by n desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A016",
+  "split": "test2",
+  "category": "join",
+  "question": "Which users have both a reputation above 5000 and more than 50 answers written in this data? List them with their numbers.",
+  "reference_sql": "SELECT \"display_name\", \"reputation\", \"answers\" FROM (select u.user_id,u.display_name,u.reputation,count(*) answers from users u join posts_answers a on a.user_id=u.user_id where u.reputation>5000 group by u.user_id having count(*)>50 order by answers desc)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A017",
+  "split": "test2",
+  "category": "join",
+  "question": "Which questions have the most comments directly on them? Show the titles.",
+  "reference_sql": "SELECT \"title\", \"n\" FROM (with c as (select post_id,count(*) n from comments where post_id in (select post_id from posts_questions) group by post_id) select q.post_id,q.title,c.n from c join posts_questions q on q.post_id=c.post_id where c.n=(select max(n) from c))",
+  "alt_sqls": [
+   "SELECT \"post_id\", \"n\" FROM (with c as (select post_id,count(*) n from comments where post_id in (select post_id from posts_questions) group by post_id) select q.post_id,q.title,c.n from c join posts_questions q on q.post_id=c.post_id where c.n=(select max(n) from c))"
+  ],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A018",
+  "split": "test2",
+  "category": "join",
+  "question": "How many docker questions got an accepted answer?",
+  "reference_sql": "select count(*) from posts_questions q where q.accepted_answer_id is not null and q.post_id in (select pt.post_id from post_tags pt join tags t on t.tag_id=pt.tag_id where t.tag_name='docker')",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A019",
+  "split": "test2",
+  "category": "join",
+  "question": "Who answers their own questions the most?",
+  "reference_sql": "WITH s AS (SELECT a.user_id, COUNT(*) n FROM posts_answers a JOIN posts_questions q ON q.post_id = a.parent_id AND q.user_id = a.user_id GROUP BY a.user_id) SELECT u.display_name FROM s JOIN users u ON u.user_id = s.user_id WHERE s.n = (SELECT MAX(n) FROM s)",
+  "alt_sqls": [],
+  "notes": "'The most' returns one row; a tie would return all tied users (there is none: 8 against 6).",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A020",
+  "split": "test2",
+  "category": "join",
+  "question": "Is the average reputation of people asking rust questions different from those asking go questions?",
+  "reference_sql": "select t.tag_name,avg(u.reputation) avg_rep,count(*) n from posts_questions q join users u on u.user_id=q.user_id join post_tags pt on pt.post_id=q.post_id join tags t on t.tag_id=pt.tag_id where t.tag_name in ('rust','go') group by t.tag_name",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A021",
+  "split": "test2",
+  "category": "join",
+  "question": "Top 10 people answering kubernetes questions",
+  "reference_sql": "SELECT u.display_name, COUNT(*) AS n FROM posts_answers a JOIN users u ON u.user_id = a.user_id WHERE a.parent_id IN (SELECT pt.post_id FROM post_tags pt JOIN tags t ON t.tag_id = pt.tag_id WHERE t.tag_name = 'kubernetes') GROUP BY u.user_id ORDER BY n DESC, u.display_name LIMIT 10",
+  "alt_sqls": [],
+  "notes": "Rows that tie on the count may come in any order.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A022",
+  "split": "test2",
+  "category": "join",
+  "question": "Which answer has the highest score, who wrote it and what was the question about?",
+  "reference_sql": "SELECT \"score\", \"display_name\", \"title\" FROM (select a.post_id,a.score,u.display_name,q.title from posts_answers a join users u on u.user_id=a.user_id join posts_questions q on q.post_id=a.parent_id order by a.score desc limit 1)",
+  "alt_sqls": [
+   "SELECT \"post_id\", \"score\", \"display_name\" FROM (select a.post_id,a.score,u.display_name,q.title from posts_answers a join users u on u.user_id=a.user_id join posts_questions q on q.post_id=a.parent_id order by a.score desc limit 1)"
+  ],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A023",
+  "split": "test2",
+  "category": "join",
+  "question": "For the 5 tags with the most answers, how many answers does each have?",
+  "reference_sql": "select t.tag_name,count(*) answers from posts_answers a join post_tags pt on pt.post_id=a.parent_id join tags t on t.tag_id=pt.tag_id group by t.tag_id order by answers desc limit 5",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A024",
+  "split": "test2",
+  "category": "join",
+  "question": "Among tags with at least 100 questions, which ones have the highest average views per question?",
+  "reference_sql": "select t.tag_name,count(*) questions,avg(q.view_count) avg_views from posts_questions q join post_tags pt on pt.post_id=q.post_id join tags t on t.tag_id=pt.tag_id group by t.tag_id having count(*)>=100 order by avg_views desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A025",
+  "split": "test2",
+  "category": "join",
+  "question": "How many people have commented on a question that they asked themselves?",
+  "reference_sql": "select count(distinct c.user_id) from comments c join posts_questions q on q.post_id=c.post_id and q.user_id=c.user_id",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A026",
+  "split": "test2",
+  "category": "join",
+  "question": "List users who joined in 2021 and have already written more than 10 answers, with their names and answer counts.",
+  "reference_sql": "SELECT \"display_name\", \"n\" FROM (select u.user_id,u.display_name,count(*) n from users u join posts_answers a on a.user_id=u.user_id where u.creation_date>='2021-01-01' and u.creation_date<'2022-01-01' group by u.user_id having count(*)>10 order by n desc)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A027",
+  "split": "test2",
+  "category": "join",
+  "question": "What are the 3 most common tags on questions that scored 50 or more?",
+  "reference_sql": "SELECT t.tag_name, COUNT(*) AS n FROM posts_questions q JOIN post_tags pt ON pt.post_id = q.post_id JOIN tags t ON t.tag_id = pt.tag_id WHERE q.score >= 50 GROUP BY t.tag_id ORDER BY n DESC, t.tag_name LIMIT 3",
+  "alt_sqls": [],
+  "notes": "Changed from top 10 to top 3 because the counts tie at 10th place; reactjs and javascript tie at 8 and may swap.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A028",
+  "split": "test2",
+  "category": "join",
+  "question": "Which askers have collected the most total views across all their questions?",
+  "reference_sql": "select u.display_name,sum(q.view_count) v from posts_questions q join users u on u.user_id=q.user_id group by u.user_id order by v desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A029",
+  "split": "test2",
+  "category": "join",
+  "question": "List questions with 'memory leak' in the title and the names of the people who asked them.",
+  "reference_sql": "SELECT \"title\", \"display_name\" FROM (select q.post_id,q.title,u.display_name from posts_questions q join users u on u.user_id=q.user_id where lower(q.title) like '%memory leak%')",
+  "alt_sqls": [
+   "SELECT \"post_id\", \"display_name\" FROM (select q.post_id,q.title,u.display_name from posts_questions q join users u on u.user_id=q.user_id where lower(q.title) like '%memory leak%')"
+  ],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A030",
+  "split": "test2",
+  "category": "join",
+  "question": "How many upvotes did the questions tagged python get compared with the ones tagged java?",
+  "reference_sql": "select t.tag_name,count(*) upvotes from votes v join post_tags pt on pt.post_id=v.post_id join tags t on t.tag_id=pt.tag_id where v.vote_type='UpMod' and t.tag_name in ('python','java') and v.post_id in (select post_id from posts_questions) group by t.tag_name",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A031",
+  "split": "test2",
+  "category": "absence",
+  "question": "How many questions never got a single answer?",
+  "reference_sql": "select count(*) from posts_questions q where not exists (select 1 from posts_answers a where a.parent_id=q.post_id)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A034",
+  "split": "test2",
+  "category": "absence",
+  "question": "How many users only ever wrote comments and never posted a question or an answer?",
+  "reference_sql": "select count(*) from users u where exists (select 1 from comments c where c.user_id=u.user_id) and not exists (select 1 from posts_questions q where q.user_id=u.user_id) and not exists (select 1 from posts_answers a where a.user_id=u.user_id)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A035",
+  "split": "test2",
+  "category": "absence",
+  "question": "how many tags exist that are not used by any question",
+  "reference_sql": "select count(*) from tags t where not exists (select 1 from post_tags p where p.tag_id=t.tag_id)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A036",
+  "split": "test2",
+  "category": "absence",
+  "question": "How many answers have never received any vote?",
+  "reference_sql": "select count(*) from posts_answers a where not exists (select 1 from votes v where v.post_id=a.post_id)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A037",
+  "split": "test2",
+  "category": "absence",
+  "question": "Number of questions that got answers but none of them was accepted",
+  "reference_sql": "select count(*) from posts_questions q where exists (select 1 from posts_answers a where a.parent_id=q.post_id) and not exists (select 1 from posts_answers a where a.parent_id=q.post_id and a.is_accepted=1)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A038",
+  "split": "test2",
+  "category": "absence",
+  "question": "Of the people who signed up in 2021, how many have never asked a question?",
+  "reference_sql": "select count(*) from users u where u.creation_date>='2021-01-01' and u.creation_date<'2022-01-01' and not exists (select 1 from posts_questions q where q.user_id=u.user_id)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A039",
+  "split": "test2",
+  "category": "absence",
+  "question": "Which users have written the most answers without ever having a single one accepted? Show the top 8.",
+  "reference_sql": "SELECT u.display_name, COUNT(*) AS answers FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY u.user_id HAVING SUM(a.is_accepted) = 0 ORDER BY answers DESC, u.display_name LIMIT 8",
+  "alt_sqls": [],
+  "notes": "Changed from top 10 to top 8: the counts tie at 9 across places 9 to 11, but place 8 (10 answers) is clear.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A040",
+  "split": "test2",
+  "category": "absence",
+  "question": "How many questions never received an upvote?",
+  "reference_sql": "select count(*) from posts_questions q where not exists (select 1 from votes v where v.post_id=q.post_id and v.vote_type='UpMod')",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A041",
+  "split": "test2",
+  "category": "date",
+  "question": "top tags 2021",
+  "reference_sql": "select t.tag_name,count(*) n from posts_questions q join post_tags pt on pt.post_id=q.post_id join tags t on t.tag_id=pt.tag_id where q.creation_date>='2021-01-01' and q.creation_date<'2022-01-01' group by t.tag_id order by n desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A044",
+  "split": "test2",
+  "category": "date",
+  "question": "How many questions were asked in the last 6 months?",
+  "reference_sql": "select count(*) from posts_questions where creation_date>='2022-03-25'",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A045",
+  "split": "test2",
+  "category": "date",
+  "question": "At what hour of the day are the most answers posted?",
+  "reference_sql": "SELECT CAST(substr(creation_date, 12, 2) AS INT) AS hour_utc, COUNT(*) AS n FROM posts_answers GROUP BY 1 ORDER BY n DESC LIMIT 1",
+  "alt_sqls": [
+   "SELECT substr(creation_date, 12, 2) AS hour_utc, COUNT(*) AS n FROM posts_answers GROUP BY 1 ORDER BY n DESC LIMIT 1"
+  ],
+  "notes": "UTC hour. The alternate gives the hour as text ('14') instead of a number.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A046",
+  "split": "test2",
+  "category": "date",
+  "question": "How many new accounts were created each year?",
+  "reference_sql": "select substr(creation_date,1,4) yr,count(*) from users group by yr order by yr",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A047",
+  "split": "test2",
+  "category": "date",
+  "question": "On average, how many hours pass between a question being asked and its first answer?",
+  "reference_sql": "select avg((julianday(f.first_a)-julianday(q.creation_date))*24) from posts_questions q join (select parent_id,min(creation_date) first_a from posts_answers group by parent_id) f on f.parent_id=q.post_id",
+  "alt_sqls": [
+   "SELECT AVG(julianday(fa.first_a) - julianday(q.creation_date)) FROM posts_questions q JOIN (SELECT parent_id, MIN(creation_date) first_a FROM posts_answers GROUP BY parent_id) fa ON fa.parent_id = q.post_id"
+  ],
+  "notes": "Mean hours from question to first answer, over answered questions. Days are accepted too.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A048",
+  "split": "test2",
+  "category": "date",
+  "question": "Which month had the most questions ever?",
+  "reference_sql": "select substr(creation_date,1,7) m,count(*) n from posts_questions group by m order by n desc limit 1",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A049",
+  "split": "test2",
+  "category": "date",
+  "question": "how many questions this year so far",
+  "reference_sql": "select count(*) from posts_questions where creation_date>='2022-01-01'",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A050",
+  "split": "test2",
+  "category": "date",
+  "question": "Which tags got the most new questions in the last 3 months of the data?",
+  "reference_sql": "select t.tag_name,count(*) n from posts_questions q join post_tags pt on pt.post_id=q.post_id join tags t on t.tag_id=pt.tag_id where q.creation_date>='2022-06-25' group by t.tag_id order by n desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A052",
+  "split": "test2",
+  "category": "date",
+  "question": "How many questions received their first answer on the same calendar day they were asked?",
+  "reference_sql": "select count(*) from posts_questions q join (select parent_id,min(creation_date) f from posts_answers group by parent_id) x on x.parent_id=q.post_id where substr(x.f,1,10)=substr(q.creation_date,1,10)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A053",
+  "split": "test2",
+  "category": "date",
+  "question": "How many comments were written in each month of 2022?",
+  "reference_sql": "select substr(creation_date,1,7) m,count(*) from comments where creation_date>='2022-01-01' and creation_date<'2023-01-01' group by m order by m",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A054",
+  "split": "test2",
+  "category": "date",
+  "question": "Did more questions get asked in the first quarter of 2021 or the first quarter of 2022, and by how much?",
+  "reference_sql": "select sum(creation_date>='2021-01-01' and creation_date<'2021-04-01') q1_2021,sum(creation_date>='2022-01-01' and creation_date<'2022-04-01') q1_2022,sum(creation_date>='2022-01-01' and creation_date<'2022-04-01')-sum(creation_date>='2021-01-01' and creation_date<'2021-04-01') diff from posts_questions",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A055",
+  "split": "test2",
+  "category": "date",
+  "question": "Which people who registered before 2012 are still answering questions in 2022? Show the top few by number of answers this year.",
+  "reference_sql": "SELECT u.display_name, COUNT(*) AS answers_2022 FROM posts_answers a JOIN users u ON u.user_id = a.user_id WHERE u.creation_date < '2012-01-01' AND substr(a.creation_date, 1, 4) = '2022' GROUP BY a.user_id ORDER BY answers_2022 DESC, a.user_id LIMIT 5",
+  "alt_sqls": [],
+  "notes": "'Top few' is read as 5.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A056",
+  "split": "test2",
+  "category": "date",
+  "question": "How many questions were posted on weekends versus on weekdays?",
+  "reference_sql": "select case when cast(strftime('%w',creation_date) as int) in (0,6) then 'weekend' else 'weekday' end k,count(*) from posts_questions group by k",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A057",
+  "split": "test2",
+  "category": "rate",
+  "question": "What percentage of questions have an accepted answer?",
+  "reference_sql": "select 100.0*sum(accepted_answer_id is not null)/count(*) from posts_questions",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "A058",
+  "split": "test2",
+  "category": "rate",
+  "question": "What fraction of all questions are tagged with python?",
+  "reference_sql": "select 1.0*(select count(*) from posts_questions where post_id in (select pt.post_id from post_tags pt join tags t on t.tag_id=pt.tag_id where t.tag_name='python'))/(select count(*) from posts_questions)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "A059",
+  "split": "test2",
+  "category": "rate",
+  "question": "For the 10 biggest tags, what share of their questions got an accepted answer?",
+  "reference_sql": "with big as (select t.tag_id,t.tag_name,count(*) n from post_tags pt join tags t on t.tag_id=pt.tag_id group by t.tag_id order by n desc limit 10) select b.tag_name,b.n,100.0*sum(q.accepted_answer_id is not null)/b.n pct from big b join post_tags pt on pt.tag_id=b.tag_id join posts_questions q on q.post_id=pt.post_id group by b.tag_id order by b.n desc",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "A061",
+  "split": "test2",
+  "category": "rate",
+  "question": "Which tags grew most in question count from 2020 to 2021, and what share of all 2021 questions did each of them make up?",
+  "reference_sql": "with y as (select pt.tag_id,substr(q.creation_date,1,4) yr,count(*) n from posts_questions q join post_tags pt on pt.post_id=q.post_id where q.creation_date<'2022-01-01' group by 1,2), tot as (select count(*) n from posts_questions where creation_date>='2021-01-01' and creation_date<'2022-01-01') select t.tag_name,y20.n n2020,y21.n n2021,y21.n-y20.n growth,100.0*y21.n/tot.n share_2021 from y y20 join y y21 on y21.tag_id=y20.tag_id and y20.yr='2020' and y21.yr='2021' join tags t on t.tag_id=y20.tag_id,tot order by growth desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true,
+  "percent": true
+ },
+ {
+  "id": "A062",
+  "split": "test2",
+  "category": "rate",
+  "question": "What percentage of answers were posted within an hour of the question?",
+  "reference_sql": "select 100.0*sum((julianday(a.creation_date)-julianday(q.creation_date))*24<=1)/count(*) from posts_answers a join posts_questions q on q.post_id=a.parent_id",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "A063",
+  "split": "test2",
+  "category": "rate",
+  "question": "Among users with at least 20 answers, who has the highest share of accepted answers? top 10 please",
+  "reference_sql": "select u.display_name,count(*) answers,sum(a.is_accepted) acc,1.0*sum(a.is_accepted)/count(*) share from posts_answers a join users u on u.user_id=a.user_id group by u.user_id having count(*)>=20 order by share desc,answers desc limit 10",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true,
+  "percent": true
+ },
+ {
+  "id": "A064",
+  "split": "test2",
+  "category": "rate",
+  "question": "Which proportion of users have asked at least one question?",
+  "reference_sql": "select 1.0*(select count(distinct user_id) from posts_questions)/(select count(*) from users)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "A065",
+  "split": "test2",
+  "category": "rate",
+  "question": "share of questions with a zero or negative score",
+  "reference_sql": "select 1.0*sum(score<=0)/count(*) from posts_questions",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "A066",
+  "split": "test2",
+  "category": "rate",
+  "question": "For each year, what proportion of questions got at least one answer?",
+  "reference_sql": "select substr(creation_date,1,4) yr,count(*) n,1.0*sum(exists(select 1 from posts_answers a where a.parent_id=q.post_id))/count(*) prop from posts_questions q group by yr order by yr",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "A068",
+  "split": "test2",
+  "category": "rate",
+  "question": "What share of all votes does each vote type account for?",
+  "reference_sql": "select vote_type,count(*) n,100.0*count(*)/(select count(*) from votes) pct from votes group by vote_type order by n desc",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "A069",
+  "split": "test2",
+  "category": "window",
+  "question": "Who are the top 3 answerers within each of the 5 biggest tags?",
+  "reference_sql": "with big as (select t.tag_id,t.tag_name from post_tags pt join tags t on t.tag_id=pt.tag_id group by t.tag_id order by count(*) desc limit 5), c as (select b.tag_name,a.user_id,count(*) n from posts_answers a join post_tags pt on pt.post_id=a.parent_id join big b on b.tag_id=pt.tag_id group by b.tag_id,a.user_id), r as (select *,row_number() over (partition by tag_name order by n desc,user_id) rn from c) select r.tag_name,u.display_name,r.n,r.rn from r join users u on u.user_id=r.user_id where rn<=3 order by tag_name,rn",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A070",
+  "split": "test2",
+  "category": "window",
+  "question": "Show a running total of questions asked, month by month.",
+  "reference_sql": "with m as (select substr(creation_date,1,7) m,count(*) n from posts_questions group by m) select m,n,sum(n) over (order by m) running from m order by m",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A071",
+  "split": "test2",
+  "category": "window",
+  "question": "For each year, which question had the highest score?",
+  "reference_sql": "SELECT \"yr\", \"title\", \"score\" FROM (select * from (select substr(q.creation_date,1,4) yr,q.post_id,q.title,q.score,rank() over (partition by substr(q.creation_date,1,4) order by q.score desc) rk from posts_questions q) where rk=1 order by yr)",
+  "alt_sqls": [
+   "SELECT \"yr\", \"post_id\", \"score\" FROM (select * from (select substr(q.creation_date,1,4) yr,q.post_id,q.title,q.score,rank() over (partition by substr(q.creation_date,1,4) order by q.score desc) rk from posts_questions q) where rk=1 order by yr)"
+  ],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A072",
+  "split": "test2",
+  "category": "window",
+  "question": "Who has the highest reputation among the users who joined in each year since 2018?",
+  "reference_sql": "SELECT \"yr\", \"display_name\", \"reputation\" FROM (select * from (select substr(creation_date,1,4) yr,user_id,display_name,reputation,rank() over (partition by substr(creation_date,1,4) order by reputation desc) rk from users where creation_date>='2018-01-01') where rk=1 order by yr)",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A073",
+  "split": "test2",
+  "category": "window",
+  "question": "How did the number of questions change from one month to the next in 2021?",
+  "reference_sql": "select * from (select substr(creation_date,1,7) m,count(*) n,count(*)-lag(count(*)) over (order by substr(creation_date,1,7)) chg from posts_questions group by m) where m>='2021-01' and m<='2021-12' order by m",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A074",
+  "split": "test2",
+  "category": "window",
+  "question": "For each of the top 10 tags, what's the most viewed question title?",
+  "reference_sql": "with big as (select t.tag_id,t.tag_name from post_tags pt join tags t on t.tag_id=pt.tag_id group by t.tag_id order by count(*) desc limit 10), r as (select b.tag_name,q.title,q.view_count,row_number() over (partition by b.tag_id order by q.view_count desc) rn from big b join post_tags pt on pt.tag_id=b.tag_id join posts_questions q on q.post_id=pt.post_id) select tag_name,title,view_count from r where rn=1",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A075",
+  "split": "test2",
+  "category": "window",
+  "question": "cumulative number of accounts created by year",
+  "reference_sql": "select substr(creation_date,1,4) yr,count(*) n,sum(count(*)) over (order by substr(creation_date,1,4)) cum from users group by yr order by yr",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A076",
+  "split": "test2",
+  "category": "window",
+  "question": "What was the 7-day moving average of daily question counts during August 2022?",
+  "reference_sql": "with recursive days(d) as (select date('2022-07-25') union all select date(d,'+1 day') from days where d<'2022-08-31'), dc as (select d,(select count(*) from posts_questions where substr(creation_date,1,10)=d) n from days), ma as (select d,avg(n) over (order by d rows between 6 preceding and current row) ma7 from dc) select d,ma7 from ma where d>='2022-08-01'",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A077",
+  "split": "test2",
+  "category": "window",
+  "question": "For each month in 2021, which answer got the highest score?",
+  "reference_sql": "SELECT m AS month, post_id AS answer_id, score FROM (SELECT substr(creation_date, 1, 7) m, post_id, score, rank() OVER (PARTITION BY substr(creation_date, 1, 7) ORDER BY score DESC) rk FROM posts_answers WHERE creation_date >= '2021-01-01' AND creation_date < '2022-01-01') WHERE rk = 1 ORDER BY m, post_id",
+  "alt_sqls": [],
+  "notes": "Month, answer id and score only; ties would give several rows for a month.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A078",
+  "split": "test2",
+  "category": "window",
+  "question": "What's the longest run of consecutive days where at least one question was asked?",
+  "reference_sql": "with d as (select distinct substr(creation_date,1,10) dt from posts_questions), g as (select dt,julianday(dt)-row_number() over (order by dt) grp from d) select min(dt) start,max(dt) end,count(*) len from g group by grp order by len desc limit 1",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A079",
+  "split": "test2",
+  "category": "window",
+  "question": "Rank the top 5 tags by questions in each year from 2020 to 2022.",
+  "reference_sql": "with c as (select substr(q.creation_date,1,4) yr,t.tag_name,count(*) n from posts_questions q join post_tags pt on pt.post_id=q.post_id join tags t on t.tag_id=pt.tag_id group by 1,t.tag_id), r as (select *,row_number() over (partition by yr order by n desc,tag_name) rn from c) select yr,rn,tag_name,n from r where rn<=5 order by yr,rn",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A080",
+  "split": "test2",
+  "category": "window",
+  "question": "Put users into reputation quartiles and tell me how many users and the average answer count are in each.",
+  "reference_sql": "with u as (select u.user_id,u.reputation,ntile(4) over (order by u.reputation) qt,(select count(*) from posts_answers a where a.user_id=u.user_id) ac from users u) select qt,count(*),avg(ac),min(reputation),max(reputation) from u group by qt order by qt",
+  "alt_sqls": [],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A081",
+  "split": "test2",
+  "category": "ambiguous",
+  "question": "who is the most helpful user?",
+  "reference_sql": "SELECT u.display_name FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY a.user_id HAVING SUM(a.is_accepted) = (SELECT MAX(s) FROM (SELECT SUM(is_accepted) s FROM posts_answers GROUP BY user_id))",
+  "alt_sqls": [],
+  "notes": "'Helpful' is read as the most accepted answers (591, Gordon Linoff). The user is compared, not the measure.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A083",
+  "split": "test2",
+  "category": "ambiguous",
+  "question": "Which questions are the best?",
+  "reference_sql": "SELECT \"title\", \"score\", \"view_count\" FROM (select post_id,title,score,view_count from posts_questions order by score desc limit 10)",
+  "alt_sqls": [
+   "SELECT \"post_id\", \"score\", \"view_count\" FROM (select post_id,title,score,view_count from posts_questions order by score desc limit 10)"
+  ],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A084",
+  "split": "test2",
+  "category": "ambiguous",
+  "question": "How active was the site in 2021?",
+  "reference_sql": "SELECT (SELECT COUNT(*) FROM posts_questions WHERE substr(creation_date,1,4)='2021') AS questions, (SELECT COUNT(*) FROM posts_answers WHERE substr(creation_date,1,4)='2021') AS answers, (SELECT COUNT(*) FROM comments WHERE substr(creation_date,1,4)='2021') AS comments, (SELECT COUNT(*) FROM users WHERE substr(creation_date,1,4)='2021') AS new_users",
+  "alt_sqls": [],
+  "notes": "Counts of questions, answers, comments and new accounts in 2021 (the second writer's four columns).",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A085",
+  "split": "test2",
+  "category": "ambiguous",
+  "question": "Who are the top contributors recently?",
+  "reference_sql": "SELECT u.display_name FROM (SELECT user_id, COUNT(*) n FROM posts_answers WHERE creation_date >= '2022-06-25' GROUP BY user_id UNION ALL SELECT user_id, COUNT(*) FROM posts_questions WHERE creation_date >= '2022-06-25' GROUP BY user_id) x JOIN users u ON u.user_id = x.user_id GROUP BY u.user_id ORDER BY SUM(n) DESC LIMIT 1",
+  "alt_sqls": [],
+  "notes": "Subjective; compared on the top person only (mozway under both writers' readings).",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A086",
+  "split": "test2",
+  "category": "ambiguous",
+  "question": "Which tag is the hardest?",
+  "reference_sql": "SELECT t.tag_name FROM posts_questions q JOIN post_tags pt ON pt.post_id = q.post_id JOIN tags t ON t.tag_id = pt.tag_id GROUP BY t.tag_id HAVING COUNT(*) >= 100 ORDER BY 100.0 * SUM(q.accepted_answer_id IS NULL) / COUNT(*) DESC LIMIT 1",
+  "alt_sqls": [],
+  "notes": "Subjective; 'hardest' = highest share of questions without an accepted answer among tags with 100+ questions. Tag name only.",
+  "written_by": "assistant",
+  "ordered": false
+ },
+ {
+  "id": "A088",
+  "split": "test2",
+  "category": "ambiguous",
+  "question": "Show me the most controversial questions.",
+  "reference_sql": "SELECT \"title\", \"up\", \"dn\" FROM (with v as (select post_id,sum(vote_type='UpMod') up,sum(vote_type='DownMod') dn from votes group by post_id) select q.post_id,q.title,v.up,v.dn from v join posts_questions q on q.post_id=v.post_id where v.up>0 and v.dn>0 order by min(v.up,v.dn) desc,v.up+v.dn desc limit 10)",
+  "alt_sqls": [
+   "SELECT \"post_id\", \"up\", \"dn\" FROM (with v as (select post_id,sum(vote_type='UpMod') up,sum(vote_type='DownMod') dn from votes group by post_id) select q.post_id,q.title,v.up,v.dn from v join posts_questions q on q.post_id=v.post_id where v.up>0 and v.dn>0 order by min(v.up,v.dn) desc,v.up+v.dn desc limit 10)"
+  ],
+  "notes": "Two independent writers derived the same answer.",
+  "written_by": "assistant",
+  "ordered": true
+ },
+ {
+  "id": "A089",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "Who upvoted the most-viewed question?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: votes.user_id is always NULL (voters anonymized).; votes.user_id is NULL for every row (voters anonymized); cannot tell who upvoted.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A090",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "How many questions were closed as duplicates?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: no close/duplicate status data in the schema (vote codes 10/11/15/16 are undecoded).; No close/duplicate-closure data in any table.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A091",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "Which country do most of the users come from?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: users has no location/country column.; users has no location/country column.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A092",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "What are the most commonly awarded badge names?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: no badges table; only users.badge_count.; No badges table; users only has badge_count, no badge names.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A093",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "How many questions have been edited at least once, and who edited the most?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: no edit history or last-editor data.; No edit history or last-edit data in the schema.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A094",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "How much did the reputation of the top 10 users grow during 2021?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: reputation is a single snapshot as of export; no history.; Reputation is stored only as of export date; no reputation history, so growth during 2021 cannot be computed.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A095",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "What is the total bounty amount offered on questions?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: BountyStart votes exist but carry no bounty amount.; votes has BountyStart/BountyClose rows but no bounty amount column.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A096",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "Which answers were viewed the most?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: answers have no view_count (only questions do).; Answers have no view count (view_count only exists on questions).",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A097",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "who was online most recently",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: no last-access/online timestamp for users.; No last-access / last-seen date on users.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A098",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "What is the average age of users who answer python questions?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: users has no age or birth date (only account creation_date).; No age or birthdate column on users.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A099",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "Which user bookmarked the most questions?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: Favorite votes exist but votes.user_id is always NULL, so who bookmarked is unknown.; Favorite votes exist per post but votes.user_id is always NULL, so cannot tell which user bookmarked.",
+  "written_by": "assistant"
+ },
+ {
+  "id": "A100",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "How many questions were deleted by moderators?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Unanswerable: no deletion data (deleted posts are not in the data).; No deletion information (deleted posts are absent from the data).",
+  "written_by": "assistant"
+ },
+ {
+  "id": "U01",
+  "split": "test2",
+  "category": "join",
+  "question": "Which user wrote the longest comment, and which wrote the shortest?",
+  "reference_sql": "SELECT u.display_name, length(c.body) AS len FROM comments c JOIN users u ON u.user_id = c.user_id WHERE length(c.body) = (SELECT max(length(body)) FROM comments) UNION ALL SELECT u.display_name, length(c.body) FROM comments c JOIN users u ON u.user_id = c.user_id WHERE length(c.body) = (SELECT min(length(body)) FROM comments)",
+  "alt_sqls": [],
+  "notes": "Two rows: the author of the longest comment (631 characters) and of the shortest (empty).",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U02",
+  "split": "test2",
+  "category": "join",
+  "question": "Which user has the longest average comment, among users with at least 10 comments?",
+  "reference_sql": "SELECT u.display_name FROM comments c JOIN users u ON u.user_id = c.user_id GROUP BY c.user_id HAVING COUNT(*) >= 10 ORDER BY AVG(length(c.body)) DESC, u.display_name LIMIT 1",
+  "alt_sqls": [],
+  "notes": "",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U03",
+  "split": "test2",
+  "category": "join",
+  "question": "Which user has the shortest average comment, among users with at least 10 comments?",
+  "reference_sql": "SELECT u.display_name FROM comments c JOIN users u ON u.user_id = c.user_id GROUP BY c.user_id HAVING COUNT(*) >= 10 ORDER BY AVG(length(c.body)), u.display_name LIMIT 1",
+  "alt_sqls": [],
+  "notes": "",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U04",
+  "split": "test2",
+  "category": "join",
+  "question": "Which two users have commented together on the same question the most times? A question counts with all its answers.",
+  "reference_sql": "WITH cq AS (SELECT DISTINCT qid, user_id FROM (SELECT post_id qid, user_id FROM comments WHERE post_id IN (SELECT post_id FROM posts_questions) UNION ALL SELECT a.parent_id, c.user_id FROM comments c JOIN posts_answers a ON a.post_id = c.post_id)) SELECT ua.display_name AS user_1, ub.display_name AS user_2 FROM cq x JOIN cq y ON x.qid = y.qid AND x.user_id < y.user_id JOIN users ua ON ua.user_id = x.user_id JOIN users ub ON ub.user_id = y.user_id GROUP BY x.user_id, y.user_id ORDER BY COUNT(*) DESC, x.user_id, y.user_id LIMIT 1",
+  "alt_sqls": [],
+  "notes": "A question counts together with all its answers. Top pair shares 53 questions (next 51); names may come in either order.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U05",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "How many users have each display-name length? Show the 10 longest lengths.",
+  "reference_sql": "SELECT length(display_name) AS len, COUNT(*) AS users FROM users GROUP BY 1 ORDER BY len DESC LIMIT 10",
+  "alt_sqls": [],
+  "notes": "",
+  "written_by": "owner",
+  "ordered": true
+ },
+ {
+  "id": "U06",
+  "split": "test2",
+  "category": "absence",
+  "question": "How many questions have no comments?",
+  "reference_sql": "SELECT COUNT(*) FROM posts_questions p WHERE NOT EXISTS (SELECT 1 FROM comments c WHERE c.post_id = p.post_id)",
+  "alt_sqls": [
+   "SELECT COUNT(*) FROM posts_questions p WHERE NOT EXISTS (SELECT 1 FROM comments c WHERE c.post_id = p.post_id) AND NOT EXISTS (SELECT 1 FROM comments c JOIN posts_answers a ON a.post_id = c.post_id WHERE a.parent_id = p.post_id)"
+  ],
+  "notes": "Main reading: no comment directly on the question (64,642). Also accepted: none on the question or any of its answers (37,767).",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U07",
+  "split": "test2",
+  "category": "absence",
+  "question": "How many answers have no comments?",
+  "reference_sql": "SELECT COUNT(*) FROM posts_answers a WHERE NOT EXISTS (SELECT 1 FROM comments c WHERE c.post_id = a.post_id)",
+  "alt_sqls": [],
+  "notes": "",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U08",
+  "split": "test2",
+  "category": "join",
+  "question": "Which user has the oldest account among those with the least activity, counting their questions, answers and comments?",
+  "reference_sql": "WITH act AS (SELECT user_id, COUNT(*) n FROM (SELECT user_id FROM posts_questions UNION ALL SELECT user_id FROM posts_answers UNION ALL SELECT user_id FROM comments) GROUP BY user_id) SELECT u.display_name FROM users u LEFT JOIN act a USING (user_id) WHERE coalesce(a.n, 0) = (SELECT min(coalesce(a2.n, 0)) FROM users u2 LEFT JOIN act a2 USING (user_id)) ORDER BY u.creation_date, u.user_id LIMIT 1",
+  "alt_sqls": [],
+  "notes": "Activity = questions + answers + comments. Nobody has none, so the least is one contribution.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U09",
+  "split": "test2",
+  "category": "join",
+  "question": "Which user has the oldest account among those with the least activity, counting only their questions and answers?",
+  "reference_sql": "WITH act AS (SELECT user_id, COUNT(*) n FROM (SELECT user_id FROM posts_questions UNION ALL SELECT user_id FROM posts_answers) GROUP BY user_id) SELECT u.display_name FROM users u LEFT JOIN act a USING (user_id) WHERE u.user_id <> -1 AND coalesce(a.n, 0) = 0 ORDER BY u.creation_date, u.user_id LIMIT 1",
+  "alt_sqls": [
+   "WITH act AS (SELECT user_id, COUNT(*) n FROM (SELECT user_id FROM posts_questions UNION ALL SELECT user_id FROM posts_answers) GROUP BY user_id) SELECT u.display_name FROM users u LEFT JOIN act a USING (user_id) WHERE coalesce(a.n, 0) = 0 ORDER BY u.creation_date, u.user_id LIMIT 1",
+   "WITH act AS (SELECT user_id, COUNT(*) n FROM (SELECT user_id FROM posts_questions UNION ALL SELECT user_id FROM posts_answers) GROUP BY user_id) SELECT u.display_name FROM users u JOIN act a USING (user_id) WHERE a.n = (SELECT min(n) FROM act) ORDER BY u.creation_date, u.user_id LIMIT 1"
+  ],
+  "notes": "Questions and answers only. Main: the oldest account with none, leaving out the Community system account. Also accepted: Community itself, and the oldest account with exactly one.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U10",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "Across questions with the longest title length (150 characters), what is the average number of answers, comments and views?",
+  "reference_sql": "SELECT AVG(answer_count) AS avg_answers, AVG((SELECT COUNT(*) FROM comments c WHERE c.post_id = t.post_id)) AS avg_comments, AVG(view_count) AS avg_views FROM (SELECT post_id, answer_count, view_count FROM posts_questions WHERE length(title) = 150) t",
+  "alt_sqls": [
+   "SELECT AVG(answer_count), AVG((SELECT COUNT(*) FROM comments c WHERE c.post_id = t.post_id) + (SELECT COUNT(*) FROM comments c JOIN posts_answers a ON a.post_id = c.post_id WHERE a.parent_id = t.post_id)), AVG(view_count) FROM (SELECT post_id, answer_count, view_count FROM posts_questions WHERE length(title) = 150) t"
+  ],
+  "notes": "134 questions have a 150-character title. Main: comments directly on the question; also accepted: including comments on its answers.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U11",
+  "split": "test2",
+  "category": "join",
+  "question": "Among users with at least 100 contributions (questions, answers and comments combined), which have the lowest reputation?",
+  "reference_sql": "WITH act AS (SELECT user_id, COUNT(*) n FROM (SELECT user_id FROM posts_questions UNION ALL SELECT user_id FROM posts_answers UNION ALL SELECT user_id FROM comments) GROUP BY user_id) SELECT u.display_name, u.reputation FROM users u JOIN act a USING (user_id) WHERE a.n >= 100 AND u.reputation = (SELECT min(u2.reputation) FROM users u2 JOIN act a2 USING (user_id) WHERE a2.n >= 100)",
+  "alt_sqls": [],
+  "notes": "All users tied at the lowest reputation (1) are listed.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U12",
+  "split": "test2",
+  "category": "join",
+  "question": "Which users have the most activity for their reputation?",
+  "reference_sql": "WITH act AS (SELECT user_id, COUNT(*) n FROM (SELECT user_id FROM posts_questions UNION ALL SELECT user_id FROM posts_answers UNION ALL SELECT user_id FROM comments) GROUP BY user_id) SELECT u.display_name, 1.0 * a.n / u.reputation AS ratio FROM users u JOIN act a USING (user_id) ORDER BY ratio DESC, a.n DESC LIMIT 5",
+  "alt_sqls": [],
+  "notes": "Contributions per reputation point, top 5. Reputation 1 is common, so those accounts lead.",
+  "written_by": "owner",
+  "ordered": true
+ },
+ {
+  "id": "U13",
+  "split": "test2",
+  "category": "join",
+  "question": "Excluding questions with fewer than 10 answers, which 5 questions generated the least activity?",
+  "reference_sql": "SELECT q.title, q.answer_count + (SELECT COUNT(*) FROM comments c WHERE c.post_id = q.post_id) + (SELECT COUNT(*) FROM comments c JOIN posts_answers a ON a.post_id = c.post_id WHERE a.parent_id = q.post_id) + (SELECT COUNT(*) FROM votes v WHERE v.post_id = q.post_id) AS activity FROM posts_questions q WHERE q.answer_count >= 10 ORDER BY activity, q.post_id LIMIT 5",
+  "alt_sqls": [
+   "SELECT q.post_id, q.answer_count + (SELECT COUNT(*) FROM comments c WHERE c.post_id = q.post_id) + (SELECT COUNT(*) FROM comments c JOIN posts_answers a ON a.post_id = c.post_id WHERE a.parent_id = q.post_id) + (SELECT COUNT(*) FROM votes v WHERE v.post_id = q.post_id) AS activity FROM posts_questions q WHERE q.answer_count >= 10 ORDER BY activity, q.post_id LIMIT 5",
+   "SELECT q.title, q.view_count FROM posts_questions q WHERE q.answer_count >= 10 ORDER BY q.view_count, q.post_id LIMIT 5",
+   "SELECT q.post_id, q.view_count FROM posts_questions q WHERE q.answer_count >= 10 ORDER BY q.view_count, q.post_id LIMIT 5"
+  ],
+  "notes": "36 questions have 10 or more answers. Main: answers + comments + votes. Also accepted: ranking by views.",
+  "written_by": "owner",
+  "ordered": true
+ },
+ {
+  "id": "U14",
+  "split": "test2",
+  "category": "date",
+  "question": "Which user answered the most questions in a single day?",
+  "reference_sql": "SELECT u.display_name FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY a.user_id, date(a.creation_date) HAVING COUNT(*) = (SELECT MAX(c) FROM (SELECT COUNT(*) c FROM posts_answers GROUP BY user_id, date(creation_date)))",
+  "alt_sqls": [],
+  "notes": "UTC calendar day. Gordon Linoff answered 8 questions on 2020-10-26; nobody else reached 8.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U15",
+  "split": "test2",
+  "category": "date",
+  "question": "Who are the top 5 users by average answers per week?",
+  "reference_sql": "SELECT u.display_name, COUNT(*) / 143.0 AS avg_per_week FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY a.user_id ORDER BY COUNT(*) DESC, u.display_name LIMIT 5",
+  "alt_sqls": [
+   "SELECT u.display_name, COUNT(*) / ((julianday((SELECT MAX(creation_date) FROM posts_answers)) - julianday('2020-01-01')) / 7.0) AS avg_per_week FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY a.user_id ORDER BY COUNT(*) DESC, u.display_name LIMIT 5",
+   "SELECT u.display_name, COUNT(*) / ((julianday('2022-09-25') - julianday('2020-01-01')) / 7.0) AS avg_per_week FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY a.user_id ORDER BY COUNT(*) DESC, u.display_name LIMIT 5"
+  ],
+  "notes": "Answers divided by the 143 weeks in the data; the same ranking as total answers. The week count is a little different under other ways of counting weeks, so two close alternates are accepted.",
+  "written_by": "owner",
+  "ordered": true
+ },
+ {
+  "id": "U16",
+  "split": "test2",
+  "category": "date",
+  "question": "Among users with at least 50 answers, who are the top 5 by average answers per active week?",
+  "reference_sql": "SELECT u.display_name, 1.0 * COUNT(*) / COUNT(DISTINCT date(a.creation_date, 'weekday 0', '-6 days')) AS avg_per_active_week FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY a.user_id HAVING COUNT(*) >= 50 ORDER BY avg_per_active_week DESC, u.display_name LIMIT 5",
+  "alt_sqls": [
+   "SELECT u.display_name, 1.0 * COUNT(*) / COUNT(DISTINCT strftime('%Y-%W', a.creation_date)) AS avg_per_active_week FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY a.user_id HAVING COUNT(*) >= 50 ORDER BY avg_per_active_week DESC, u.display_name LIMIT 5",
+   "SELECT u.display_name, 1.0 * COUNT(*) / COUNT(DISTINCT date(a.creation_date, 'weekday 6', '-6 days')) AS avg_per_active_week FROM posts_answers a JOIN users u ON u.user_id = a.user_id GROUP BY a.user_id HAVING COUNT(*) >= 50 ORDER BY avg_per_active_week DESC, u.display_name LIMIT 5"
+  ],
+  "notes": "Averages differ slightly with where a week starts (Monday, Monday by year-week, Sunday); the top 5 and their order are the same.",
+  "written_by": "owner",
+  "ordered": true
+ },
+ {
+  "id": "U17",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "For users with 25+ accepted answers, what is the average number of accepted answers?",
+  "reference_sql": "WITH t AS (SELECT user_id, COUNT(*) n FROM posts_answers WHERE is_accepted = 1 GROUP BY user_id HAVING n >= 25) SELECT AVG(n) FROM t",
+  "alt_sqls": [],
+  "notes": "228 users have 25 or more accepted answers (counted by the answer flag); the average is about 59.4.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U18",
+  "split": "test2",
+  "category": "unanswerable",
+  "question": "Which users in the western hemisphere answer the most at night?",
+  "reference_sql": null,
+  "alt_sqls": [],
+  "notes": "Users have no location (the users table holds only id, name, reputation, badges and account date).",
+  "written_by": "owner"
+ },
+ {
+  "id": "U19",
+  "split": "test2",
+  "category": "date",
+  "question": "Among users with 50+ accepted answers, how many have more than half of their answers posted between 10 PM and 5 AM US Eastern time (UTC-5, ignoring daylight saving)?",
+  "reference_sql": "WITH acc AS (SELECT user_id FROM posts_answers WHERE is_accepted = 1 GROUP BY user_id HAVING COUNT(*) >= 50), h AS (SELECT a.user_id, CAST(strftime('%H', datetime(a.creation_date, '-5 hours')) AS INT) hr FROM posts_answers a JOIN acc USING (user_id)) SELECT COUNT(*) FROM (SELECT user_id, AVG(hr >= 22 OR hr < 5) f FROM h GROUP BY user_id HAVING f > 0.5)",
+  "alt_sqls": [],
+  "notes": "73 users have 50 or more accepted answers. Night is 22:00-04:59 at a fixed UTC-5, more than half of all their answers.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U20",
+  "split": "test2",
+  "category": "date",
+  "question": "Which question has the longest range from its first answer?",
+  "reference_sql": "SELECT q.title FROM posts_answers a JOIN posts_questions q ON q.post_id = a.parent_id GROUP BY a.parent_id HAVING COUNT(*) >= 2 ORDER BY julianday(MAX(a.creation_date)) - julianday(MIN(a.creation_date)) DESC LIMIT 1",
+  "alt_sqls": [
+   "SELECT a.parent_id FROM posts_answers a GROUP BY a.parent_id HAVING COUNT(*) >= 2 ORDER BY julianday(MAX(a.creation_date)) - julianday(MIN(a.creation_date)) DESC LIMIT 1"
+  ],
+  "notes": "Time between a question's first and last answer: question 59612976, about 986 days (next 971).",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U21",
+  "split": "test2",
+  "category": "date",
+  "question": "Which question waited the longest for its first answer?",
+  "reference_sql": "SELECT q.title FROM posts_questions q JOIN posts_answers a ON a.parent_id = q.post_id GROUP BY q.post_id ORDER BY julianday(MIN(a.creation_date)) - julianday(q.creation_date) DESC LIMIT 1",
+  "alt_sqls": [
+   "SELECT q.post_id FROM posts_questions q JOIN posts_answers a ON a.parent_id = q.post_id GROUP BY q.post_id ORDER BY julianday(MIN(a.creation_date)) - julianday(q.creation_date) DESC LIMIT 1"
+  ],
+  "notes": "Wait from the question to its first answer: question 59668208, about 953 days (next 942).",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U22",
+  "split": "test2",
+  "category": "date",
+  "question": "Second Life: How many questions received 100+ upvotes more than 3 days after they were posted?",
+  "reference_sql": "SELECT COUNT(*) FROM (SELECT q.post_id FROM votes v JOIN posts_questions q ON q.post_id = v.post_id WHERE v.vote_type = 'UpMod' AND julianday(v.creation_date) - julianday(q.creation_date) > 3 GROUP BY q.post_id HAVING COUNT(*) >= 100)",
+  "alt_sqls": [],
+  "notes": "Upvotes on the question itself, more than 3 days after it was posted (vote dates are whole days).",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U23",
+  "split": "test2",
+  "category": "date",
+  "question": "Second Life: How many questions received 100+ upvotes more than 7 days after they were posted?",
+  "reference_sql": "SELECT COUNT(*) FROM (SELECT q.post_id FROM votes v JOIN posts_questions q ON q.post_id = v.post_id WHERE v.vote_type = 'UpMod' AND julianday(v.creation_date) - julianday(q.creation_date) > 7 GROUP BY q.post_id HAVING COUNT(*) >= 100)",
+  "alt_sqls": [],
+  "notes": "Same with 7 days. All 14 are also in the 3-day group.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U24",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "How many answers with less than 12 characters have 10+ score?",
+  "reference_sql": "SELECT COUNT(*) FROM posts_answers WHERE length(body) < 12 AND score >= 10",
+  "alt_sqls": [],
+  "notes": "Stored bodies are HTML (shortest is 37 characters), so the answer is 0 whether tags are counted or not.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U25",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "How many answers with less than 75 characters have a score of 10 or more?",
+  "reference_sql": "WITH RECURSIVE s(id, t) AS (SELECT post_id, body FROM posts_answers WHERE score >= 10 UNION ALL SELECT id, substr(t, 1, instr(t, '<') - 1) || substr(t, instr(t, '<') + instr(substr(t, instr(t, '<')), '>')) FROM s WHERE instr(t, '<') > 0 AND instr(substr(t, instr(t, '<')), '>') > 0), f AS (SELECT id, t FROM s WHERE NOT (instr(t, '<') > 0 AND instr(substr(t, instr(t, '<')), '>') > 0)), g AS (SELECT id, trim(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(t, char(10), char(32)), char(13), char(32)), char(9), char(32)), char(160), char(32)), char(32) || char(32), char(32)), char(32) || char(32), char(32)), char(32) || char(32), char(32)), char(32) || char(32), char(32)), char(32) || char(32), char(32)), char(32) || char(32), char(32)), char(32) || char(32), char(32)), char(32) || char(32), char(32)), char(32) || char(32), char(32)), '&lt;', '<'), '&gt;', '>'), '&quot;', '\"'), '&#39;', ''''), '&amp;', '&')) AS vt FROM f) SELECT COUNT(*) FROM g WHERE length(vt) < 75",
+  "alt_sqls": [],
+  "notes": "Visible text only (tags removed, entities decoded, spaces collapsed), as the owner decided. Counting the stored HTML gives 3 and is NOT accepted.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U26",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "Underachievers: How many users have zero badges?",
+  "reference_sql": "SELECT COUNT(*) FROM users WHERE badge_count = 0",
+  "alt_sqls": [],
+  "notes": "",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U27",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "Underachievers: How many users have exactly one badge?",
+  "reference_sql": "SELECT COUNT(*) FROM users WHERE badge_count = 1",
+  "alt_sqls": [],
+  "notes": "",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U28",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "Underachievers: As of the end of the data (2022-09-25), how many users with accounts older than 7 years have only 0 or 1 badges?",
+  "reference_sql": "SELECT COUNT(*) FROM users WHERE creation_date < '2015-09-25' AND badge_count <= 1",
+  "alt_sqls": [],
+  "notes": "As of the end of the data (2022-09-25), so accounts created before 2015-09-25. Counting from today (4,408) is NOT accepted.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U29",
+  "split": "test2",
+  "category": "join",
+  "question": "Tag twins: Which two tags appear together on the most questions?",
+  "reference_sql": "SELECT t1.tag_name, t2.tag_name FROM post_tags a JOIN post_tags b ON a.post_id = b.post_id AND a.tag_id < b.tag_id JOIN tags t1 ON t1.tag_id = a.tag_id JOIN tags t2 ON t2.tag_id = b.tag_id GROUP BY a.tag_id, b.tag_id ORDER BY COUNT(*) DESC LIMIT 1",
+  "alt_sqls": [],
+  "notes": "python and pandas appear together on 6,886 questions (next 6,494); either order.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U30",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "Loners vs crowds: How many questions have just one tag, and how many have all five?",
+  "reference_sql": "WITH n AS (SELECT post_id, COUNT(*) k FROM post_tags GROUP BY post_id) SELECT k, COUNT(*) FROM n WHERE k IN (1, 5) GROUP BY k",
+  "alt_sqls": [
+   "WITH n AS (SELECT post_id, COUNT(*) k FROM post_tags GROUP BY post_id) SELECT SUM(k = 1), SUM(k = 5) FROM n"
+  ],
+  "notes": "12,717 questions with one tag and 32,381 with five (five is the most any question has).",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U31",
+  "split": "test2",
+  "category": "date",
+  "question": "Rising vs falling: Which tag gained the most questions from 2020 to 2021, and which lost the most?",
+  "reference_sql": "WITH y AS (SELECT t.tag_id, SUM(substr(q.creation_date, 1, 4) = '2020') c20, SUM(substr(q.creation_date, 1, 4) = '2021') c21 FROM post_tags t JOIN posts_questions q ON q.post_id = t.post_id GROUP BY t.tag_id) SELECT tag_name, c21 - c20 FROM y JOIN tags USING (tag_id) WHERE c21 - c20 = (SELECT MAX(c21 - c20) FROM y) UNION ALL SELECT tag_name, c21 - c20 FROM y JOIN tags USING (tag_id) WHERE c21 - c20 = (SELECT MIN(c21 - c20) FROM y)",
+  "alt_sqls": [
+   "WITH y AS (SELECT t.tag_id, SUM(substr(q.creation_date, 1, 4) = '2020') c20, SUM(substr(q.creation_date, 1, 4) = '2021') c21 FROM post_tags t JOIN posts_questions q ON q.post_id = t.post_id GROUP BY t.tag_id) SELECT (SELECT tag_name FROM y JOIN tags USING (tag_id) ORDER BY c21 - c20 DESC LIMIT 1), (SELECT MAX(c21 - c20) FROM y), (SELECT tag_name FROM y JOIN tags USING (tag_id) ORDER BY c21 - c20 LIMIT 1), (SELECT MIN(c21 - c20) FROM y)"
+  ],
+  "notes": "Absolute change in questions per tag, 2020 to 2021: next.js +216 (next typescript +120), java -1,764 (next javascript -1,545).",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U32",
+  "split": "test2",
+  "category": "rate",
+  "question": "Answered vs ignored: Among tags with at least 500 questions, which has the highest share of questions with an accepted answer, and which the lowest?",
+  "reference_sql": "WITH s AS (SELECT t.tag_id, COUNT(*) n, AVG(q.accepted_answer_id IS NOT NULL) share FROM post_tags t JOIN posts_questions q ON q.post_id = t.post_id GROUP BY t.tag_id HAVING n >= 500) SELECT tag_name, share FROM s JOIN tags USING (tag_id) WHERE share = (SELECT MAX(share) FROM s) UNION ALL SELECT tag_name, share FROM s JOIN tags USING (tag_id) WHERE share = (SELECT MIN(share) FROM s)",
+  "alt_sqls": [
+   "WITH s AS (SELECT t.tag_id, COUNT(*) n, AVG(q.accepted_answer_id IS NOT NULL) share FROM post_tags t JOIN posts_questions q ON q.post_id = t.post_id GROUP BY t.tag_id HAVING n >= 500) SELECT (SELECT tag_name FROM s JOIN tags USING (tag_id) ORDER BY share DESC LIMIT 1), (SELECT MAX(share) FROM s), (SELECT tag_name FROM s JOIN tags USING (tag_id) ORDER BY share LIMIT 1), (SELECT MIN(share) FROM s)"
+  ],
+  "notes": "135 tags have 500 or more questions. Highest regex (61.0%), lowest npm (25.0%).",
+  "written_by": "owner",
+  "ordered": false,
+  "percent": true
+ },
+ {
+  "id": "U33",
+  "split": "test2",
+  "category": "date",
+  "question": "Night vs day: Do questions posted between 10 PM and 5 AM UTC get a higher average score than daytime ones?",
+  "reference_sql": "SELECT AVG(score) FROM posts_questions GROUP BY (CAST(strftime('%H', creation_date) AS INT) >= 22 OR CAST(strftime('%H', creation_date) AS INT) < 5) ORDER BY (CAST(strftime('%H', creation_date) AS INT) >= 22 OR CAST(strftime('%H', creation_date) AS INT) < 5)",
+  "alt_sqls": [
+   "SELECT (SELECT AVG(score) FROM posts_questions WHERE (CAST(strftime('%H', creation_date) AS INT) >= 22 OR CAST(strftime('%H', creation_date) AS INT) < 5)), (SELECT AVG(score) FROM posts_questions WHERE NOT (CAST(strftime('%H', creation_date) AS INT) >= 22 OR CAST(strftime('%H', creation_date) AS INT) < 5))"
+  ],
+  "notes": "Yes, barely: 0.481 at night (UTC 22:00-04:59) against 0.468 by day. Both averages are compared.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U34",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "Accepted vs the rest: How much higher is the average score of accepted answers than other answers?",
+  "reference_sql": "SELECT AVG(score) FROM posts_answers GROUP BY is_accepted ORDER BY is_accepted",
+  "alt_sqls": [
+   "SELECT (SELECT AVG(score) FROM posts_answers WHERE is_accepted = 1), (SELECT AVG(score) FROM posts_answers WHERE is_accepted = 0)",
+   "SELECT (SELECT AVG(score) FROM posts_answers WHERE is_accepted = 1) - (SELECT AVG(score) FROM posts_answers WHERE is_accepted = 0)",
+   "SELECT (SELECT AVG(score) FROM posts_answers WHERE is_accepted = 1) / (SELECT AVG(score) FROM posts_answers WHERE is_accepted = 0)"
+  ],
+  "notes": "Accepted answers average 1.526 against 0.668; the two averages, their difference (0.859) or their ratio (2.29) are accepted.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U35",
+  "split": "test2",
+  "category": "aggregation",
+  "question": "Veterans vs newcomers: Compare the average reputation and badge count of accounts older than 7 years (from the end of the data, 2022-09-25) with newer accounts.",
+  "reference_sql": "SELECT AVG(reputation), AVG(badge_count) FROM users GROUP BY creation_date < '2015-09-25' ORDER BY creation_date < '2015-09-25'",
+  "alt_sqls": [
+   "SELECT (SELECT AVG(reputation) FROM users WHERE creation_date < '2015-09-25'), (SELECT AVG(badge_count) FROM users WHERE creation_date < '2015-09-25'), (SELECT AVG(reputation) FROM users WHERE creation_date >= '2015-09-25'), (SELECT AVG(badge_count) FROM users WHERE creation_date >= '2015-09-25')"
+  ],
+  "notes": "Accounts older than 7 years from the end of the data (created before 2015-09-25) against newer ones.",
+  "written_by": "owner",
+  "ordered": false
+ },
+ {
+  "id": "U36",
+  "split": "test2",
+  "category": "rate",
+  "question": "Year over year: By what percent did the number of questions change from 2020 to 2021, and from 2021 to 2022?",
+  "reference_sql": "WITH y AS (SELECT CAST(substr(creation_date, 1, 4) AS INT) yr, COUNT(*) n FROM posts_questions GROUP BY 1) SELECT 100.0 * (b.n - a.n) / a.n FROM y a JOIN y b ON b.yr = a.yr + 1 ORDER BY a.yr",
+  "alt_sqls": [
+   "WITH y AS (SELECT CAST(substr(creation_date, 1, 4) AS INT) yr, COUNT(*) n FROM posts_questions GROUP BY 1) SELECT (SELECT 100.0 * (b.n - a.n) / a.n FROM y a JOIN y b ON b.yr = a.yr + 1 WHERE a.yr = 2020), (SELECT 100.0 * (b.n - a.n) / a.n FROM y a JOIN y b ON b.yr = a.yr + 1 WHERE a.yr = 2021)"
+  ],
+  "notes": "-12.6% from 2020 to 2021 and -22.8% from 2021 to 2022; 2022 runs only to 25 September, so the second is a partial-year comparison.",
+  "written_by": "owner",
+  "ordered": false,
+  "percent": true
+ }
+]

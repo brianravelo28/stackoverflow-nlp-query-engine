@@ -95,27 +95,37 @@ the layer that carries the guarantee.
 
 The earlier 20-question executability test was replaced by a held-out accuracy evaluation (`eval/`):
 
-- **Questions**: 60, written for this project: 20 development questions used to tune the prompt, and 40 test
-  questions (38 answerable, 2 about data that does not exist) frozen in git before the first scored run.
+- **Questions**: two sets. The first has 60 questions written for this project: 20 development questions used to
+  tune the prompt, and 40 test questions (38 answerable, 2 about data that does not exist) frozen in git before
+  the first scored run. The second has 126 questions (113 answerable, 13 about data that does not exist), frozen
+  in git before the model saw them: 90 written by the AI assistant used on this project and 36 by the author.
   None duplicates an app example question or a few-shot example.
-- **Reference answers**: hand-written SQL, run against the database and recomputed independently in pandas
-  from the raw CSVs (`eval/crosscheck.py`: all 56 answerable questions agree). A few ambiguous questions
-  list a second or third accepted reading.
+- **Reference answers**: for the first set, hand-written SQL run against the database and recomputed
+  independently in pandas from the raw CSVs (`eval/crosscheck.py`: all 56 answerable questions agree). For the
+  second set, each reference was derived independently by two writers (two AI agents given only the question
+  and the database); where they read a question differently the author decided. Some questions list a second
+  or third accepted reading.
 - **Scoring**: execution match. A question passes when the generated SQL returns the same rows as a
-  reference. Column names are ignored and extra columns are allowed; order counts only for top-N questions;
-  numbers match exactly (whole numbers) or within a small rounding tolerance; rates count as a fraction or a
-  percent; months and weekdays count as a name or a number. A strict score counts only exact columns and
-  values. Rules live in `eval/score.py` and are tested in `tests/test_scorer.py`.
-- **Runs**: each question was run 3 times, since the model rejects a `temperature` setting.
+  reference. Column names are ignored and extra columns are allowed; the number of rows must match; order counts
+  only for top-N questions, and rows that tie may swap; numbers match exactly (whole numbers) or within a small
+  rounding tolerance; rates count as a fraction or a percent; months and weekdays count as a name or a number.
+  A strict score counts only exact columns and values. Rules live in `eval/score.py` and are tested in
+  `tests/test_scorer.py` and `tests/test_eval_set2.py`.
+- **Runs**: each question was run 3 times, since the model rejects a `temperature` setting. A schema-only
+  baseline prompt was run once per question on both sets.
 
-**Result**: on the 38 answerable test questions the generated SQL was correct for 37 in each of the 3 runs
-(97.4%). The miss returned the correct values under different group labels. Both unanswerable questions were
-declined in every run.
+**Result**: on the second set's 113 answerable questions the generated SQL was correct for 92, 89 and 88 in the
+3 runs (79.4%), and all 13 unanswerable questions were declined in every run. The baseline answered 86 of 113 and
+declined 3 of 13 unanswerable questions. On the first set's 38 answerable questions the generated SQL was
+correct for 37 in each of the 3 runs, and the baseline also got 37. The first set's miss returned the correct
+values under different group labels.
 
-**Limits**: 38 questions is a small set (a 95% interval for 37 of 38 is 86.5% to 99.5%), written for this
-schema in the same style as the prompt's examples, so real users may ask vaguer or harder questions. Where
-wording is ambiguous only the listed readings count. The data is a 1-in-16 sample, and the scores describe
-this database. The full write-up is in [`eval/RESULTS.md`](../eval/RESULTS.md).
+**Limits**: 113 questions means one question moves the score by 0.9 points, and the 95% interval is
+71.0% to 85.8%, so a difference of a few points between two prompts cannot be told from chance. Most questions were
+drafted with an AI assistant and reviewed or decided by the author, so real users may ask vaguer or harder ones.
+Where wording is ambiguous only the listed readings count, and a question that does not say how many rows to
+return can fail on length alone. The data is a 1-in-16 sample, and the scores describe this database. The full
+write-up is in [`eval/RESULTS.md`](../eval/RESULTS.md).
 
 ---
 
