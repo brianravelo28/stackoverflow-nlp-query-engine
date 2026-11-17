@@ -24,6 +24,12 @@ ARCHITECTURE = (ROOT / "docs" / "ARCHITECTURE.md").read_text(encoding="utf-8")
 METHODOLOGY = (ROOT / "docs" / "METHODOLOGY.md").read_text(encoding="utf-8")
 SCHEMA_DOC = (ROOT / "docs" / "DATA_SCHEMA.md").read_text(encoding="utf-8")
 RESULTS = (ROOT / "eval" / "RESULTS.md").read_text(encoding="utf-8")
+def _section(text, start, end):
+    return text[text.index(start):text.index(end)]
+
+
+RESULTS_V2 = _section(RESULTS, "## Second test set results", "## First test set results")
+RESULTS_V1 = _section(RESULTS, "## First test set results", "## Tuning on the development questions")
 APP = (ROOT / "app" / "app.py").read_text(encoding="utf-8")
 EXPORT = (ROOT / "data" / "kaggle_export.py").read_text(encoding="utf-8")
 
@@ -118,7 +124,7 @@ def test_category_table_in_the_results_file(test_run):
               "window": "Window", "rate": "Rate", "ambiguous": "Ambiguous wording"}
     for category, label in labels.items():
         rows = [i for i in answerable if i["category"] == category]
-        row = re.search(rf"^\| {label}[^|]*\| (\d+) \| (\d+) of (\d+) \|$", RESULTS, re.M)
+        row = re.search(rf"^\| {label}[^|]*\| (\d+) \| (\d+) of (\d+) \|$", RESULTS_V1, re.M)
         assert row, label
         assert (int(row.group(1)), int(row.group(2)), int(row.group(3))) == (
             len({i["id"] for i in rows}), sum(i["status"] == "pass" for i in rows), len(rows))
@@ -200,3 +206,97 @@ def test_dates_in_the_docs_match_the_data(db):
     first, last = db.execute("SELECT MIN(date(creation_date)), MAX(date(creation_date)) FROM posts_questions").fetchone()
     assert first == "2020-01-01" and "2020-01-01 to 2022-09-25" in README
     assert last <= "2022-09-25"
+
+
+# ------------------------------------------------------------------ second test set
+@pytest.fixture(scope="module")
+def second_set():
+    runs = ROOT / "eval" / "runs"
+    full = json.loads((runs / "test2-1.scored.json").read_text(encoding="utf-8"))
+    base = json.loads((runs / "test2-baseline-schema-only.scored.json").read_text(encoding="utf-8"))
+    run = json.loads((runs / "test2-1.json").read_text(encoding="utf-8"))
+    refs = json.loads((ROOT / "eval" / "reference_results_v2.json").read_text(encoding="utf-8"))
+    return full, base, run, refs
+
+
+def test_second_set_headline_numbers(second_set):
+    full, base, _, _ = second_set
+    s, b = full["summary"], base["summary"]
+    questions = s["questions"]
+    per_run = ", ".join(str(s["per_run_passed"][str(r)]) for r in range(s["runs"]))
+    assert f"for {per_run.rsplit(', ', 1)[0]} and {per_run.rsplit(', ', 1)[1]} questions" in RESULTS
+    mean = sum(s["per_run_passed"].values()) / (questions * s["runs"])  # from the counts, not the rounded summary
+    base_mean = sum(b["per_run_passed"].values()) / (questions * b["runs"])
+    assert f"**{pct(mean)} mean accuracy**" in RESULTS
+    assert f"On the second test set ({questions} answerable questions)" in RESULTS
+    low, high = _wilson(mean * questions, questions)
+    assert f"{low * 100:.1f}% to {high * 100:.1f}%" in RESULTS
+    blow, bhigh = _wilson(base_mean * questions, questions)
+    assert f"answered {round(base_mean * questions)} of {questions} ({pct(base_mean)}, interval {blow * 100:.1f}% to {bhigh * 100:.1f}%)" in RESULTS
+    assert s["unanswerable"] == {"pass": 39} and "(39 of 39)" in RESULTS
+    assert b["unanswerable"] == {"pass": 3, "fail": 10} and "baseline declined 3 of 13" in RESULTS
+
+
+def test_second_set_category_table(second_set):
+    answerable = [i for i in second_set[0]["items"] if i["category"] != "unanswerable"]
+    labels = {"aggregation": "Aggregation", "join": "Join", "absence": "Absence", "date": "Date",
+              "window": "Window", "rate": "Rate", "ambiguous": "Ambiguous wording"}
+    for category, label in labels.items():
+        rows = [i for i in answerable if i["category"] == category]
+        row = re.search(rf"^\| {label}[^|]*\| (\d+) \| (\d+) of (\d+) \|$", RESULTS_V2, re.M)
+        assert row, label
+        assert (int(row.group(1)), int(row.group(2)), int(row.group(3))) == (
+            len({i["id"] for i in rows}), sum(i["status"] == "pass" for i in rows), len(rows))
+    passed = sum(i["status"] == "pass" for i in answerable)
+    assert f"**{len({i['id'] for i in answerable})}** | **{passed} of {len(answerable)}**" in RESULTS_V2
+
+
+def test_second_set_details(second_set):
+    full, _, run, refs = second_set
+    s, items = full["summary"], full["items"]
+    answerable = [i for i in items if i["category"] != "unanswerable"]
+    passed = [i for i in answerable if i["status"] == "pass"]
+    total = s["questions"] * s["runs"]
+    assert f"{round(s['strict_accuracy'] * total)} of the {total} runs were strict" in RESULTS_V2
+    assert f"{s['pass_kinds']['rounded']} correct runs matched after rounding" in RESULTS_V2
+    by_id = {(r["id"], r["run"]): r for r in run["results"]}
+    extra = sum(len(by_id[(i["id"], i["run"])]["rows"][0])
+                > len(next(e for e in refs[i["id"]] if e["label"] == i["matched"])["rows"][0]) for i in passed)
+    assert f"{extra} of the {len(passed)} correct runs returned extra columns" in RESULTS_V2
+    ids = {i["id"] for i in answerable}
+    varied = sum(len({by_id[(q, r)]["sql"] for r in range(s["runs"])}) > 1 for q in ids)
+    assert f"The SQL differed between runs for {varied} of the {len(ids)} questions" in RESULTS_V2
+    assert f"{s['consistency']['always']} were right every time and {s['consistency']['never']} never" in RESULTS_V2
+    sometimes = s["consistency"]["sometimes"]
+    assert f"The other {sometimes} varied" in RESULTS_V2 and f"{sometimes} of {len(ids)} questions changed outcome" in RESULTS
+
+
+def test_second_set_author_split_and_relaxed_numbers(second_set):
+    full, base, _, _ = second_set
+    questions = {q["id"]: q for q in json.loads((ROOT / "eval" / "questions_v2.json").read_text(encoding="utf-8"))}
+    answerable = [i for i in full["items"] if i["category"] != "unanswerable"]
+    for who in ("assistant", "owner"):
+        rows = [i for i in answerable if questions[i["id"]]["written_by"] == who]
+        ids = {i["id"] for i in rows}
+        k = sum(i["status"] == "pass" for i in rows)
+        assert f"{k} of {len(rows)} runs ({k / len(rows) * 100:.1f}%, {len(ids)} questions)" in RESULTS_V2
+    def relaxed_mean(scored):  # from the counts, not the rounded summary
+        rows = [i for i in scored["items"] if i["category"] != "unanswerable"]
+        return sum(i["status"] == "pass" or i.get("relaxed_pass", False) for i in rows) / len(rows)
+    assert f"**{pct(relaxed_mean(full))}** for the full prompt" in RESULTS_V2
+    assert f"**{pct(relaxed_mean(base))}** for the baseline" in RESULTS_V2
+    relaxed = json.loads((ROOT / "eval" / "relaxed_v2.json").read_text(encoding="utf-8"))
+    assert f"Seven questions ({', '.join(relaxed)})" in RESULTS_V2 and len(relaxed) == 7
+    assert "Of the 126 second-set questions, 90 were written by the AI assistant" in RESULTS and len(questions) == 126
+    assert sum(q["written_by"] == "assistant" for q in questions.values()) == 90
+
+
+def test_dev_3_row_and_the_prompt_hash_in_the_results_file():
+    dev3 = json.loads((ROOT / "eval" / "runs" / "dev-3.scored.json").read_text(encoding="utf-8"))["summary"]
+    assert f"| dev-3 | tuned, with the `vote_type` note | 30 s | {dev3['mean_accuracy'] * 100:.0f}% |" in RESULTS
+    assert dev3["consistency"] == {"always": 18}
+    import hashlib
+    now = hashlib.sha256(nlp_layer.SYSTEM_PROMPT.encode()).hexdigest()
+    assert f"`{now[:8]}…`" in RESULTS
+    run = json.loads((ROOT / "eval" / "runs" / "test2-1.json").read_text(encoding="utf-8"))
+    assert f"`{run['meta']['prompt_sha256'][:8]}…`" in RESULTS
