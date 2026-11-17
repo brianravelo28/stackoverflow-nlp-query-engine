@@ -39,6 +39,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 QUESTIONS = ROOT / "eval" / "questions.json"
 REFERENCE_RESULTS = ROOT / "eval" / "reference_results.json"
+RELAXED_V2 = ROOT / "eval" / "relaxed_v2.json"  # set 2 questions that do not say how many rows to return
 SETS = {  # question set -> (questions file, reference results file)
     "v1": (QUESTIONS, REFERENCE_RESULTS),
     "v2": (ROOT / "eval" / "questions_v2.json", ROOT / "eval" / "reference_results_v2.json"),
@@ -272,7 +273,9 @@ def is_decline(rows) -> bool:
 ERROR_REASON = {"api": "api_error", "gate": "gate_blocked", "timeout": "timeout", "sql": "sql_error"}
 
 
-def score_answerable(q: dict, rec: dict, refs: list[dict]) -> dict:
+def score_answerable(q: dict, rec: dict, refs: list[dict], relaxed: bool = False) -> dict:
+    """With relaxed=True (a question that does not say how many rows), a longer answer whose first rows match
+    still fails as usual but is marked relaxed_pass; the headline never counts it."""
     out = {"id": q["id"], "split": q["split"], "category": q["category"], "run": rec.get("run", 0)}
     if rec.get("error_kind"):
         return {**out, "status": "fail", "reason": ERROR_REASON.get(rec["error_kind"], "sql_error"),
@@ -287,9 +290,15 @@ def score_answerable(q: dict, rec: dict, refs: list[dict]) -> dict:
         if res["passed"]:
             return {**out, "status": "pass", "matched": ref["label"], "kinds": res["kinds"], "strict": res["strict"]}
         best = best or res
+    extra = {}
+    if relaxed and best["reason"] == "row_count":
+        for ref in refs:
+            if len(got) > len(ref["rows"]) and compare([tuple(r) for r in ref["rows"]], got[:len(ref["rows"])], spec)["passed"]:
+                extra = {"relaxed_pass": True}
+                break
     if rec.get("truncated"):
         best = {"reason": "truncated_by_cap", **{k: v for k, v in best.items() if k != "reason"}}
-    return {**out, "status": "fail", "reason": best["reason"], "detail": best.get("detail", "")}
+    return {**out, "status": "fail", "reason": best["reason"], "detail": best.get("detail", ""), **extra}
 
 
 def score_unanswerable(q: dict, rec: dict, user_names: set[str] | None = None) -> dict:
@@ -329,7 +338,8 @@ def build_reference_results(questions: list[dict]) -> dict[str, list[dict]]:
     return out
 
 
-def score_run(run: dict, questions: list[dict], refs: dict, split: str | None = None, user_names=None) -> list[dict]:
+def score_run(run: dict, questions: list[dict], refs: dict, split: str | None = None, user_names=None,
+              relaxed_ids=frozenset()) -> list[dict]:
     by_id = {q["id"]: q for q in questions}
     items = []
     for rec in run["results"]:
@@ -339,7 +349,7 @@ def score_run(run: dict, questions: list[dict], refs: dict, split: str | None = 
         if q["reference_sql"] is None:
             items.append(score_unanswerable(q, rec, user_names))
         else:
-            items.append(score_answerable(q, rec, refs[q["id"]]))
+            items.append(score_answerable(q, rec, refs[q["id"]], q["id"] in relaxed_ids))
     return items
 
 
@@ -364,6 +374,10 @@ def summarize(items: list[dict]) -> dict:
         "per_run_passed": per_run,
         "accuracy_by_run": {r: round(p / n_q, 4) for r, p in per_run.items()} if n_q else {},
         "mean_accuracy": round(sum(per_run.values()) / (n_q * len(runs)), 4) if n_q and runs else None,
+        # post-hoc, shown beside the headline and never in place of it: also counts longer answers whose first rows match
+        # on the questions listed in relaxed_v2.json (set 2 only), which do not say how many rows to return
+        **({"relaxed_mean_accuracy": round((sum(per_run.values()) + sum(i.get("relaxed_pass", False) for i in ans)) / (n_q * len(runs)), 4)}
+           if n_q and runs and any("relaxed_pass" in i for i in ans) else {}),
         "strict_accuracy": round(sum(i["strict"] for i in passed) / (n_q * len(runs)), 4) if n_q and runs else None,
         "consistency": dict(consistency),
         "by_category": {c: f"{p}/{t}" for c, (p, t) in sorted(by_cat.items())},
@@ -396,7 +410,10 @@ def main() -> None:
     if DB.exists():
         conn = sqlite3.connect(f"file:{DB.as_posix()}?mode=ro", uri=True)
         user_names = {r[0] for r in conn.execute("SELECT display_name FROM users")}
-    items = score_run(run, questions, load_reference_results(questions, refs_path), args.split, user_names)
+    relaxed_ids = set()
+    if args.set == "v2" and RELAXED_V2.exists():
+        relaxed_ids = set(json.loads(RELAXED_V2.read_text(encoding="utf-8")))
+    items = score_run(run, questions, load_reference_results(questions, refs_path), args.split, user_names, relaxed_ids)
     summary = summarize(items)
     print(json.dumps(summary, indent=2))
     if args.details:

@@ -1,5 +1,6 @@
 """Tests for the second evaluation set (eval/questions_v2.json, eval/reference_results_v2.json)."""
 import json
+import re
 import sqlite3
 import sys
 from pathlib import Path
@@ -76,3 +77,37 @@ def test_decisions_recorded_in_the_questions():
 def test_references_rebuild_from_the_sql_exactly():
     rebuilt = score.build_reference_results(V2)
     assert rebuilt == REFS
+
+
+RELAXED = json.loads((ROOT / "eval" / "relaxed_v2.json").read_text(encoding="utf-8"))
+
+
+def test_relaxed_questions_are_ranking_questions_without_a_stated_number():
+    by_id = {q["id"]: q for q in V2}
+    assert set(RELAXED) <= {q["id"] for q in ANSWERABLE}
+    for qid in RELAXED:
+        text = by_id[qid]["question"].lower()
+        assert not re.search(r"(top|first)\s+\d+|\d+\s+(most|best|largest|biggest|highest)", text), qid
+
+
+def _rec(rows):
+    return {"run": 0, "rows": rows, "error_kind": None, "truncated": False}
+
+
+def test_a_longer_answer_with_matching_first_rows_is_relaxed_only():
+    q = next(x for x in V2 if x["id"] == "A015")
+    ref = REFS["A015"][0]["rows"]
+    longer = _rec(ref + [["extra-tag", 1], ["another-tag", 1]])
+    strict = score.score_answerable(q, longer, REFS["A015"])
+    relaxed = score.score_answerable(q, longer, REFS["A015"], relaxed=True)
+    assert strict["status"] == relaxed["status"] == "fail" and not strict.get("relaxed_pass") and relaxed["relaxed_pass"]
+    wrong_start = _rec([["not-a-tag", 1]] + ref[1:] + [["x", 1]])
+    assert not score.score_answerable(q, wrong_start, REFS["A015"], relaxed=True).get("relaxed_pass")
+
+
+def test_the_headline_never_counts_relaxed_passes():
+    q = next(x for x in V2 if x["id"] == "A015")
+    ref = REFS["A015"][0]["rows"]
+    items = [score.score_answerable(q, _rec(ref + [["x", 1]]), REFS["A015"], relaxed=True)]
+    s = score.summarize(items)
+    assert s["mean_accuracy"] == 0.0 and s["relaxed_mean_accuracy"] == 1.0
