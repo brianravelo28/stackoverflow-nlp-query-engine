@@ -8,6 +8,7 @@ Usage (from the repo root, with ANTHROPIC_API_KEY set):
   python eval/run_eval.py --split dev --runs 3 --label dev-1
   python eval/run_eval.py --split test --runs 3 --label test-1   # refuses to run with uncommitted changes
   python eval/run_eval.py --split test --runs 1 --label baseline-schema-only --prompt schema-only
+  python eval/run_eval.py --split test2 --runs 3 --label test2-1       # the second question set (eval/questions_v2.json)
 """
 from __future__ import annotations
 
@@ -28,6 +29,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import nlp_layer  # noqa: E402
 
 QUESTIONS = ROOT / "eval" / "questions.json"
+QUESTIONS_V2 = ROOT / "eval" / "questions_v2.json"  # the split "test2"
 RUNS_DIR = ROOT / "eval" / "runs"
 DB = ROOT / "stackoverflow.db"
 API_ATTEMPTS = 3
@@ -75,7 +77,7 @@ def save(path: Path, run: dict) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--split", choices=["dev", "test"], required=True)
+    ap.add_argument("--split", choices=["dev", "test", "test2"], required=True)
     ap.add_argument("--runs", type=int, default=3)
     ap.add_argument("--label", required=True)
     ap.add_argument("--ids", help="comma-separated question ids, to rerun a few")
@@ -87,10 +89,12 @@ def main() -> None:
     if args.prompt == "schema-only":
         nlp_layer.SYSTEM_PROMPT = schema_only_prompt()
 
-    dirty = bool(git("status", "--porcelain", "--", "src", "eval/questions.json", "eval/score.py"))
-    if args.split == "test" and dirty and not args.allow_dirty:
+    dirty = bool(git("status", "--porcelain", "--", "src", "eval/questions.json", "eval/questions_v2.json",
+                      "eval/reference_results_v2.json", "eval/score.py"))
+    if args.split in ("test", "test2") and dirty and not args.allow_dirty:
         sys.exit("Refusing a test run with uncommitted changes in src/ or eval/. Commit first so the run records a clean hash.")
-    questions = [q for q in json.loads(QUESTIONS.read_text(encoding="utf-8")) if q["split"] == args.split]
+    questions_file = QUESTIONS_V2 if args.split == "test2" else QUESTIONS
+    questions = [q for q in json.loads(questions_file.read_text(encoding="utf-8")) if q["split"] == args.split]
     if args.ids:
         wanted = set(args.ids.split(","))
         questions = [q for q in questions if q["id"] in wanted]
