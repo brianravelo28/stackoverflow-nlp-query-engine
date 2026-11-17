@@ -1,0 +1,5384 @@
+{
+ "A002": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     0.4706054637026147
+    ]
+   ]
+  }
+ ],
+ "A003": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     653785
+    ]
+   ]
+  }
+ ],
+ "A004": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     19607
+    ]
+   ]
+  }
+ ],
+ "A005": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     70896
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     71353
+    ]
+   ]
+  }
+ ],
+ "A006": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     3.223986538870161
+    ]
+   ]
+  }
+ ],
+ "A007": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     7689
+    ]
+   ]
+  }
+ ],
+ "A008": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     365999,
+     206120
+    ]
+   ]
+  }
+ ],
+ "A009": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     24.489190665386342
+    ]
+   ]
+  }
+ ],
+ "A010": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     17888144
+    ]
+   ]
+  }
+ ],
+ "A011": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "python",
+     45887
+    ],
+    [
+     "javascript",
+     32905
+    ],
+    [
+     "java",
+     17188
+    ],
+    [
+     "reactjs",
+     14961
+    ],
+    [
+     "c#",
+     13040
+    ],
+    [
+     "html",
+     12276
+    ],
+    [
+     "node.js",
+     9219
+    ],
+    [
+     "c++",
+     8562
+    ],
+    [
+     "css",
+     8350
+    ],
+    [
+     "pandas",
+     8062
+    ]
+   ]
+  }
+ ],
+ "A012": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Gordon Linoff",
+     1295
+    ],
+    [
+     "jezrael",
+     648
+    ],
+    [
+     "GMB",
+     532
+    ],
+    [
+     "Barmar",
+     443
+    ],
+    [
+     "mozway",
+     431
+    ],
+    [
+     "Tim Biegeleisen",
+     368
+    ],
+    [
+     "CertainPerformance",
+     334
+    ],
+    [
+     "Wiktor Stribiżew",
+     332
+    ],
+    [
+     "Willem Van Onsem",
+     322
+    ],
+    [
+     "Drew Reese",
+     303
+    ]
+   ]
+  }
+ ],
+ "A013": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "snehit vaddi",
+     "Error message \"DevTools failed to load SourceMap: Could not load content for chrome-extension://...\"",
+     653785
+    ],
+    [
+     "David Angarita",
+     "TypeError: Cannot read properties of undefined (reading 'id')",
+     457317
+    ],
+    [
+     "Fredrick Barrett",
+     "TypeError [ERR_INVALID_ARG_TYPE]: The \"path\" argument must be of type string. Received type undefined raised when starting react app",
+     276556
+    ],
+    [
+     "semural",
+     "npm WARN old lockfile The package-lock.json file was created with an old version of npm",
+     194791
+    ],
+    [
+     "Yahya Parvar",
+     "Module not found: Can't resolve '@emotion/react'",
+     164056
+    ],
+    [
+     "CyberKing",
+     "How to fix error- nodemon.ps1 cannot be loaded because running scripts is disabled on this system, (without security risk)?",
+     161403
+    ],
+    [
+     "Lungu Mihai Adrian",
+     "Deprecation notice: ReactDOM.render is no longer supported in React 18",
+     154191
+    ],
+    [
+     "Jaroslav Bezděk",
+     "Unable to negotiate with 40.74.28.9 port 22: no matching host key type found. Their offer: ssh-rsa",
+     129735
+    ],
+    [
+     "Bolt UIX",
+     "What do I use now that Handler() is deprecated?",
+     129247
+    ],
+    [
+     "Shreyas Jadhav",
+     "Password authentication is temporarily disabled as part of a brownout. Please use a personal access token instead",
+     118906
+    ]
+   ]
+  }
+ ],
+ "A014": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "java",
+     0.40534093553642075,
+     17188
+    ],
+    [
+     "javascript",
+     0.4591095578179608,
+     32905
+    ],
+    [
+     "python",
+     0.4177653801730338,
+     45887
+    ]
+   ]
+  }
+ ],
+ "A015": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "pandas",
+     6886
+    ],
+    [
+     "python-3.x",
+     4772
+    ],
+    [
+     "dataframe",
+     2957
+    ],
+    [
+     "django",
+     2714
+    ],
+    [
+     "numpy",
+     2103
+    ],
+    [
+     "list",
+     1518
+    ],
+    [
+     "matplotlib",
+     1313
+    ],
+    [
+     "tensorflow",
+     1275
+    ],
+    [
+     "tkinter",
+     1148
+    ],
+    [
+     "selenium",
+     1140
+    ]
+   ]
+  }
+ ],
+ "A016": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Gordon Linoff",
+     1211186,
+     1295
+    ],
+    [
+     "jezrael",
+     755922,
+     648
+    ],
+    [
+     "GMB",
+     198176,
+     532
+    ],
+    [
+     "Barmar",
+     694414,
+     443
+    ],
+    [
+     "mozway",
+     112653,
+     431
+    ],
+    [
+     "Tim Biegeleisen",
+     469013,
+     368
+    ],
+    [
+     "CertainPerformance",
+     330532,
+     334
+    ],
+    [
+     "Wiktor Stribiżew",
+     576960,
+     332
+    ],
+    [
+     "Willem Van Onsem",
+     409490,
+     322
+    ],
+    [
+     "Drew Reese",
+     121119,
+     303
+    ],
+    [
+     "Marcin",
+     183045,
+     293
+    ],
+    [
+     "Andrej Kesely",
+     133330,
+     282
+    ],
+    [
+     "forpas",
+     151620,
+     280
+    ],
+    [
+     "The fourth bird",
+     136748,
+     265
+    ],
+    [
+     "BENY",
+     306449,
+     259
+    ],
+    [
+     "Quang Hoang",
+     138335,
+     258
+    ],
+    [
+     "Quentin",
+     874809,
+     255
+    ],
+    [
+     "trincot",
+     281051,
+     251
+    ],
+    [
+     "Corralien",
+     75992,
+     247
+    ],
+    [
+     "Rabbid76",
+     186582,
+     241
+    ],
+    [
+     "Laurenz Albe",
+     177571,
+     231
+    ],
+    [
+     "T.J. Crowder",
+     980540,
+     224
+    ],
+    [
+     "VonC",
+     1156679,
+     214
+    ],
+    [
+     "Nina Scholz",
+     359371,
+     199
+    ],
+    [
+     "furas",
+     127432,
+     198
+    ],
+    [
+     "AKX",
+     134903,
+     196
+    ],
+    [
+     "Remy Lebeau",
+     519864,
+     187
+    ],
+    [
+     "Frank van Puffelen",
+     520559,
+     186
+    ],
+    [
+     "eerorika",
+     226252,
+     179
+    ],
+    [
+     "John Rotenstein",
+     213670,
+     173
+    ],
+    [
+     "a_horse_with_no_name",
+     514581,
+     172
+    ],
+    [
+     "chepner",
+     460413,
+     167
+    ],
+    [
+     "mplungjan",
+     159442,
+     163
+    ],
+    [
+     "undetected Selenium",
+     162142,
+     163
+    ],
+    [
+     "Temani Afif",
+     221813,
+     163
+    ],
+    [
+     "Littlefoot",
+     114139,
+     159
+    ],
+    [
+     "rzwitserloot",
+     70933,
+     158
+    ],
+    [
+     "hpaulj",
+     207794,
+     158
+    ],
+    [
+     "torek",
+     407724,
+     157
+    ],
+    [
+     "Akina",
+     33845,
+     157
+    ],
+    [
+     "Rick James",
+     126916,
+     156
+    ],
+    [
+     "Caius Jard",
+     70392,
+     153
+    ],
+    [
+     "Serge",
+     32561,
+     152
+    ],
+    [
+     "jcalz",
+     204200,
+     148
+    ],
+    [
+     "jfriend00",
+     651864,
+     146
+    ],
+    [
+     "Tim Roberts",
+     39845,
+     145
+    ],
+    [
+     "nbk",
+     36873,
+     135
+    ],
+    [
+     "Arvind Kumar Avinash",
+     63774,
+     134
+    ],
+    [
+     "MT0",
+     121387,
+     123
+    ],
+    [
+     "WJS",
+     32041,
+     123
+    ],
+    [
+     "463035818_is_not_a_number",
+     95822,
+     123
+    ],
+    [
+     "eyllanesc",
+     225515,
+     122
+    ],
+    [
+     "Shubham Sharma",
+     58685,
+     122
+    ],
+    [
+     "Mureinik",
+     282777,
+     121
+    ],
+    [
+     "Ted Lyngmo",
+     71839,
+     119
+    ],
+    [
+     "JohanC",
+     61767,
+     119
+    ],
+    [
+     "anubhava",
+     730750,
+     118
+    ],
+    [
+     "Charlieface",
+     39151,
+     117
+    ],
+    [
+     "Nick",
+     129726,
+     116
+    ],
+    [
+     "Bill Karwin",
+     510363,
+     115
+    ],
+    [
+     "Vlad from Moscow",
+     276720,
+     111
+    ],
+    [
+     "sammywemmy",
+     24079,
+     111
+    ],
+    [
+     "Jarod42",
+     194037,
+     109
+    ],
+    [
+     "Rob Raymond",
+     25508,
+     109
+    ],
+    [
+     "derHugo",
+     71363,
+     108
+    ],
+    [
+     "KamilCuk",
+     103246,
+     108
+    ],
+    [
+     "A Haworth",
+     25440,
+     108
+    ],
+    [
+     "Ann Zen",
+     25703,
+     108
+    ],
+    [
+     "Alain T.",
+     35376,
+     107
+    ],
+    [
+     "slideshowp2",
+     69663,
+     107
+    ],
+    [
+     "OneCricketeer",
+     159440,
+     105
+    ],
+    [
+     "Guru Stron",
+     53614,
+     103
+    ],
+    [
+     "Samwise",
+     57879,
+     103
+    ],
+    [
+     "Bryan Oakley",
+     348928,
+     102
+    ],
+    [
+     "Stephen C",
+     678072,
+     102
+    ],
+    [
+     "Doug Stevenson",
+     277581,
+     102
+    ],
+    [
+     "DecPK",
+     23007,
+     98
+    ],
+    [
+     "acw1668",
+     33146,
+     97
+    ],
+    [
+     "Unmitigated",
+     48792,
+     97
+    ],
+    [
+     "Popeye",
+     35037,
+     97
+    ],
+    [
+     "Spectric",
+     28468,
+     97
+    ],
+    [
+     "Prophet",
+     24281,
+     96
+    ],
+    [
+     "David Maze",
+     104264,
+     96
+    ],
+    [
+     "Daweo",
+     25642,
+     96
+    ],
+    [
+     "Bergi",
+     589324,
+     95
+    ],
+    [
+     "azro",
+     49099,
+     94
+    ],
+    [
+     "wwnde",
+     23239,
+     94
+    ],
+    [
+     "eshirvana",
+     21414,
+     93
+    ],
+    [
+     "Serge Ballesta",
+     137915,
+     93
+    ],
+    [
+     "cigien",
+     56015,
+     91
+    ],
+    [
+     "The Impaler",
+     41870,
+     90
+    ],
+    [
+     "tripleee",
+     163473,
+     89
+    ],
+    [
+     "Basil Bourque",
+     274532,
+     88
+    ],
+    [
+     "Chris Williams",
+     29087,
+     88
+    ],
+    [
+     "Mikhail Berlyant",
+     154441,
+     86
+    ],
+    [
+     "captain-yossarian from Ukraine",
+     25791,
+     85
+    ],
+    [
+     "Scott Boston",
+     137849,
+     84
+    ],
+    [
+     "Tanaike",
+     150490,
+     84
+    ],
+    [
+     "Andy",
+     56364,
+     81
+    ],
+    [
+     "JonasH",
+     19323,
+     81
+    ],
+    [
+     "Henry Ecker",
+     32615,
+     81
+    ],
+    [
+     "Thorsten Kettner",
+     83080,
+     79
+    ],
+    [
+     "Majed Badawi",
+     26445,
+     79
+    ],
+    [
+     "U12-Forward",
+     66127,
+     79
+    ],
+    [
+     "cruisepandey",
+     27514,
+     79
+    ],
+    [
+     "Nowhere Man",
+     18454,
+     79
+    ],
+    [
+     "Booboo",
+     31233,
+     78
+    ],
+    [
+     "Mad Physicist",
+     100545,
+     77
+    ],
+    [
+     "Stu",
+     22544,
+     77
+    ],
+    [
+     "balderman",
+     21535,
+     76
+    ],
+    [
+     "john",
+     77768,
+     76
+    ],
+    [
+     "jjanes",
+     31334,
+     76
+    ],
+    [
+     "David Browne - Microsoft",
+     70265,
+     76
+    ],
+    [
+     "Ferran Buireu",
+     26255,
+     75
+    ],
+    [
+     "Marc Gravell",
+     989863,
+     74
+    ],
+    [
+     "Prune",
+     75691,
+     74
+    ],
+    [
+     "Sweeper",
+     186275,
+     74
+    ],
+    [
+     "Barbaros Özhan",
+     50405,
+     74
+    ],
+    [
+     "r-beginners",
+     24015,
+     74
+    ],
+    [
+     "O. Jones",
+     95796,
+     73
+    ],
+    [
+     "Kazi Mohammad Ali Nur",
+     13795,
+     73
+    ],
+    [
+     "SeaBean",
+     21434,
+     73
+    ],
+    [
+     "sehe",
+     356448,
+     72
+    ],
+    [
+     "Rory McCrossan",
+     324764,
+     72
+    ],
+    [
+     "Dmitry Bychenko",
+     169143,
+     72
+    ],
+    [
+     "Dani Mesejo",
+     58539,
+     72
+    ],
+    [
+     "mm8",
+     154244,
+     72
+    ],
+    [
+     "Vlad",
+     10964,
+     72
+    ],
+    [
+     "Kinglish",
+     22061,
+     71
+    ],
+    [
+     "RavinderSingh13",
+     123077,
+     71
+    ],
+    [
+     "Ynjxsjmh",
+     23749,
+     71
+    ],
+    [
+     "Jason Liam",
+     25829,
+     71
+    ],
+    [
+     "tdelaney",
+     65740,
+     70
+    ],
+    [
+     "Mark Setchell",
+     175628,
+     70
+    ],
+    [
+     "John Anderson",
+     31743,
+     70
+    ],
+    [
+     "Mister Jojo",
+     17848,
+     70
+    ],
+    [
+     "Larnu",
+     80896,
+     69
+    ],
+    [
+     "Andreas",
+     149742,
+     69
+    ],
+    [
+     "Shubham Khatri",
+     254642,
+     69
+    ],
+    [
+     "Valdi_Bo",
+     28734,
+     69
+    ],
+    [
+     "Mayank Porwal",
+     32452,
+     68
+    ],
+    [
+     "Dharmaraj",
+     36016,
+     68
+    ],
+    [
+     "Bohemian",
+     396296,
+     67
+    ],
+    [
+     "anky",
+     72106,
+     66
+    ],
+    [
+     "Theodor Zoulias",
+     27427,
+     66
+    ],
+    [
+     "Ivan",
+     28894,
+     65
+    ],
+    [
+     "not_speshal",
+     20116,
+     65
+    ],
+    [
+     "Boussadjra Brahim",
+     72199,
+     64
+    ],
+    [
+     "Linda Paiste",
+     31274,
+     64
+    ],
+    [
+     "Trenton McKinney",
+     47745,
+     63
+    ],
+    [
+     "Ryszard Czech",
+     17138,
+     63
+    ],
+    [
+     "Erwin Brandstetter",
+     556639,
+     62
+    ],
+    [
+     "Kaiido",
+     109019,
+     62
+    ],
+    [
+     "Siva K V",
+     10042,
+     62
+    ],
+    [
+     "ThePyGuy",
+     16106,
+     62
+    ],
+    [
+     "Shawn",
+     42341,
+     62
+    ],
+    [
+     "Wasif",
+     13999,
+     62
+    ],
+    [
+     "David",
+     194481,
+     61
+    ],
+    [
+     "Anatoly",
+     17245,
+     61
+    ],
+    [
+     "G-Cyrillus",
+     96156,
+     61
+    ],
+    [
+     "Nicholas Tower",
+     61260,
+     61
+    ],
+    [
+     "Burak Serdar",
+     39223,
+     61
+    ],
+    [
+     "Yakk - Adam Nevraumont",
+     253649,
+     60
+    ],
+    [
+     "Masklinn",
+     26616,
+     60
+    ],
+    [
+     "s.kuznetsov",
+     14569,
+     60
+    ],
+    [
+     "HedgeHog",
+     16213,
+     60
+    ],
+    [
+     "Nk03",
+     14346,
+     60
+    ],
+    [
+     "martineau",
+     115175,
+     59
+    ],
+    [
+     "Cooper",
+     53324,
+     59
+    ],
+    [
+     "Emiel Zuurbier",
+     16650,
+     59
+    ],
+    [
+     "LeGEC",
+     39545,
+     58
+    ],
+    [
+     "Lajos Arpad",
+     56927,
+     58
+    ],
+    [
+     "Code-Apprentice",
+     78471,
+     58
+    ],
+    [
+     "Abra",
+     16988,
+     58
+    ],
+    [
+     "IT goldman",
+     10227,
+     58
+    ],
+    [
+     "ShadowRanger",
+     131031,
+     57
+    ],
+    [
+     "connexo",
+     51133,
+     57
+    ],
+    [
+     "yatu",
+     82409,
+     57
+    ],
+    [
+     "Arghya Sadhu",
+     36893,
+     56
+    ],
+    [
+     "musicamante",
+     34737,
+     56
+    ],
+    [
+     "Patrick Artner",
+     49074,
+     56
+    ],
+    [
+     "chitown88",
+     26329,
+     56
+    ],
+    [
+     "Swati",
+     27193,
+     56
+    ],
+    [
+     "Stephen Cleary",
+     415204,
+     55
+    ],
+    [
+     "ALollz",
+     55964,
+     55
+    ],
+    [
+     "Aplet123",
+     31830,
+     55
+    ],
+    [
+     "tony19",
+     108460,
+     55
+    ],
+    [
+     "Jérôme Richard",
+     31898,
+     55
+    ],
+    [
+     "Anurag Dabas",
+     23273,
+     55
+    ],
+    [
+     "Albert D. Kallal",
+     34495,
+     54
+    ],
+    [
+     "Schwern",
+     144192,
+     54
+    ],
+    [
+     "Scott Sauyet",
+     46373,
+     54
+    ],
+    [
+     "TheGeneral",
+     76601,
+     54
+    ],
+    [
+     "Dmitri T",
+     146357,
+     54
+    ],
+    [
+     "Johannes",
+     60823,
+     54
+    ],
+    [
+     "Umar.H",
+     21451,
+     54
+    ],
+    [
+     "camickr",
+     317569,
+     53
+    ],
+    [
+     "Athanasios Kataras",
+     23930,
+     53
+    ],
+    [
+     "I'mahdi",
+     18744,
+     53
+    ],
+    [
+     "Ed Morton",
+     176888,
+     53
+    ],
+    [
+     "Andy Turner",
+     133445,
+     53
+    ],
+    [
+     "jdweng",
+     30913,
+     53
+    ],
+    [
+     "Ori Drori",
+     170551,
+     53
+    ],
+    [
+     "Belayer",
+     11235,
+     53
+    ],
+    [
+     "bk2204",
+     53117,
+     53
+    ],
+    [
+     "quamrana",
+     35295,
+     52
+    ],
+    [
+     "larsks",
+     240904,
+     51
+    ],
+    [
+     "Dennis Vash",
+     44746,
+     51
+    ],
+    [
+     "Tushar Shahi",
+     13016,
+     51
+    ],
+    [
+     "Abdul Aziz Barkat",
+     18423,
+     51
+    ]
+   ]
+  }
+ ],
+ "A017": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "How to split huge file with single line?",
+     33
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     69037040,
+     33
+    ]
+   ]
+  }
+ ],
+ "A018": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     1143
+    ]
+   ]
+  }
+ ],
+ "A019": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Dolphin"
+    ]
+   ]
+  }
+ ],
+ "A020": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "go",
+     2188.927842069435,
+     1469
+    ],
+    [
+     "rust",
+     4401.181110029212,
+     1027
+    ]
+   ]
+  }
+ ],
+ "A021": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Arghya Sadhu",
+     55
+    ],
+    [
+     "Harsh Manvar",
+     44
+    ],
+    [
+     "gohm'c",
+     31
+    ],
+    [
+     "coderanger",
+     30
+    ],
+    [
+     "Jonas",
+     24
+    ],
+    [
+     "Wytrzymały Wiktor",
+     23
+    ],
+    [
+     "David Maze",
+     21
+    ],
+    [
+     "Matt",
+     21
+    ],
+    [
+     "Rico",
+     18
+    ],
+    [
+     "Vit",
+     18
+    ]
+   ]
+  }
+ ],
+ "A022": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     561,
+     "Nikunj Paradva",
+     "What do I use now that Handler() is deprecated?"
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     63851895,
+     561,
+     "Nikunj Paradva"
+    ]
+   ]
+  }
+ ],
+ "A023": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "python",
+     50701
+    ],
+    [
+     "javascript",
+     37172
+    ],
+    [
+     "java",
+     17210
+    ],
+    [
+     "reactjs",
+     16180
+    ],
+    [
+     "html",
+     14543
+    ]
+   ]
+  }
+ ],
+ "A024": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "create-react-app",
+     146,
+     2829.0205479452056
+    ],
+    [
+     "angularjs",
+     214,
+     2477.4158878504672
+    ],
+    [
+     "eslint",
+     163,
+     2428.030674846626
+    ],
+    [
+     "fastapi",
+     184,
+     2001.1902173913043
+    ],
+    [
+     "formik",
+     106,
+     1779.8301886792453
+    ],
+    [
+     "react-testing-library",
+     153,
+     1763.4313725490197
+    ],
+    [
+     "azure-devops",
+     178,
+     1659.3595505617977
+    ],
+    [
+     "typeorm",
+     141,
+     1639.1560283687943
+    ],
+    [
+     "material-ui",
+     725,
+     1595.4841379310344
+    ],
+    [
+     "vue-component",
+     125,
+     1572.616
+    ]
+   ]
+  }
+ ],
+ "A025": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     58923
+    ]
+   ]
+  }
+ ],
+ "A026": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "mozway",
+     431
+    ],
+    [
+     "Corralien",
+     247
+    ],
+    [
+     "Henry Ecker",
+     81
+    ],
+    [
+     "Stu",
+     77
+    ],
+    [
+     "SeaBean",
+     73
+    ],
+    [
+     "Vlad",
+     72
+    ],
+    [
+     "Nk03",
+     60
+    ],
+    [
+     "Abdul Aziz Barkat",
+     51
+    ],
+    [
+     "user17732522",
+     46
+    ],
+    [
+     "BrokenBenchmark",
+     37
+    ],
+    [
+     "Kameron",
+     33
+    ],
+    [
+     "yousoumar",
+     32
+    ],
+    [
+     "João Dias",
+     32
+    ],
+    [
+     "Fody",
+     30
+    ],
+    [
+     "Meysam Asadi",
+     28
+    ],
+    [
+     "Pepijn Kramer",
+     27
+    ],
+    [
+     "Rabinzel",
+     24
+    ],
+    [
+     "Chris",
+     23
+    ],
+    [
+     "HatLess",
+     22
+    ],
+    [
+     "Mushroomator",
+     22
+    ],
+    [
+     "cards",
+     21
+    ],
+    [
+     "Redox",
+     20
+    ],
+    [
+     "Ergest Basha",
+     20
+    ],
+    [
+     "Алексей Р",
+     19
+    ],
+    [
+     "jian",
+     18
+    ],
+    [
+     "Heiko Theißen",
+     18
+    ],
+    [
+     "the Hutt",
+     17
+    ],
+    [
+     "biberman",
+     17
+    ],
+    [
+     "fsimonjetz",
+     17
+    ],
+    [
+     "ArchAngelPwn",
+     17
+    ],
+    [
+     "MrMythical",
+     16
+    ],
+    [
+     "Crystal",
+     16
+    ],
+    [
+     "Ramin Faracov",
+     16
+    ],
+    [
+     "ProDec",
+     15
+    ],
+    [
+     "Rodalm",
+     15
+    ],
+    [
+     "codester_09",
+     15
+    ],
+    [
+     "herrstrietzel",
+     14
+    ],
+    [
+     "NoCommandLine",
+     14
+    ],
+    [
+     "Tiny Wang",
+     14
+    ],
+    [
+     "Tom",
+     14
+    ],
+    [
+     "Alain Bianchini",
+     14
+    ],
+    [
+     "kcsquared",
+     14
+    ],
+    [
+     "Arman Ebrahimi",
+     14
+    ],
+    [
+     "Đăng Khoa Đinh",
+     13
+    ],
+    [
+     "gimix",
+     13
+    ],
+    [
+     "Lecdi",
+     13
+    ],
+    [
+     "Sambhav Khandelwal",
+     13
+    ],
+    [
+     "ljmc",
+     13
+    ],
+    [
+     "Laaouatni Anas",
+     13
+    ],
+    [
+     "Kevin",
+     12
+    ],
+    [
+     "Majid M.",
+     12
+    ],
+    [
+     "Mike Steelson",
+     12
+    ],
+    [
+     "Sercan",
+     12
+    ],
+    [
+     "tomleb",
+     12
+    ],
+    [
+     "bb1",
+     12
+    ],
+    [
+     "2e0byo",
+     12
+    ],
+    [
+     "PCM",
+     12
+    ],
+    [
+     "AjayKumarGhose",
+     12
+    ],
+    [
+     "John Lobo",
+     12
+    ],
+    [
+     "devReddit",
+     12
+    ],
+    [
+     "g00se",
+     12
+    ],
+    [
+     "jabaa",
+     12
+    ],
+    [
+     "Tal Folkman",
+     12
+    ],
+    [
+     "James",
+     12
+    ],
+    [
+     "Chaosfire",
+     12
+    ],
+    [
+     "Dmitrii B",
+     11
+    ],
+    [
+     "Anton",
+     11
+    ],
+    [
+     "Vinicius Katata",
+     11
+    ],
+    [
+     "Rahul Biswas",
+     11
+    ],
+    [
+     "no comment",
+     11
+    ],
+    [
+     "Homer512",
+     11
+    ]
+   ]
+  }
+ ],
+ "A027": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "javascript",
+     8
+    ],
+    [
+     "reactjs",
+     8
+    ],
+    [
+     "node.js",
+     6
+    ]
+   ]
+  }
+ ],
+ "A028": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "snehit vaddi",
+     653785
+    ],
+    [
+     "David Angarita",
+     458121
+    ],
+    [
+     "Fredrick Barrett",
+     276556
+    ],
+    [
+     "semural",
+     197553
+    ],
+    [
+     "Yahya Parvar",
+     164056
+    ],
+    [
+     "CyberKing",
+     161403
+    ],
+    [
+     "Lungu Mihai Adrian",
+     154191
+    ],
+    [
+     "Jaroslav Bezděk",
+     129919
+    ],
+    [
+     "Bolt UIX",
+     129247
+    ],
+    [
+     "Shreyas Jadhav",
+     119580
+    ]
+   ]
+  }
+ ],
+ "A029": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Memory leak in .NET Core 3.0 app when using NLog or Serilog",
+     "Marino F"
+    ],
+    [
+     "Memory Leak caused by Initializer List?",
+     "Matans"
+    ],
+    [
+     "Why am I getting memory leak warning in console while setting the state of a React Component",
+     "Abdullah Fadhel"
+    ],
+    [
+     "Finding the source of non malloc C++ memory leaks on Windows",
+     "Simian60"
+    ],
+    [
+     "DOM nodes do not clear after remove() - memory leak?",
+     "GeM"
+    ],
+    [
+     "How to resolve Selenium memory leak because driver.quit() was never called?",
+     "Allons-yGunners"
+    ],
+    [
+     "Puppeteer - MaxListenerExceedsWarning: Possible EventEmitter memory leak detected. page.close() and browser.close() not working",
+     "Eunicorn"
+    ],
+    [
+     "C++ Microsoft Visual Studio 2017 best and easiest way to detect memory leaks?",
+     "Tivi"
+    ],
+    [
+     "instance.invokeMethod memory leak",
+     "ThomasN"
+    ],
+    [
+     "Is this geeksforgeeks trie implementation having a memory leak problem?",
+     "yue dong"
+    ],
+    [
+     "Python mmap \"memory leak\"",
+     "kemri"
+    ],
+    [
+     "Possible Memory Leak in CryptoPP::StreamTransformationFilter",
+     "Dark Sorrow"
+    ],
+    [
+     "Avoid memory leak ThreadLocal SimpleDateFormat",
+     "Raffaele"
+    ],
+    [
+     "Memory leak in a Node.js function that utilizes a mongoose model",
+     "timsa7"
+    ],
+    [
+     "Identifying memory leak in webpack build",
+     "Marius Mikelsen"
+    ],
+    [
+     "VueJS Switching routes causing memory leak?",
+     "MacheteTwins"
+    ],
+    [
+     "Memory growth in Resource Monitoring (Memory leak) due to Reading and Writing Excel docs in c #",
+     "Reut Yfrach"
+    ],
+    [
+     "C++ - memory leak caused by using placement new over *this pointer?",
+     "SpellTheif"
+    ],
+    [
+     "Memory leak issue in tensorflow",
+     "Pallavi"
+    ],
+    [
+     "i cannot deploy my app in heroku because of memory leak.connect.session()",
+     "Ajahi himalil"
+    ],
+    [
+     "Memory Leak while using elasticsearch parallel_bulk in python",
+     "Hassan"
+    ],
+    [
+     "React Hooks reducer causing memory leak",
+     "Davtho1983"
+    ],
+    [
+     "useEffect Memory Leak in AWS Amplify Storage.get function",
+     "vallard"
+    ],
+    [
+     "Memory leak Valgrind doesn't report but code using so much memory",
+     "Jamie"
+    ],
+    [
+     "Node.js Map Object Causes Memory Leak",
+     "Zelos"
+    ],
+    [
+     "Buffered utils in lwjgl causing memory leak",
+     "Random Coder"
+    ],
+    [
+     "Possible memory leak when implementing A* in C++",
+     "Henrik Melfald Kittang"
+    ],
+    [
+     "React Hooks infinite loop Memory leak?",
+     "M R"
+    ],
+    [
+     "Valgrind shows memory leaks in cpputest TEST() macro",
+     "Mati"
+    ],
+    [
+     "Android activity memory leak when using foreground service",
+     "TwoheadedFetus"
+    ],
+    [
+     "Does below code have potential memory leak?",
+     "offef"
+    ],
+    [
+     "Copy constructor memory leaks",
+     "K.T."
+    ],
+    [
+     "Memory leak with char*?",
+     "rwCapt"
+    ],
+    [
+     "find memory leaks when Valgrind shows nothing",
+     "user803422"
+    ],
+    [
+     "Memory Leakage with ThreadPoolExecutor python",
+     "Fr_nkenstien"
+    ],
+    [
+     "Memory Leak in Python/Jupyter Notebook",
+     "Andrei Ionescu"
+    ],
+    [
+     "Javascript closures cause memory leak?",
+     "Kevin"
+    ],
+    [
+     "Model (imported from Keras) causes Memory leak in TensorflowJS",
+     "wuiwuiwui"
+    ],
+    [
+     "Intel OneAPI Video decoding memory leak when using C++ CLI",
+     "Sletting"
+    ],
+    [
+     "aws aurora mysql cluster instance memory leak or depletion over few days time",
+     "Sukh"
+    ],
+    [
+     "Memory leak in matplotlib.plot()",
+     "Elad Weiss"
+    ],
+    [
+     "Ubuntu 20.04 memory leak with Docker and Tomcat 9",
+     "Lord M"
+    ],
+    [
+     "QTcpSocket continuous write in worker process. Best practice to avoid memory leaks",
+     "l.raimondi"
+    ],
+    [
+     "React -hook UseEffect memory Leak issue more than one function call",
+     "Gokul"
+    ],
+    [
+     "Call to Async Task from Async Task Causes \"Potential Memory Leak\" Error",
+     "WannabePuppetMaster"
+    ],
+    [
+     "Selenium Chrome Webdriver memory leak problem",
+     "Kadir Alan"
+    ],
+    [
+     "Memory leak occurs when using Gstreamer and multiprocessing.Manager().Namespace() in the same process",
+     "Vladimir Yakovlev"
+    ],
+    [
+     "Python aiohttp ClientSession requests memory leak?",
+     "Grant"
+    ],
+    [
+     "PyTorch memory leak on loss.backward on both gpu as well as cpu",
+     "abtExp"
+    ],
+    [
+     "NumPy memory leak in np.ones?",
+     "Alex Reinking"
+    ],
+    [
+     "How do I correct c++ memory leaks with my binary search tree pointers?",
+     "vdaiep"
+    ],
+    [
+     "Memory leak in tfjs-node code even when using tidy() and dispose()",
+     "Michael Jennings"
+    ],
+    [
+     "React Native memory leak from splash screen",
+     "Charles Pettis"
+    ],
+    [
+     "React usage with RTK Query can cause memory leak on unmounted component",
+     "Gurnzbot"
+    ],
+    [
+     "Does using Array.slice(0, -1) to pop back cause a memory leak",
+     "Daniel Cullen"
+    ],
+    [
+     "Is Keycloak experiencing memory leak?",
+     "BeepHawkins"
+    ],
+    [
+     "c++ where memory leak happens in my code?",
+     "Jaeho Lee"
+    ],
+    [
+     "Not closing a cursor can cause memory leaks?",
+     "Yusuf Daniel"
+    ],
+    [
+     "Python PIL: Cropping multiple images leads to freeze up and memory leak",
+     "Julian Aßmann"
+    ],
+    [
+     "memory leak and I don't know why",
+     "ccplusplusplusplus"
+    ],
+    [
+     "Code Analysis rule not triggered for a likely memory leak",
+     "Lee Grissom"
+    ],
+    [
+     "Possible memory leak with Unity Editor version 2021.11f1",
+     "SpicyDinosaur"
+    ],
+    [
+     "Can the failure control in Beam cause a memory leak in Java?",
+     "kiuby_88"
+    ],
+    [
+     "How to Avoid Memory Leak on Screen Size Change in ReactJS",
+     "Elliptica"
+    ],
+    [
+     "if @bean method return new Object, it cause memory leak?",
+     "sylph"
+    ],
+    [
+     "Memory leak in using PLinq AsParallel",
+     "Frank Feng"
+    ],
+    [
+     "Garbage Collector not working or memory leak with http client c#",
+     "keshav"
+    ],
+    [
+     "Jest Memory Leak when running test cases on redux connected components",
+     "Kiran Vijayakumar"
+    ],
+    [
+     "Managed memory leaked by C# iterator",
+     "Theodor Zoulias"
+    ],
+    [
+     "Memory Leak: JavaScript - passing array buffer to Web Worker using transferable object, GC doesn't kick in",
+     "aman"
+    ],
+    [
+     "What I am doing here wrong with memory leak",
+     "LearningUser"
+    ],
+    [
+     "C# PictureBox: Memory leak when updating multiple times per second",
+     "gpph"
+    ],
+    [
+     "Using CMemoryState to detect memory leaks in C++/MFC app",
+     "Woody20"
+    ],
+    [
+     "How to fix memory leak of flask application with tracemalloc",
+     "David"
+    ],
+    [
+     "Valgrind reports a memory leak but does not show call stack",
+     "Acane"
+    ],
+    [
+     "Typeorm causes Memory Leak",
+     "Exo"
+    ],
+    [
+     "Web Audio api Oscillator Causes a memory leak",
+     "Razvan Puscasu"
+    ],
+    [
+     "Using requests.get and enabling stream -- how to avoid a memory leak on an error?",
+     "Gary"
+    ],
+    [
+     "Difficulty debugging a Node.js memory Leak",
+     "Eric"
+    ],
+    [
+     "Leaflet.js + Vue.js - Memory Leak when Navigating between Pages",
+     "Ray Larone"
+    ],
+    [
+     "Memory leak when creating matplotlib.plots in loops",
+     "Husker"
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     59659856,
+     "Marino F"
+    ],
+    [
+     59887248,
+     "Matans"
+    ],
+    [
+     59948848,
+     "Abdullah Fadhel"
+    ],
+    [
+     60973424,
+     "Simian60"
+    ],
+    [
+     61256800,
+     "GeM"
+    ],
+    [
+     61718208,
+     "Allons-yGunners"
+    ],
+    [
+     61723184,
+     "Eunicorn"
+    ],
+    [
+     62048688,
+     "Tivi"
+    ],
+    [
+     62153216,
+     "ThomasN"
+    ],
+    [
+     62849712,
+     "yue dong"
+    ],
+    [
+     62986736,
+     "kemri"
+    ],
+    [
+     63185888,
+     "Dark Sorrow"
+    ],
+    [
+     63274624,
+     "Raffaele"
+    ],
+    [
+     63329376,
+     "timsa7"
+    ],
+    [
+     63390672,
+     "Marius Mikelsen"
+    ],
+    [
+     63459952,
+     "MacheteTwins"
+    ],
+    [
+     63466976,
+     "Reut Yfrach"
+    ],
+    [
+     63467648,
+     "SpellTheif"
+    ],
+    [
+     63518432,
+     "Pallavi"
+    ],
+    [
+     63561360,
+     "Ajahi himalil"
+    ],
+    [
+     63696528,
+     "Hassan"
+    ],
+    [
+     63849248,
+     "Davtho1983"
+    ],
+    [
+     64393680,
+     "vallard"
+    ],
+    [
+     64494608,
+     "Jamie"
+    ],
+    [
+     64836928,
+     "Zelos"
+    ],
+    [
+     64842576,
+     "Random Coder"
+    ],
+    [
+     64949248,
+     "Henrik Melfald Kittang"
+    ],
+    [
+     64953216,
+     "M R"
+    ],
+    [
+     65439824,
+     "Mati"
+    ],
+    [
+     65450864,
+     "TwoheadedFetus"
+    ],
+    [
+     66661504,
+     "offef"
+    ],
+    [
+     66717296,
+     "K.T."
+    ],
+    [
+     66751072,
+     "rwCapt"
+    ],
+    [
+     66916064,
+     "user803422"
+    ],
+    [
+     66966816,
+     "Fr_nkenstien"
+    ],
+    [
+     67356512,
+     "Andrei Ionescu"
+    ],
+    [
+     67499840,
+     "Kevin"
+    ],
+    [
+     67506528,
+     "wuiwuiwui"
+    ],
+    [
+     67738544,
+     "Sletting"
+    ],
+    [
+     67797680,
+     "Sukh"
+    ],
+    [
+     67808128,
+     "Elad Weiss"
+    ],
+    [
+     68178720,
+     "Lord M"
+    ],
+    [
+     68274336,
+     "l.raimondi"
+    ],
+    [
+     68664432,
+     "Gokul"
+    ],
+    [
+     68675264,
+     "WannabePuppetMaster"
+    ],
+    [
+     68786800,
+     "Kadir Alan"
+    ],
+    [
+     68951712,
+     "Vladimir Yakovlev"
+    ],
+    [
+     69012480,
+     "Grant"
+    ],
+    [
+     69554656,
+     "abtExp"
+    ],
+    [
+     69681888,
+     "Alex Reinking"
+    ],
+    [
+     69877152,
+     "vdaiep"
+    ],
+    [
+     69960640,
+     "Michael Jennings"
+    ],
+    [
+     70067440,
+     "Charles Pettis"
+    ],
+    [
+     70088384,
+     "Gurnzbot"
+    ],
+    [
+     70104960,
+     "Daniel Cullen"
+    ],
+    [
+     70349888,
+     "BeepHawkins"
+    ],
+    [
+     70385984,
+     "Jaeho Lee"
+    ],
+    [
+     70516592,
+     "Yusuf Daniel"
+    ],
+    [
+     70557072,
+     "Julian Aßmann"
+    ],
+    [
+     70637008,
+     "ccplusplusplusplus"
+    ],
+    [
+     70703616,
+     "Lee Grissom"
+    ],
+    [
+     71476576,
+     "SpicyDinosaur"
+    ],
+    [
+     71501424,
+     "kiuby_88"
+    ],
+    [
+     71805776,
+     "Elliptica"
+    ],
+    [
+     71824144,
+     "sylph"
+    ],
+    [
+     71851104,
+     "Frank Feng"
+    ],
+    [
+     71910080,
+     "keshav"
+    ],
+    [
+     72054704,
+     "Kiran Vijayakumar"
+    ],
+    [
+     72472288,
+     "Theodor Zoulias"
+    ],
+    [
+     72480480,
+     "aman"
+    ],
+    [
+     72956128,
+     "LearningUser"
+    ],
+    [
+     72971296,
+     "gpph"
+    ],
+    [
+     72999264,
+     "Woody20"
+    ],
+    [
+     73003808,
+     "David"
+    ],
+    [
+     73103808,
+     "Acane"
+    ],
+    [
+     73319632,
+     "Exo"
+    ],
+    [
+     73333344,
+     "Razvan Puscasu"
+    ],
+    [
+     73377360,
+     "Gary"
+    ],
+    [
+     73550144,
+     "Eric"
+    ],
+    [
+     73570704,
+     "Ray Larone"
+    ],
+    [
+     73839920,
+     "Husker"
+    ]
+   ]
+  }
+ ],
+ "A030": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "java",
+     11430
+    ],
+    [
+     "python",
+     31391
+    ]
+   ]
+  }
+ ],
+ "A031": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     43217
+    ]
+   ]
+  }
+ ],
+ "A034": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     19245
+    ]
+   ]
+  }
+ ],
+ "A035": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     44046
+    ]
+   ]
+  }
+ ],
+ "A036": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     63268
+    ]
+   ]
+  }
+ ],
+ "A037": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     60018
+    ]
+   ]
+  }
+ ],
+ "A038": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     7124
+    ]
+   ]
+  }
+ ],
+ "A039": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Irfan wani",
+     15
+    ],
+    [
+     "Emma",
+     14
+    ],
+    [
+     "RARE Kpop Manifesto",
+     12
+    ],
+    [
+     "zip",
+     12
+    ],
+    [
+     "Dmitrii B",
+     11
+    ],
+    [
+     "Renaud",
+     11
+    ],
+    [
+     "karakfa",
+     11
+    ],
+    [
+     "petrus4",
+     10
+    ]
+   ]
+  }
+ ],
+ "A040": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     104843
+    ]
+   ]
+  }
+ ],
+ "A041": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "python",
+     16039
+    ],
+    [
+     "javascript",
+     11436
+    ],
+    [
+     "java",
+     5663
+    ],
+    [
+     "reactjs",
+     5204
+    ],
+    [
+     "c#",
+     4234
+    ],
+    [
+     "html",
+     4156
+    ],
+    [
+     "node.js",
+     3145
+    ],
+    [
+     "css",
+     2937
+    ],
+    [
+     "c++",
+     2908
+    ],
+    [
+     "pandas",
+     2842
+    ]
+   ]
+  }
+ ],
+ "A044": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     31392
+    ]
+   ]
+  }
+ ],
+ "A045": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     14,
+     10884
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     "14",
+     10884
+    ]
+   ]
+  }
+ ],
+ "A046": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2008",
+     991
+    ],
+    [
+     "2009",
+     2679
+    ],
+    [
+     "2010",
+     4116
+    ],
+    [
+     "2011",
+     6999
+    ],
+    [
+     "2012",
+     9959
+    ],
+    [
+     "2013",
+     12352
+    ],
+    [
+     "2014",
+     11889
+    ],
+    [
+     "2015",
+     13022
+    ],
+    [
+     "2016",
+     14581
+    ],
+    [
+     "2017",
+     16963
+    ],
+    [
+     "2018",
+     18058
+    ],
+    [
+     "2019",
+     23747
+    ],
+    [
+     "2020",
+     43676
+    ],
+    [
+     "2021",
+     31472
+    ],
+    [
+     "2022",
+     16522
+    ]
+   ]
+  }
+ ],
+ "A047": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     177.93817305542822
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     7.414090543976176
+    ]
+   ]
+  }
+ ],
+ "A048": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2020-04",
+     6847
+    ]
+   ]
+  }
+ ],
+ "A049": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     46090
+    ]
+   ]
+  }
+ ],
+ "A050": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "python",
+     4279
+    ],
+    [
+     "javascript",
+     2903
+    ],
+    [
+     "reactjs",
+     1605
+    ],
+    [
+     "java",
+     1363
+    ],
+    [
+     "c#",
+     1216
+    ],
+    [
+     "html",
+     1070
+    ],
+    [
+     "node.js",
+     831
+    ],
+    [
+     "css",
+     771
+    ],
+    [
+     "pandas",
+     769
+    ],
+    [
+     "typescript",
+     674
+    ]
+   ]
+  }
+ ],
+ "A052": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     102251
+    ]
+   ]
+  }
+ ],
+ "A053": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2022-01",
+     16646
+    ],
+    [
+     "2022-02",
+     14861
+    ],
+    [
+     "2022-03",
+     15943
+    ],
+    [
+     "2022-04",
+     14519
+    ],
+    [
+     "2022-05",
+     15174
+    ],
+    [
+     "2022-06",
+     14799
+    ],
+    [
+     "2022-07",
+     15212
+    ],
+    [
+     "2022-08",
+     15878
+    ],
+    [
+     "2022-09",
+     13062
+    ]
+   ]
+  }
+ ],
+ "A054": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     15529,
+     15992,
+     463
+    ]
+   ]
+  }
+ ],
+ "A055": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Willem Van Onsem",
+     73
+    ],
+    [
+     "Quentin",
+     65
+    ],
+    [
+     "AKX",
+     64
+    ],
+    [
+     "VonC",
+     60
+    ],
+    [
+     "Marcin",
+     59
+    ]
+   ]
+  }
+ ],
+ "A056": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "weekday",
+     139352
+    ],
+    [
+     "weekend",
+     34779
+    ]
+   ]
+  }
+ ],
+ "A057": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     40.976621049669504
+    ]
+   ]
+  }
+ ],
+ "A058": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     0.26351999356806083
+    ]
+   ]
+  }
+ ],
+ "A059": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "python",
+     45887,
+     42.99038943491621
+    ],
+    [
+     "javascript",
+     32905,
+     41.869016866737574
+    ],
+    [
+     "java",
+     17188,
+     35.542238771235745
+    ],
+    [
+     "reactjs",
+     14961,
+     38.51346835104605
+    ],
+    [
+     "c#",
+     13040,
+     40.36042944785276
+    ],
+    [
+     "html",
+     12276,
+     42.03323558162268
+    ],
+    [
+     "node.js",
+     9219,
+     35.28582275734895
+    ],
+    [
+     "c++",
+     8562,
+     43.681382854473256
+    ],
+    [
+     "css",
+     8350,
+     43.293413173652695
+    ],
+    [
+     "pandas",
+     8062,
+     56.512031753907216
+    ]
+   ]
+  }
+ ],
+ "A061": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "next.js",
+     165,
+     381,
+     216,
+     0.6381802649871862
+    ],
+    [
+     "typescript",
+     2035,
+     2155,
+     120,
+     3.6096547796519323
+    ],
+    [
+     "discord.py",
+     188,
+     294,
+     106,
+     0.49245406274601766
+    ],
+    [
+     "dataframe",
+     1155,
+     1241,
+     86,
+     2.078692149210231
+    ],
+    [
+     "bootstrap-5",
+     3,
+     81,
+     78,
+     0.13567611932798446
+    ],
+    [
+     ".net-5",
+     9,
+     85,
+     76,
+     0.1423761746034405
+    ],
+    [
+     "material-ui",
+     212,
+     280,
+     68,
+     0.46900386928192156
+    ],
+    [
+     "pytorch",
+     269,
+     333,
+     64,
+     0.5577796016817139
+    ],
+    [
+     "vuejs3",
+     22,
+     85,
+     63,
+     0.1423761746034405
+    ],
+    [
+     "discord",
+     265,
+     327,
+     62,
+     0.5477295187685298
+    ]
+   ]
+  }
+ ],
+ "A062": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     55.12047221236654
+    ]
+   ]
+  }
+ ],
+ "A063": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Cerise Limón",
+     22,
+     20,
+     0.9090909090909091
+    ],
+    [
+     "AloneTogether",
+     42,
+     38,
+     0.9047619047619048
+    ],
+    [
+     "Aleksey L.",
+     20,
+     18,
+     0.9
+    ],
+    [
+     "Dan",
+     27,
+     24,
+     0.8888888888888888
+    ],
+    [
+     "Delrius Euphoria",
+     27,
+     24,
+     0.8888888888888888
+    ],
+    [
+     "Ivan Stoev",
+     25,
+     21,
+     0.84
+    ],
+    [
+     "jakevdp",
+     35,
+     29,
+     0.8285714285714286
+    ],
+    [
+     "Topaco",
+     29,
+     24,
+     0.8275862068965517
+    ],
+    [
+     "Marco Cerliani",
+     33,
+     27,
+     0.8181818181818182
+    ],
+    [
+     "jcalz",
+     148,
+     121,
+     0.8175675675675675
+    ]
+   ]
+  }
+ ],
+ "A064": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     0.6340991780677103
+    ]
+   ]
+  }
+ ],
+ "A065": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     0.6674457735842555
+    ]
+   ]
+  }
+ ],
+ "A066": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2020",
+     68340,
+     0.8172373426982733
+    ],
+    [
+     "2021",
+     59701,
+     0.7669553273814509
+    ],
+    [
+     "2022",
+     46090,
+     0.6351920156216099
+    ]
+   ]
+  }
+ ],
+ "A068": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "UpMod",
+     320917,
+     65.84439059720509
+    ],
+    [
+     "AcceptedByOriginator",
+     70904,
+     14.547782357756772
+    ],
+    [
+     "DownMod",
+     53899,
+     11.058768494030412
+    ],
+    [
+     "Favorite",
+     17992,
+     3.691522342614801
+    ],
+    [
+     "16",
+     14504,
+     2.975869278417356
+    ],
+    [
+     "11",
+     3468,
+     0.7115495489210832
+    ],
+    [
+     "BountyStart",
+     1776,
+     0.36439215654090074
+    ],
+    [
+     "BountyClose",
+     1751,
+     0.3592627624454489
+    ],
+    [
+     "15",
+     1088,
+     0.22323123103406534
+    ],
+    [
+     "10",
+     1088,
+     0.22323123103406534
+    ]
+   ]
+  }
+ ],
+ "A069": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "c#",
+     "Serge",
+     142,
+     1
+    ],
+    [
+     "c#",
+     "Caius Jard",
+     120,
+     2
+    ],
+    [
+     "c#",
+     "derHugo",
+     106,
+     3
+    ],
+    [
+     "java",
+     "rzwitserloot",
+     158,
+     1
+    ],
+    [
+     "java",
+     "Arvind Kumar Avinash",
+     128,
+     2
+    ],
+    [
+     "java",
+     "WJS",
+     121,
+     3
+    ],
+    [
+     "javascript",
+     "CertainPerformance",
+     278,
+     1
+    ],
+    [
+     "javascript",
+     "Quentin",
+     200,
+     2
+    ],
+    [
+     "javascript",
+     "Nina Scholz",
+     199,
+     3
+    ],
+    [
+     "python",
+     "jezrael",
+     536,
+     1
+    ],
+    [
+     "python",
+     "mozway",
+     386,
+     2
+    ],
+    [
+     "python",
+     "Andrej Kesely",
+     258,
+     3
+    ],
+    [
+     "reactjs",
+     "Drew Reese",
+     300,
+     1
+    ],
+    [
+     "reactjs",
+     "CertainPerformance",
+     78,
+     2
+    ],
+    [
+     "reactjs",
+     "Shubham Khatri",
+     62,
+     3
+    ]
+   ]
+  }
+ ],
+ "A070": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2020-01",
+     5171,
+     5171
+    ],
+    [
+     "2020-02",
+     5173,
+     10344
+    ],
+    [
+     "2020-03",
+     5709,
+     16053
+    ],
+    [
+     "2020-04",
+     6847,
+     22900
+    ],
+    [
+     "2020-05",
+     6833,
+     29733
+    ],
+    [
+     "2020-06",
+     6227,
+     35960
+    ],
+    [
+     "2020-07",
+     6050,
+     42010
+    ],
+    [
+     "2020-08",
+     5637,
+     47647
+    ],
+    [
+     "2020-09",
+     5294,
+     52941
+    ],
+    [
+     "2020-10",
+     5329,
+     58270
+    ],
+    [
+     "2020-11",
+     5061,
+     63331
+    ],
+    [
+     "2020-12",
+     5009,
+     68340
+    ],
+    [
+     "2021-01",
+     5172,
+     73512
+    ],
+    [
+     "2021-02",
+     4906,
+     78418
+    ],
+    [
+     "2021-03",
+     5451,
+     83869
+    ],
+    [
+     "2021-04",
+     5092,
+     88961
+    ],
+    [
+     "2021-05",
+     4878,
+     93839
+    ],
+    [
+     "2021-06",
+     4858,
+     98697
+    ],
+    [
+     "2021-07",
+     4733,
+     103430
+    ],
+    [
+     "2021-08",
+     4512,
+     107942
+    ],
+    [
+     "2021-09",
+     4619,
+     112561
+    ],
+    [
+     "2021-10",
+     5262,
+     117823
+    ],
+    [
+     "2021-11",
+     5237,
+     123060
+    ],
+    [
+     "2021-12",
+     4981,
+     128041
+    ],
+    [
+     "2022-01",
+     5298,
+     133339
+    ],
+    [
+     "2022-02",
+     5118,
+     138457
+    ],
+    [
+     "2022-03",
+     5576,
+     144033
+    ],
+    [
+     "2022-04",
+     5161,
+     149194
+    ],
+    [
+     "2022-05",
+     5212,
+     154406
+    ],
+    [
+     "2022-06",
+     5038,
+     159444
+    ],
+    [
+     "2022-07",
+     5079,
+     164523
+    ],
+    [
+     "2022-08",
+     5257,
+     169780
+    ],
+    [
+     "2022-09",
+     4351,
+     174131
+    ]
+   ]
+  }
+ ],
+ "A071": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2020",
+     "TypeError [ERR_INVALID_ARG_TYPE]: The \"path\" argument must be of type string. Received type undefined raised when starting react app",
+     283
+    ],
+    [
+     "2021",
+     "Password authentication is temporarily disabled as part of a brownout. Please use a personal access token instead",
+     242
+    ],
+    [
+     "2022",
+     "Fatal error \"unsafe repository ('/home/repon' is owned by someone else)\"",
+     167
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     "2020",
+     60234640,
+     283
+    ],
+    [
+     "2021",
+     68191392,
+     242
+    ],
+    [
+     "2022",
+     71901632,
+     167
+    ]
+   ]
+  }
+ ],
+ "A072": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2018",
+     "CertainPerformance",
+     330532
+    ],
+    [
+     "2019",
+     "Asperi",
+     195496
+    ],
+    [
+     "2020",
+     "Shubham Sharma",
+     58685
+    ],
+    [
+     "2021",
+     "mozway",
+     112653
+    ],
+    [
+     "2022",
+     "Alexander Ivanchenko",
+     15688
+    ]
+   ]
+  }
+ ],
+ "A073": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2021-01",
+     5172,
+     163
+    ],
+    [
+     "2021-02",
+     4906,
+     -266
+    ],
+    [
+     "2021-03",
+     5451,
+     545
+    ],
+    [
+     "2021-04",
+     5092,
+     -359
+    ],
+    [
+     "2021-05",
+     4878,
+     -214
+    ],
+    [
+     "2021-06",
+     4858,
+     -20
+    ],
+    [
+     "2021-07",
+     4733,
+     -125
+    ],
+    [
+     "2021-08",
+     4512,
+     -221
+    ],
+    [
+     "2021-09",
+     4619,
+     107
+    ],
+    [
+     "2021-10",
+     5262,
+     643
+    ],
+    [
+     "2021-11",
+     5237,
+     -25
+    ],
+    [
+     "2021-12",
+     4981,
+     -256
+    ]
+   ]
+  }
+ ],
+ "A074": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "html",
+     "Error message \"DevTools failed to load SourceMap: Could not load content for chrome-extension://...\"",
+     653785
+    ],
+    [
+     "javascript",
+     "Error message \"DevTools failed to load SourceMap: Could not load content for chrome-extension://...\"",
+     653785
+    ],
+    [
+     "css",
+     "How can I make my v-container fill all height available?",
+     37456
+    ],
+    [
+     "c#",
+     "Publish error: Found multiple publish output files with the same relative path",
+     51599
+    ],
+    [
+     "c++",
+     "Issue regarding CMake Error: No source given to target",
+     27129
+    ],
+    [
+     "python",
+     "sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:postgres",
+     92951
+    ],
+    [
+     "java",
+     "What do I use now that Handler() is deprecated?",
+     129247
+    ],
+    [
+     "node.js",
+     "npm WARN old lockfile The package-lock.json file was created with an old version of npm",
+     194791
+    ],
+    [
+     "pandas",
+     "AttributeError: 'Series' object has no attribute 'as_matrix' Why is it error?",
+     48670
+    ],
+    [
+     "reactjs",
+     "TypeError [ERR_INVALID_ARG_TYPE]: The \"path\" argument must be of type string. Received type undefined raised when starting react app",
+     276556
+    ]
+   ]
+  }
+ ],
+ "A075": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2008",
+     991,
+     991
+    ],
+    [
+     "2009",
+     2679,
+     3670
+    ],
+    [
+     "2010",
+     4116,
+     7786
+    ],
+    [
+     "2011",
+     6999,
+     14785
+    ],
+    [
+     "2012",
+     9959,
+     24744
+    ],
+    [
+     "2013",
+     12352,
+     37096
+    ],
+    [
+     "2014",
+     11889,
+     48985
+    ],
+    [
+     "2015",
+     13022,
+     62007
+    ],
+    [
+     "2016",
+     14581,
+     76588
+    ],
+    [
+     "2017",
+     16963,
+     93551
+    ],
+    [
+     "2018",
+     18058,
+     111609
+    ],
+    [
+     "2019",
+     23747,
+     135356
+    ],
+    [
+     "2020",
+     43676,
+     179032
+    ],
+    [
+     "2021",
+     31472,
+     210504
+    ],
+    [
+     "2022",
+     16522,
+     227026
+    ]
+   ]
+  }
+ ],
+ "A076": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2022-08-01",
+     165.42857142857142
+    ],
+    [
+     "2022-08-02",
+     163.42857142857142
+    ],
+    [
+     "2022-08-03",
+     164.0
+    ],
+    [
+     "2022-08-04",
+     161.28571428571428
+    ],
+    [
+     "2022-08-05",
+     164.0
+    ],
+    [
+     "2022-08-06",
+     161.14285714285714
+    ],
+    [
+     "2022-08-07",
+     160.0
+    ],
+    [
+     "2022-08-08",
+     161.71428571428572
+    ],
+    [
+     "2022-08-09",
+     164.71428571428572
+    ],
+    [
+     "2022-08-10",
+     166.0
+    ],
+    [
+     "2022-08-11",
+     167.28571428571428
+    ],
+    [
+     "2022-08-12",
+     172.71428571428572
+    ],
+    [
+     "2022-08-13",
+     173.71428571428572
+    ],
+    [
+     "2022-08-14",
+     173.0
+    ],
+    [
+     "2022-08-15",
+     168.28571428571428
+    ],
+    [
+     "2022-08-16",
+     168.71428571428572
+    ],
+    [
+     "2022-08-17",
+     166.28571428571428
+    ],
+    [
+     "2022-08-18",
+     163.85714285714286
+    ],
+    [
+     "2022-08-19",
+     160.14285714285714
+    ],
+    [
+     "2022-08-20",
+     161.14285714285714
+    ],
+    [
+     "2022-08-21",
+     161.28571428571428
+    ],
+    [
+     "2022-08-22",
+     164.28571428571428
+    ],
+    [
+     "2022-08-23",
+     162.57142857142858
+    ],
+    [
+     "2022-08-24",
+     165.0
+    ],
+    [
+     "2022-08-25",
+     170.71428571428572
+    ],
+    [
+     "2022-08-26",
+     172.0
+    ],
+    [
+     "2022-08-27",
+     173.14285714285714
+    ],
+    [
+     "2022-08-28",
+     174.0
+    ],
+    [
+     "2022-08-29",
+     174.28571428571428
+    ],
+    [
+     "2022-08-30",
+     176.85714285714286
+    ],
+    [
+     "2022-08-31",
+     172.71428571428572
+    ]
+   ]
+  }
+ ],
+ "A077": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2021-01",
+     65706349,
+     126
+    ],
+    [
+     "2021-02",
+     66150844,
+     61
+    ],
+    [
+     "2021-03",
+     66521565,
+     163
+    ],
+    [
+     "2021-04",
+     66993654,
+     300
+    ],
+    [
+     "2021-05",
+     67663956,
+     111
+    ],
+    [
+     "2021-06",
+     68192528,
+     171
+    ],
+    [
+     "2021-07",
+     68479189,
+     141
+    ],
+    [
+     "2021-08",
+     68788258,
+     88
+    ],
+    [
+     "2021-09",
+     69012749,
+     115
+    ],
+    [
+     "2021-10",
+     69727802,
+     46
+    ],
+    [
+     "2021-11",
+     69875803,
+     228
+    ],
+    [
+     "2021-12",
+     70402397,
+     77
+    ]
+   ]
+  }
+ ],
+ "A078": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2020-01-01",
+     "2022-09-25",
+     999
+    ]
+   ]
+  }
+ ],
+ "A079": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "2020",
+     1,
+     "python",
+     17293
+    ],
+    [
+     "2020",
+     2,
+     "javascript",
+     12981
+    ],
+    [
+     "2020",
+     3,
+     "java",
+     7427
+    ],
+    [
+     "2020",
+     4,
+     "c#",
+     5345
+    ],
+    [
+     "2020",
+     5,
+     "reactjs",
+     5166
+    ],
+    [
+     "2021",
+     1,
+     "python",
+     16039
+    ],
+    [
+     "2021",
+     2,
+     "javascript",
+     11436
+    ],
+    [
+     "2021",
+     3,
+     "java",
+     5663
+    ],
+    [
+     "2021",
+     4,
+     "reactjs",
+     5204
+    ],
+    [
+     "2021",
+     5,
+     "c#",
+     4234
+    ],
+    [
+     "2022",
+     1,
+     "python",
+     12555
+    ],
+    [
+     "2022",
+     2,
+     "javascript",
+     8488
+    ],
+    [
+     "2022",
+     3,
+     "reactjs",
+     4591
+    ],
+    [
+     "2022",
+     4,
+     "java",
+     4098
+    ],
+    [
+     "2022",
+     5,
+     "c#",
+     3461
+    ]
+   ]
+  }
+ ],
+ "A080": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     1,
+     56757,
+     0.21199147241749916,
+     1,
+     21
+    ],
+    [
+     2,
+     56757,
+     0.340680444702856,
+     21,
+     94
+    ],
+    [
+     3,
+     56756,
+     0.5807667911762633,
+     94,
+     575
+    ],
+    [
+     4,
+     56756,
+     2.144055254070054,
+     575,
+     1357603
+    ]
+   ]
+  }
+ ],
+ "A081": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Gordon Linoff"
+    ]
+   ]
+  }
+ ],
+ "A083": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "TypeError [ERR_INVALID_ARG_TYPE]: The \"path\" argument must be of type string. Received type undefined raised when starting react app",
+     283,
+     276556
+    ],
+    [
+     "What do I use now that Handler() is deprecated?",
+     282,
+     129247
+    ],
+    [
+     "Error message \"DevTools failed to load SourceMap: Could not load content for chrome-extension://...\"",
+     244,
+     653785
+    ],
+    [
+     "Password authentication is temporarily disabled as part of a brownout. Please use a personal access token instead",
+     242,
+     118906
+    ],
+    [
+     "What does the \"as const\" mean in TypeScript and what is its use case?",
+     192,
+     55236
+    ],
+    [
+     "Fatal error \"unsafe repository ('/home/repon' is owned by someone else)\"",
+     167,
+     113937
+    ],
+    [
+     "Why is processing an unsorted array the same speed as processing a sorted array with modern x86-64 clang?",
+     164,
+     11318
+    ],
+    [
+     "sqlalchemy.exc.NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:postgres",
+     159,
+     92951
+    ],
+    [
+     "Why does [NaN].includes(NaN) return true in JavaScript?",
+     137,
+     10106
+    ],
+    [
+     "ESLint: TypeError: this.libOptions.parse is not a function",
+     133,
+     35000
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     60234640,
+     283,
+     276556
+    ],
+    [
+     61023968,
+     282,
+     129247
+    ],
+    [
+     61339968,
+     244,
+     653785
+    ],
+    [
+     68191392,
+     242,
+     118906
+    ],
+    [
+     66993264,
+     192,
+     55236
+    ],
+    [
+     71901632,
+     167,
+     113937
+    ],
+    [
+     66521344,
+     164,
+     11318
+    ],
+    [
+     62688256,
+     159,
+     92951
+    ],
+    [
+     66743472,
+     137,
+     10106
+    ],
+    [
+     73509984,
+     133,
+     35000
+    ]
+   ]
+  }
+ ],
+ "A084": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     59701,
+     65110,
+     200063,
+     31472
+    ]
+   ]
+  }
+ ],
+ "A085": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "mozway"
+    ]
+   ]
+  }
+ ],
+ "A086": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "installation"
+    ]
+   ]
+  }
+ ],
+ "A088": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "What is the Text Blocks (or Multiline Strings) feature in Java?",
+     51,
+     54
+    ],
+    [
+     "Spyder 5 missing dependencies - spyder_kernels version error",
+     50,
+     11
+    ],
+    [
+     "Interrupt (NOT prevent from starting) screensaver",
+     52,
+     10
+    ],
+    [
+     "Capitalize first letter of each line",
+     10,
+     11
+    ],
+    [
+     "Does C# have an identity function somewhere?",
+     10,
+     10
+    ],
+    [
+     "Password authentication is temporarily disabled as part of a brownout. Please use a personal access token instead",
+     251,
+     9
+    ],
+    [
+     "How to wrap text without regard to space and hyphen",
+     70,
+     8
+    ],
+    [
+     "How can I efficiently remove elements by index from a very large list?",
+     35,
+     8
+    ],
+    [
+     "Backspace character does not work in the Go playground",
+     9,
+     8
+    ],
+    [
+     "Which is the file format of ~/.gitconfig?",
+     10,
+     7
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     65676448,
+     51,
+     54
+    ],
+    [
+     66952832,
+     50,
+     11
+    ],
+    [
+     72425408,
+     52,
+     10
+    ],
+    [
+     69059456,
+     10,
+     11
+    ],
+    [
+     69562032,
+     10,
+     10
+    ],
+    [
+     68191392,
+     251,
+     9
+    ],
+    [
+     72406240,
+     70,
+     8
+    ],
+    [
+     63495264,
+     35,
+     8
+    ],
+    [
+     71892768,
+     9,
+     8
+    ],
+    [
+     68461632,
+     10,
+     7
+    ]
+   ]
+  }
+ ],
+ "U01": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Matheus Goulart",
+     631
+    ],
+    [
+     "SSLWasTaken",
+     0
+    ]
+   ]
+  }
+ ],
+ "U02": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "FumbleFingers"
+    ]
+   ]
+  }
+ ],
+ "U03": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Crazy Coder"
+    ]
+   ]
+  }
+ ],
+ "U04": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Gordon Linoff",
+     "jarlh"
+    ]
+   ]
+  }
+ ],
+ "U05": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     30,
+     159
+    ],
+    [
+     29,
+     118
+    ],
+    [
+     28,
+     102
+    ],
+    [
+     27,
+     154
+    ],
+    [
+     26,
+     180
+    ],
+    [
+     25,
+     280
+    ],
+    [
+     24,
+     317
+    ],
+    [
+     23,
+     488
+    ],
+    [
+     22,
+     682
+    ],
+    [
+     21,
+     961
+    ]
+   ]
+  }
+ ],
+ "U06": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     64642
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     37767
+    ]
+   ]
+  }
+ ],
+ "U07": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     107588
+    ]
+   ]
+  }
+ ],
+ "U08": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Matt MacLean"
+    ]
+   ]
+  }
+ ],
+ "U09": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Yaakov Ellis"
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     "Community"
+    ]
+   ]
+  },
+  {
+   "label": "alt 2",
+   "rows": [
+    [
+     "Matt MacLean"
+    ]
+   ]
+  }
+ ],
+ "U10": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     0.9104477611940298,
+     1.9402985074626866,
+     821.5895522388059
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     0.9104477611940298,
+     2.9477611940298507,
+     821.5895522388059
+    ]
+   ]
+  }
+ ],
+ "U11": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Community",
+     1
+    ],
+    [
+     "user207421",
+     1
+    ],
+    [
+     "Basile Starynkevitch",
+     1
+    ],
+    [
+     "GetSet",
+     1
+    ],
+    [
+     "Kayaman",
+     1
+    ]
+   ]
+  }
+ ],
+ "U12": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Community",
+     2449.0
+    ],
+    [
+     "user207421",
+     281.0
+    ],
+    [
+     "GetSet",
+     130.0
+    ],
+    [
+     "Basile Starynkevitch",
+     128.0
+    ],
+    [
+     "Kayaman",
+     108.0
+    ]
+   ]
+  }
+ ],
+ "U13": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "What does 'INFO:tensorflow:Oracle triggered exit' mean with keras tuner?",
+     21
+    ],
+    [
+     "How to limit MAX and MIN when working with the top and bottom floors?",
+     22
+    ],
+    [
+     "Iterate through list of dictionaries and print message",
+     22
+    ],
+    [
+     "/bin/sh: /usr/sbin/sshd-keygen: No such file or directory",
+     24
+    ],
+    [
+     "Express.js application bug: the browser is stuck in loading state when trying to access certain route",
+     26
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     62258704,
+     21
+    ],
+    [
+     61263376,
+     22
+    ],
+    [
+     69560064,
+     22
+    ],
+    [
+     60915248,
+     24
+    ],
+    [
+     60054544,
+     26
+    ]
+   ]
+  },
+  {
+   "label": "alt 2",
+   "rows": [
+    [
+     "Iterate through list of dictionaries and print message",
+     117
+    ],
+    [
+     "Is it possible to crop bottom of div/section using svg/png shape in html",
+     356
+    ],
+    [
+     "Python remove Square brackets and extraneous information between them",
+     1291
+    ],
+    [
+     "React & Redux: State of component is not updating even with mapStateToProps",
+     1533
+    ],
+    [
+     "Express.js application bug: the browser is stuck in loading state when trying to access certain route",
+     2901
+    ]
+   ]
+  },
+  {
+   "label": "alt 3",
+   "rows": [
+    [
+     69560064,
+     117
+    ],
+    [
+     72099136,
+     356
+    ],
+    [
+     61638496,
+     1291
+    ],
+    [
+     64069136,
+     1533
+    ],
+    [
+     60054544,
+     2901
+    ]
+   ]
+  }
+ ],
+ "U14": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Gordon Linoff"
+    ]
+   ]
+  }
+ ],
+ "U15": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Gordon Linoff",
+     9.055944055944057
+    ],
+    [
+     "jezrael",
+     4.531468531468532
+    ],
+    [
+     "GMB",
+     3.7202797202797204
+    ],
+    [
+     "Barmar",
+     3.097902097902098
+    ],
+    [
+     "mozway",
+     3.013986013986014
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     "Gordon Linoff",
+     9.081005851936709
+    ],
+    [
+     "jezrael",
+     4.544009105833967
+    ],
+    [
+     "GMB",
+     3.7305753770118373
+    ],
+    [
+     "Barmar",
+     3.106475360932789
+    ],
+    [
+     "mozway",
+     3.0223270441580863
+    ]
+   ]
+  },
+  {
+   "label": "alt 2",
+   "rows": [
+    [
+     "Gordon Linoff",
+     9.08316633266533
+    ],
+    [
+     "jezrael",
+     4.545090180360721
+    ],
+    [
+     "GMB",
+     3.731462925851703
+    ],
+    [
+     "Barmar",
+     3.107214428857715
+    ],
+    [
+     "mozway",
+     3.0230460921843685
+    ]
+   ]
+  }
+ ],
+ "U16": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Gordon Linoff",
+     14.23076923076923
+    ],
+    [
+     "GMB",
+     10.23076923076923
+    ],
+    [
+     "mozway",
+     6.841269841269841
+    ],
+    [
+     "jezrael",
+     4.984615384615385
+    ],
+    [
+     "Wasif",
+     4.769230769230769
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     "Gordon Linoff",
+     14.076086956521738
+    ],
+    [
+     "GMB",
+     10.23076923076923
+    ],
+    [
+     "mozway",
+     6.734375
+    ],
+    [
+     "jezrael",
+     4.984615384615385
+    ],
+    [
+     "Wasif",
+     4.769230769230769
+    ]
+   ]
+  },
+  {
+   "label": "alt 2",
+   "rows": [
+    [
+     "Gordon Linoff",
+     14.23076923076923
+    ],
+    [
+     "GMB",
+     10.037735849056604
+    ],
+    [
+     "mozway",
+     6.841269841269841
+    ],
+    [
+     "jezrael",
+     4.984615384615385
+    ],
+    [
+     "Wasif",
+     4.769230769230769
+    ]
+   ]
+  }
+ ],
+ "U17": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     59.4078947368421
+    ]
+   ]
+  }
+ ],
+ "U19": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     7
+    ]
+   ]
+  }
+ ],
+ "U20": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "Two-sum Leetcode explanation, Hashmap, Javascript"
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     59612976
+    ]
+   ]
+  }
+ ],
+ "U21": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "XGBClassifier: Bad predictions after training, saving and loading a model"
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     59668208
+    ]
+   ]
+  }
+ ],
+ "U22": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     15
+    ]
+   ]
+  }
+ ],
+ "U23": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     14
+    ]
+   ]
+  }
+ ],
+ "U24": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     0
+    ]
+   ]
+  }
+ ],
+ "U25": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     22
+    ]
+   ]
+  }
+ ],
+ "U26": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     11057
+    ]
+   ]
+  }
+ ],
+ "U27": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     16802
+    ]
+   ]
+  }
+ ],
+ "U28": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     750
+    ]
+   ]
+  }
+ ],
+ "U29": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "python",
+     "pandas"
+    ]
+   ]
+  }
+ ],
+ "U30": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     1,
+     12717
+    ],
+    [
+     5,
+     32381
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     12717,
+     32381
+    ]
+   ]
+  }
+ ],
+ "U31": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "next.js",
+     216
+    ],
+    [
+     "java",
+     -1764
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     "next.js",
+     216,
+     "java",
+     -1764
+    ]
+   ]
+  }
+ ],
+ "U32": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     "regex",
+     0.6095764272559853
+    ],
+    [
+     "npm",
+     0.25030674846625767
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     "regex",
+     0.6095764272559853,
+     "npm",
+     0.25030674846625767
+    ]
+   ]
+  }
+ ],
+ "U33": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     0.4683677670092591
+    ],
+    [
+     0.48101389069193823
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     0.48101389069193823,
+     0.4683677670092591
+    ]
+   ]
+  }
+ ],
+ "U34": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     0.6675005646184048
+    ],
+    [
+     1.5261086662153014
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     1.5261086662153014,
+     0.6675005646184048
+    ]
+   ]
+  },
+  {
+   "label": "alt 2",
+   "rows": [
+    [
+     0.8586081015968966
+    ]
+   ]
+  },
+  {
+   "label": "alt 3",
+   "rows": [
+    [
+     2.2863031840096553
+    ]
+   ]
+  }
+ ],
+ "U35": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     438.66852886405957,
+     9.979830148619957
+    ],
+    [
+     6558.397890699905,
+     66.37624982879058
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     6558.397890699905,
+     66.37624982879058,
+     438.66852886405957,
+     9.979830148619957
+    ]
+   ]
+  }
+ ],
+ "U36": [
+  {
+   "label": "reference",
+   "rows": [
+    [
+     -12.641205736025753
+    ],
+    [
+     -22.798613088557982
+    ]
+   ]
+  },
+  {
+   "label": "alt 1",
+   "rows": [
+    [
+     -12.641205736025753,
+     -22.798613088557982
+    ]
+   ]
+  }
+ ]
+}
