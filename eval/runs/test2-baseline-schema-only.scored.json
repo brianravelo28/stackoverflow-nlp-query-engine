@@ -23,6 +23,7 @@
    "0": 0.7611
   },
   "mean_accuracy": 0.7611,
+  "relaxed_mean_accuracy": 0.7965,
   "strict_accuracy": 0.4425,
   "consistency": {
    "always": 86,
@@ -216,7 +217,8 @@
    "run": 0,
    "status": "fail",
    "reason": "row_count",
-   "detail": "got 20 rows, expected 10"
+   "detail": "got 20 rows, expected 10",
+   "relaxed_pass": true
   },
   {
    "id": "A016",
@@ -312,7 +314,8 @@
    "run": 0,
    "status": "fail",
    "reason": "row_count",
-   "detail": "got 20 rows, expected 10"
+   "detail": "got 20 rows, expected 10",
+   "relaxed_pass": true
   },
   {
    "id": "A025",
@@ -901,7 +904,8 @@
    "run": 0,
    "status": "fail",
    "reason": "row_count",
-   "detail": "got 20 rows, expected 10"
+   "detail": "got 20 rows, expected 10",
+   "relaxed_pass": true
   },
   {
    "id": "A084",
@@ -922,7 +926,8 @@
    "run": 0,
    "status": "fail",
    "reason": "row_count",
-   "detail": "got 10 rows, expected 1"
+   "detail": "got 10 rows, expected 1",
+   "relaxed_pass": true
   },
   {
    "id": "A086",
