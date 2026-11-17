@@ -1,0 +1,4253 @@
+{
+ "meta": {
+  "label": "test2-1",
+  "split": "test2",
+  "runs": 3,
+  "model": "claude-sonnet-5-5",
+  "prompt_variant": "full",
+  "prompt_sha256": "197956c6862eb9eb9646ceac33ce203c27d9a6a40c99ecec19e2160acecd368c",
+  "git_commit": "825a96d65eedcfa1ffcc74c1a50a080eff050953",
+  "uncommitted_changes": false,
+  "started": "2026-11-17T19:59:34+00:00",
+  "query_timeout_s": 30,
+  "max_rows": 1000,
+  "finished": "2026-11-17T20:20:30+00:00"
+ },
+ "summary": {
+  "questions": 113,
+  "runs": 3,
+  "per_run_passed": {
+   "0": 92,
+   "1": 89,
+   "2": 88
+  },
+  "accuracy_by_run": {
+   "0": 0.8142,
+   "1": 0.7876,
+   "2": 0.7788
+  },
+  "mean_accuracy": 0.7935,
+  "strict_accuracy": 0.3923,
+  "consistency": {
+   "always": 86,
+   "never": 19,
+   "sometimes": 8
+  },
+  "by_category": {
+   "absence": "26/30",
+   "aggregation": "57/60",
+   "ambiguous": "5/18",
+   "date": "53/69",
+   "join": "69/90",
+   "rate": "27/36",
+   "window": "32/36"
+  },
+  "pass_kinds": {
+   "rounded": 42,
+   "percent": 3
+  },
+  "failure_reasons": {
+   "row_count": 20,
+   "wrong_values": 35,
+   "empty_result": 6,
+   "sql_error": 6,
+   "truncated_by_cap": 3
+  },
+  "unanswerable": {
+   "pass": 39
+  }
+ },
+ "items": [
+  {
+   "id": "A002",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A003",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A004",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A005",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A006",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A007",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A008",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A009",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A010",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A011",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A012",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A013",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A014",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A015",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A016",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A017",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A018",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A019",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A020",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 2"
+  },
+  {
+   "id": "A021",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A022",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A023",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A024",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 573 rows, expected 10"
+  },
+  {
+   "id": "A025",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A026",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A027",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A028",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A029",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A030",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "fail",
+   "reason": "empty_result",
+   "detail": ""
+  },
+  {
+   "id": "A031",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A034",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A035",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A036",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A037",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A038",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A039",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A040",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A041",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A044",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A045",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A046",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A047",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A048",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A049",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A050",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A052",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A053",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A054",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A055",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A056",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A057",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A058",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A059",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "percent"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A061",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "fail",
+   "reason": "sql_error",
+   "detail": "Query failed: no such column: t.tag_name"
+  },
+  {
+   "id": "A062",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A063",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A064",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A065",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A066",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 3"
+  },
+  {
+   "id": "A068",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A069",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A070",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A071",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A072",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A073",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 3"
+  },
+  {
+   "id": "A074",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A075",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A076",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A077",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A078",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A079",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A080",
+   "split": "test2",
+   "category": "window",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A081",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A083",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "fail",
+   "reason": "truncated_by_cap",
+   "detail": "got 1000 rows, expected 10"
+  },
+  {
+   "id": "A084",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A085",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 10 rows, expected 1"
+  },
+  {
+   "id": "A086",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A088",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 0,
+   "status": "fail",
+   "reason": "empty_result",
+   "detail": ""
+  },
+  {
+   "id": "A089",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A090",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A091",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A092",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A093",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A094",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A095",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A096",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A097",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A098",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A099",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A100",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "U01",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U02",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U03",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U04",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U05",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U06",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U07",
+   "split": "test2",
+   "category": "absence",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U08",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U09",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U10",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U11",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U12",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 1 rows, expected 5"
+  },
+  {
+   "id": "U13",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U14",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U15",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U16",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U17",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U18",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 0,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "U19",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U20",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U21",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U22",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U23",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U24",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U25",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U26",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U27",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U28",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U29",
+   "split": "test2",
+   "category": "join",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U30",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U31",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "fail",
+   "reason": "sql_error",
+   "detail": "Query failed: incomplete input"
+  },
+  {
+   "id": "U32",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U33",
+   "split": "test2",
+   "category": "date",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U34",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U35",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U36",
+   "split": "test2",
+   "category": "rate",
+   "run": 0,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A002",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A003",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A004",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A005",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A006",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A007",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A008",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A009",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A010",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A011",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A012",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A013",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A014",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A015",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A016",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A017",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A018",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A019",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A020",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 2"
+  },
+  {
+   "id": "A021",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A022",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A023",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A024",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 573 rows, expected 10"
+  },
+  {
+   "id": "A025",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A026",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A027",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A028",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A029",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A030",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "fail",
+   "reason": "empty_result",
+   "detail": ""
+  },
+  {
+   "id": "A031",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A034",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A035",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A036",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A037",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A038",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A039",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A040",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A041",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A044",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A045",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A046",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A047",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A048",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A049",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A050",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A052",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A053",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A054",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A055",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A056",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A057",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A058",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A059",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "percent"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A061",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 472 rows, expected 10"
+  },
+  {
+   "id": "A062",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A063",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A064",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A065",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A066",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 3"
+  },
+  {
+   "id": "A068",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A069",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A070",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A071",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A072",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A073",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 3"
+  },
+  {
+   "id": "A074",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A075",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A076",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A077",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A078",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A079",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A080",
+   "split": "test2",
+   "category": "window",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A081",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A083",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "fail",
+   "reason": "truncated_by_cap",
+   "detail": "got 1000 rows, expected 10"
+  },
+  {
+   "id": "A084",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A085",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 10 rows, expected 1"
+  },
+  {
+   "id": "A086",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A088",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 1,
+   "status": "fail",
+   "reason": "empty_result",
+   "detail": ""
+  },
+  {
+   "id": "A089",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A090",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A091",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A092",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A093",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A094",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A095",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A096",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A097",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A098",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A099",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A100",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "U01",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U02",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U03",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U04",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U05",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U06",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U07",
+   "split": "test2",
+   "category": "absence",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U08",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U09",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U10",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U11",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U12",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 1 rows, expected 5"
+  },
+  {
+   "id": "U13",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U14",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U15",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U16",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U17",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U18",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 1,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "U19",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U20",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U21",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U22",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U23",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U24",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U25",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U26",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U27",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U28",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U29",
+   "split": "test2",
+   "category": "join",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U30",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U31",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "fail",
+   "reason": "sql_error",
+   "detail": "Query failed: no such column: direction"
+  },
+  {
+   "id": "U32",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U33",
+   "split": "test2",
+   "category": "date",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U34",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U35",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U36",
+   "split": "test2",
+   "category": "rate",
+   "run": 1,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A002",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A003",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A004",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A005",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A006",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A007",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A008",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A009",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A010",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A011",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A012",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A013",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A014",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A015",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A016",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A017",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A018",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A019",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A020",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 2"
+  },
+  {
+   "id": "A021",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A022",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A023",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A024",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 573 rows, expected 10"
+  },
+  {
+   "id": "A025",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A026",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A027",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A028",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A029",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A030",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "fail",
+   "reason": "empty_result",
+   "detail": ""
+  },
+  {
+   "id": "A031",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A034",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A035",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A036",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A037",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A038",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A039",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A040",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A041",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A044",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A045",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A046",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A047",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A048",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A049",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A050",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 20 rows, expected 10"
+  },
+  {
+   "id": "A052",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A053",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A054",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A055",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A056",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A057",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A058",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A059",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "percent"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A061",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "fail",
+   "reason": "sql_error",
+   "detail": "Query failed: no such column: t.tag_name"
+  },
+  {
+   "id": "A062",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A063",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A064",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A065",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A066",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 3"
+  },
+  {
+   "id": "A068",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A069",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A070",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A071",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A072",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A073",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 3"
+  },
+  {
+   "id": "A074",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A075",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A076",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 37 rows, expected 31"
+  },
+  {
+   "id": "A077",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A078",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "A079",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A080",
+   "split": "test2",
+   "category": "window",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A081",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "A083",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "fail",
+   "reason": "truncated_by_cap",
+   "detail": "got 1000 rows, expected 10"
+  },
+  {
+   "id": "A084",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 5 rows, expected 1"
+  },
+  {
+   "id": "A085",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "fail",
+   "reason": "row_count",
+   "detail": "got 10 rows, expected 1"
+  },
+  {
+   "id": "A086",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "A088",
+   "split": "test2",
+   "category": "ambiguous",
+   "run": 2,
+   "status": "fail",
+   "reason": "empty_result",
+   "detail": ""
+  },
+  {
+   "id": "A089",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A090",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A091",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A092",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A093",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A094",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A095",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A096",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A097",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A098",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A099",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "A100",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "U01",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U02",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U03",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U04",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U05",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U06",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U07",
+   "split": "test2",
+   "category": "absence",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U08",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U09",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U10",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U11",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U12",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "fail",
+   "reason": "sql_error",
+   "detail": "Query failed: no such column: u.re"
+  },
+  {
+   "id": "U13",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U14",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U15",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 2"
+  },
+  {
+   "id": "U16",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U17",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U18",
+   "split": "test2",
+   "category": "unanswerable",
+   "run": 2,
+   "status": "pass",
+   "reason": "declined"
+  },
+  {
+   "id": "U19",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U20",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U21",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U22",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U23",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U24",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U25",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "fail",
+   "reason": "wrong_values",
+   "detail": "no returned column matches reference column 1"
+  },
+  {
+   "id": "U26",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U27",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U28",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U29",
+   "split": "test2",
+   "category": "join",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U30",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": true
+  },
+  {
+   "id": "U31",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "fail",
+   "reason": "sql_error",
+   "detail": "Query failed: incomplete input"
+  },
+  {
+   "id": "U32",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U33",
+   "split": "test2",
+   "category": "date",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U34",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "alt 1",
+   "kinds": [
+    "exact"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U35",
+   "split": "test2",
+   "category": "aggregation",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "exact",
+    "rounded"
+   ],
+   "strict": false
+  },
+  {
+   "id": "U36",
+   "split": "test2",
+   "category": "rate",
+   "run": 2,
+   "status": "pass",
+   "matched": "reference",
+   "kinds": [
+    "rounded"
+   ],
+   "strict": false
+  }
+ ]
+}
