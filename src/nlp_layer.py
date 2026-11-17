@@ -37,6 +37,7 @@ NOTES:
 - posts_answers.parent_id references posts_questions.post_id (the question an answer belongs to)
 - post_tags is the many-to-many join between posts_questions and tags
 - is_accepted is 1 if that answer was accepted, else 0
+- votes.vote_type holds text, not numbers: 'UpMod' (upvote), 'DownMod' (downvote), 'AcceptedByOriginator', 'Favorite', 'BountyStart', 'BountyClose'. A few other codes ('10', '11', '15', '16') are not decoded. votes.post_id may be a question or an answer.
 - To join a tag name to questions: posts_questions -> post_tags -> tags
 - SQLite has no MEDIAN(). If asked for a median, compute it exactly in a single query: number the rows with
   ROW_NUMBER() and COUNT(*) OVER (), then average the middle one or two rows.

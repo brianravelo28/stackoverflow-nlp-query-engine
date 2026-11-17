@@ -19,3 +19,9 @@ def test_schema_only_prompt_keeps_the_schema_and_drops_the_rest():
 
 def test_schema_only_prompt_is_a_prefix_of_the_full_prompt():
     assert nlp_layer.SYSTEM_PROMPT.startswith(run_eval.schema_only_prompt().rstrip())
+
+
+def test_full_prompt_says_what_vote_type_holds_and_the_baseline_does_not():
+    for value in ("'UpMod'", "'DownMod'", "'Favorite'", "'BountyStart'", "not numbers"):
+        assert value in nlp_layer.SYSTEM_PROMPT
+        assert value not in run_eval.schema_only_prompt()
